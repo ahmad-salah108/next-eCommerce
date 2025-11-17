@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Navbar } from "./(public)/components/Navbar";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { routing } from "@/i18n/routing";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { getFontClassName } from "@/lib/utils";
 import { getLangDir } from "rtl-detect";
+import Navbar from "./(public)/components/Navbar";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -48,7 +48,7 @@ export default async function RootLayout({
             Sign up and get 20% off to your first order.{" "}
             <span className="underline font-normal">Sign Up Now</span>
           </div>
-          <Navbar />
+          <Navbar locale="en" />
           {children}
         </NextIntlClientProvider>
       </body>

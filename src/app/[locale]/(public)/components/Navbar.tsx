@@ -1,12 +1,12 @@
-import { Book, Menu, Sunset, Trees, Zap } from "lucide-react";
+"use client";
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { useTranslations } from "next-intl";
+import Image from "next/image";
+import Link from "next/link";
+import { useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { playfair_display } from "@/app/fonts";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -15,285 +15,296 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
+import { Input } from "@/components/ui/input";
 
-interface MenuItem {
-  title: string;
-  url: string;
-  description?: string;
-  icon?: React.ReactNode;
-  items?: MenuItem[];
-}
-
-interface NavbarProps {
-  logo?: {
-    url: string;
-    src: string;
-    alt: string;
-    title: string;
+export default function Navbar({ locale }: { locale: string }) {
+  const search = useRef<HTMLInputElement | null>(null);
+  const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
   };
-  menu?: MenuItem[];
-  auth?: {
-    login: {
-      title: string;
-      url: string;
-    };
-    signup: {
-      title: string;
-      url: string;
-    };
-  };
-}
 
-const Navbar = ({
-  logo = {
-    url: "https://www.shadcnblocks.com",
-    src: "https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg",
-    alt: "logo",
-    title: "Shadcnblocks.com",
-  },
-  menu = [
-    { title: "Home", url: "#" },
-    {
-      title: "Products",
-      url: "#",
-      items: [
-        {
-          title: "Blog",
-          description: "The latest industry news, updates, and info",
-          icon: <Book className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Company",
-          description: "Our mission is to innovate and empower the world",
-          icon: <Trees className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Careers",
-          description: "Browse job listing and discover our workspace",
-          icon: <Sunset className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Support",
-          description:
-            "Get in touch with our support team or visit our community forums",
-          icon: <Zap className="size-5 shrink-0" />,
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Resources",
-      url: "#",
-      items: [
-        {
-          title: "Help Center",
-          description: "Get all the answers you need right here",
-          icon: <Zap className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Contact Us",
-          description: "We are here to help you with any questions you have",
-          icon: <Sunset className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Status",
-          description: "Check the current status of our services and APIs",
-          icon: <Trees className="size-5 shrink-0" />,
-          url: "#",
-        },
-        {
-          title: "Terms of Service",
-          description: "Our terms and conditions for using our services",
-          icon: <Book className="size-5 shrink-0" />,
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Pricing",
-      url: "#",
-    },
-    {
-      title: "Blog",
-      url: "#",
-    },
-  ],
-  auth = {
-    login: { title: "Login", url: "#" },
-    signup: { title: "Sign up", url: "#" },
-  },
-}: NavbarProps) => {
+  const t = useTranslations();
+  // const tAuth = useTranslations("Auth");
+  const pathname = usePathname();
+  const pathWithoutLocale = pathname.replace(`/${locale}`, "");
+
+  // Navigation items array
+  const navItems = [
+    { name: "home", href: "/" },
+    { name: "services", href: "/services" },
+    { name: "my_orders", href: "/my-orders" },
+    { name: "contact_us", href: "/contact-us" },
+    { name: "about", href: "/about" },
+  ];
+
   return (
-    <section className="py-4">
-      <div className="container">
-        {/* Desktop Menu */}
-        <nav className="hidden items-center justify-between lg:flex">
-          <div className="flex items-center gap-6">
-            {/* Logo */}
-            <a href={logo.url} className="flex items-center gap-2">
-              <img
-                src={logo.src}
-                className="max-h-8 dark:invert"
-                alt={logo.alt}
-              />
-              <span className="text-lg font-semibold tracking-tighter">
-                {logo.title}
-              </span>
-            </a>
-            <div className="flex items-center">
-              <NavigationMenu>
-                <NavigationMenuList>
-                  {menu.map((item) => renderMenuItem(item))}
-                </NavigationMenuList>
-              </NavigationMenu>
+    <header className="sticky top-0">
+      {isMobileMenuOpen && (
+        <div
+          onClick={() => {
+            setIsMobileMenuOpen(false);
+          }}
+          className="fixed inset-0 z-35 bg-black/50 lg:hidden"
+        ></div>
+      )}
+      <nav className="block w-full max-w-screen mx-auto left-0 backdrop-blur-lg backdrop-saturate-150 z-30">
+        <div className="container flex items-center justify-between mx-auto tracking-wide py-4">
+          {!isMobileSearchOpen && (
+            <div className="flex justify-center items-center gap-6">
+              {/* Menu Button */}
+              <div className="lg:hidden flex justify-center items-center">
+                <button
+                  className="flex justify-center items-center cursor-pointer relative ml-auto select-none rounded-lg text-center align-middle text-xs font-medium uppercase text-inherit transition-all hover:bg-transparent focus:bg-transparent active:bg-transparent disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none translate-y-0.5"
+                  onClick={toggleMobileMenu}
+                  type="button"
+                >
+                  <Image
+                    src={"/assets/icons/menu-icon.svg"}
+                    alt="menu icon"
+                    width={20}
+                    height={20}
+                  />
+                </button>
+              </div>
+              <Link href="/" className="me-4 block cursor-pointer">
+                <h1
+                  className={`${playfair_display.className} font-extrabold text-2xl lg:text-3xl`}
+                >
+                  SHOP.CO
+                </h1>
+              </Link>
             </div>
-          </div>
-          <div className="flex gap-2">
-            <Button asChild variant="outline" size="sm">
-              <a href={auth.login.url}>{auth.login.title}</a>
-            </Button>
-            <Button asChild size="sm">
-              <a href={auth.signup.url}>{auth.signup.title}</a>
-            </Button>
-          </div>
-        </nav>
+          )}
 
-        {/* Mobile Menu */}
-        <div className="block lg:hidden">
-          <div className="flex items-center justify-between">
-            {/* Logo */}
-            <a href={logo.url} className="flex items-center gap-2">
-              <img
-                src={logo.src}
-                className="max-h-8 dark:invert"
-                alt={logo.alt}
+          {/* Desktop Menu */}
+          <div className={`hidden lg:block`}>
+            {/* <ul className="flex flex-col gap-2 mt-2 mb-4 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
+              {navItems.map((item, index) => {
+                const isActive =
+                  item.href === "/"
+                    ? pathWithoutLocale === "" || pathWithoutLocale === "/"
+                    : pathWithoutLocale.startsWith(item.href);
+                return (
+                  <li key={index} className="flex items-center p-1 gap-x-2">
+                    <Link
+                      href={item.href}
+                      className={`flex items-center ${
+                        isActive ? `active-nav-link` : ""
+                      }`}
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul> */}
+            <NavigationMenu>
+              <NavigationMenuList className="gap-2">
+                <NavigationMenuItem className="hidden md:block">
+                  <NavigationMenuLink asChild>
+                    <Link href="/">Home</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem className="hidden md:block">
+                  <NavigationMenuTrigger>List</NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[300px] gap-4">
+                      <li>
+                        <NavigationMenuLink asChild>
+                          <Link href="#">
+                            <div className="font-medium">Components</div>
+                            <div className="text-muted-foreground">
+                              Browse all components in the library.
+                            </div>
+                          </Link>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <Link href="#">
+                            <div className="font-medium">Documentation</div>
+                            <div className="text-muted-foreground">
+                              Learn how to use the library.
+                            </div>
+                          </Link>
+                        </NavigationMenuLink>
+                        <NavigationMenuLink asChild>
+                          <Link href="#">
+                            <div className="font-medium">Blog</div>
+                            <div className="text-muted-foreground">
+                              Read our latest blog posts.
+                            </div>
+                          </Link>
+                        </NavigationMenuLink>
+                      </li>
+                    </ul>
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+                <NavigationMenuItem className="hidden md:block">
+                  <NavigationMenuLink asChild>
+                    <Link href="/docs">Documentation</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+                <NavigationMenuItem className="hidden md:block">
+                  <NavigationMenuLink asChild>
+                    <Link href="/contact">Contact</Link>
+                  </NavigationMenuLink>
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+          </div>
+          <div
+            className={`${
+              !isMobileSearchOpen && "hidden"
+            } lg:block w-full lg:w-[250px] 2xl:w-[500px]`}
+          >
+            <label className="flex gap-3 rounded-full bg-gray-150 py-3 px-4 text-[14px]">
+              <Image
+                src="/assets/icons/search-icon.svg"
+                alt="search icon"
+                width={20}
+                height={20}
               />
-            </a>
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="outline" size="icon">
-                  <Menu className="size-4" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent className="overflow-y-auto">
-                <SheetHeader>
-                  <SheetTitle>
-                    <a href={logo.url} className="flex items-center gap-2">
-                      <img
-                        src={logo.src}
-                        className="max-h-8 dark:invert"
-                        alt={logo.alt}
-                      />
-                    </a>
-                  </SheetTitle>
-                </SheetHeader>
-                <div className="flex flex-col gap-6 p-4">
-                  <Accordion
-                    type="single"
-                    collapsible
-                    className="flex w-full flex-col gap-4"
-                  >
-                    {menu.map((item) => renderMobileMenuItem(item))}
-                  </Accordion>
-
-                  <div className="flex flex-col gap-3">
-                    <Button asChild variant="outline">
-                      <a href={auth.login.url}>{auth.login.title}</a>
-                    </Button>
-                    <Button asChild>
-                      <a href={auth.signup.url}>{auth.signup.title}</a>
-                    </Button>
-                  </div>
-                </div>
-              </SheetContent>
-            </Sheet>
+              <input
+                type="text"
+                name="search"
+                placeholder="Search"
+                className="border-none outline-none"
+                ref={search}
+                onBlur={() => setIsMobileSearchOpen(false)}
+                style={{width: '100%'}}
+              />
+              {isMobileSearchOpen && <span className="text-[14px] text-gray-700" onClick={()=>setIsMobileSearchOpen(false)}>Cancel</span>}
+            </label>
           </div>
+
+          {!isMobileSearchOpen && (
+            <div className="gap-3 flex tracking-wider justify-center items-center">
+              <Button
+                variant={"ghost"}
+                size={"icon"}
+                className="rounded-full cursor-pointer flex lg:hidden"
+                onClick={() => {
+                  setIsMobileSearchOpen(true);
+                  setTimeout(() => {
+                    (search.current as HTMLInputElement).focus();
+                  }, 0);
+                }}
+              >
+                <Image
+                  src="/assets/icons/search-icon-mobile.svg"
+                  alt="search icon"
+                  width={20}
+                  height={20}
+                />
+              </Button>
+              <Button
+                variant={"ghost"}
+                size={"icon"}
+                className="rounded-full cursor-pointer"
+              >
+                <Image
+                  src="/assets/icons/cart-icon.svg"
+                  alt="cart icon"
+                  width={20}
+                  height={20}
+                />
+              </Button>
+              <Button
+                variant={"ghost"}
+                size={"icon"}
+                className="rounded-full cursor-pointer"
+              >
+                <Image
+                  src="/assets/icons/profile-icon.svg"
+                  alt="profile icon"
+                  width={20}
+                  height={20}
+                />
+              </Button>
+            </div>
+          )}
         </div>
-      </div>
-    </section>
-  );
-};
+      </nav>
 
-const renderMenuItem = (item: MenuItem) => {
-  if (item.items) {
-    return (
-      <NavigationMenuItem key={item.title}>
-        <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
-        <NavigationMenuContent className="bg-popover text-popover-foreground">
-          {item.items.map((subItem) => (
-            <NavigationMenuLink asChild key={subItem.title} className="w-80">
-              <SubMenuLink item={subItem} />
-            </NavigationMenuLink>
-          ))}
-        </NavigationMenuContent>
-      </NavigationMenuItem>
-    );
-  }
-
-  return (
-    <NavigationMenuItem key={item.title}>
-      <NavigationMenuLink
-        href={item.url}
-        className="bg-background hover:bg-muted hover:text-accent-foreground group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors"
+      {/* Mobile Menu */}
+      <aside
+        className={`fixed top-0 left-0 min-h-screen w-70 bg-background shadow-lg transform transition-transform duration-300 ease-in-out ${
+          isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+        } lg:hidden z-40`}
       >
-        {item.title}
-      </NavigationMenuLink>
-    </NavigationMenuItem>
+        <div className="flex flex-row items-center border-b pb-4 px-5 bg-linear-to-r from-main-400 to-main text-white">
+          <div className={`flex flex-col`}>
+            <Link href="/" className="cursor-pointer pt-4">
+              <div className="w-[70px] h-[70px] bg-white rounded-full flex justify-center items-center">
+                <Image
+                  src={"/assets/logo.svg"}
+                  width={90}
+                  height={90}
+                  alt="Fenzo Logo"
+                />
+              </div>
+            </Link>
+            <strong className="tracking-wider text-2xl pt-5 font-medium">
+              John Doe
+            </strong>
+            <sub className="tracking-wider text-lg font-light -translate-y-1">
+              Event Planner
+            </sub>
+          </div>
+          <button
+            onClick={toggleMobileMenu}
+            className="cursor-pointer absolute top-4 right-4 text-background"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-8 h-8"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+        <ul className="flex flex-col h-full gap-4 p-4">
+          {navItems.map((item, index) => {
+            const isActive =
+              item.href === "/"
+                ? pathWithoutLocale === "" || pathWithoutLocale === "/"
+                : pathWithoutLocale.startsWith(item.href);
+            return (
+              <li
+                key={index}
+                className={`flex items-center p-1 gap-x-2 tracking-wide`}
+              >
+                <Link
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                  }}
+                  href={item.href}
+                  className={`flex items-center ${
+                    isActive ? `active-nav-link` : ""
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              </li>
+            );
+          })}
+          <hr className="border-gray-300 my-3" />
+          <li className={`flex items-center p-1 gap-x-2 tracking-wide`}>
+            <Link href={"/login"}>{"login"}</Link>
+          </li>
+          <li className={`flex items-center p-1 gap-x-2 tracking-wide`}>
+            <Link href={"/register"}>{"register"}</Link>
+          </li>
+        </ul>
+      </aside>
+    </header>
   );
-};
-
-const renderMobileMenuItem = (item: MenuItem) => {
-  if (item.items) {
-    return (
-      <AccordionItem key={item.title} value={item.title} className="border-b-0">
-        <AccordionTrigger className="text-md py-0 font-semibold hover:no-underline">
-          {item.title}
-        </AccordionTrigger>
-        <AccordionContent className="mt-2">
-          {item.items.map((subItem) => (
-            <SubMenuLink key={subItem.title} item={subItem} />
-          ))}
-        </AccordionContent>
-      </AccordionItem>
-    );
-  }
-
-  return (
-    <a key={item.title} href={item.url} className="text-md font-semibold">
-      {item.title}
-    </a>
-  );
-};
-
-const SubMenuLink = ({ item }: { item: MenuItem }) => {
-  return (
-    <a
-      className="hover:bg-muted hover:text-accent-foreground flex min-w-80 select-none flex-row gap-4 rounded-md p-3 leading-none no-underline outline-none transition-colors"
-      href={item.url}
-    >
-      <div className="text-foreground">{item.icon}</div>
-      <div>
-        <div className="text-sm font-semibold">{item.title}</div>
-        {item.description && (
-          <p className="text-muted-foreground text-sm leading-snug">
-            {item.description}
-          </p>
-        )}
-      </div>
-    </a>
-  );
-};
-
-export { Navbar };
+}
