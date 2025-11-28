@@ -7,6 +7,9 @@ import { notFound } from "next/navigation";
 import { getFontClassName } from "@/lib/utils";
 import { getLangDir } from "rtl-detect";
 import Navbar from "./(public)/components/Navbar";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import Banner from "./(public)/components/Banner";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -41,14 +44,10 @@ export default async function RootLayout({
     <html lang={locale} dir={direction}>
       <body className={`${fontClassName} antialiased`}>
         <NextIntlClientProvider>
-          <div
-            aria-label="banner"
-            className="bg-black text-white text-center py-2 text-[14px] font-light"
-          >
-            Sign up and get 20% off to your first order.{" "}
-            <span className="underline font-normal">Sign Up Now</span>
-          </div>
-          <Navbar locale="en" />
+          <header className="sticky top-0">
+            <Banner />
+            <Navbar locale={locale} />
+          </header>
           {children}
         </NextIntlClientProvider>
       </body>

@@ -15,7 +15,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { Input } from "@/components/ui/input";
+
 
 export default function Navbar({ locale }: { locale: string }) {
   const search = useRef<HTMLInputElement | null>(null);
@@ -40,7 +40,7 @@ export default function Navbar({ locale }: { locale: string }) {
   ];
 
   return (
-    <header className="sticky top-0">
+    <div>
       {isMobileMenuOpen && (
         <div
           onClick={() => {
@@ -49,8 +49,8 @@ export default function Navbar({ locale }: { locale: string }) {
           className="fixed inset-0 z-35 bg-black/50 lg:hidden"
         ></div>
       )}
-      <nav className="block w-full max-w-screen mx-auto left-0 backdrop-blur-lg backdrop-saturate-150 z-30">
-        <div className="container flex items-center justify-between mx-auto tracking-wide py-4">
+      <nav className="block w-full max-w-screen mx-auto py-3 left-0 backdrop-blur-lg backdrop-saturate-150 z-30">
+        <div className="container flex items-center justify-between mx-auto tracking-wide">
           {!isMobileSearchOpen && (
             <div className="flex justify-center items-center gap-6">
               {/* Menu Button */}
@@ -61,7 +61,7 @@ export default function Navbar({ locale }: { locale: string }) {
                   type="button"
                 >
                   <Image
-                    src={"/assets/icons/menu-icon.svg"}
+                    src={"/assets/icons/menu.svg"}
                     alt="menu icon"
                     width={20}
                     height={20}
@@ -80,28 +80,8 @@ export default function Navbar({ locale }: { locale: string }) {
 
           {/* Desktop Menu */}
           <div className={`hidden lg:block`}>
-            {/* <ul className="flex flex-col gap-2 mt-2 mb-4 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-              {navItems.map((item, index) => {
-                const isActive =
-                  item.href === "/"
-                    ? pathWithoutLocale === "" || pathWithoutLocale === "/"
-                    : pathWithoutLocale.startsWith(item.href);
-                return (
-                  <li key={index} className="flex items-center p-1 gap-x-2">
-                    <Link
-                      href={item.href}
-                      className={`flex items-center ${
-                        isActive ? `active-nav-link` : ""
-                      }`}
-                    >
-                      {item.name}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul> */}
             <NavigationMenu>
-              <NavigationMenuList className="gap-2">
+              <NavigationMenuList className="gap-2 **:text-[1rem]">
                 <NavigationMenuItem className="hidden md:block">
                   <NavigationMenuLink asChild>
                     <Link href="/">Home</Link>
@@ -156,11 +136,11 @@ export default function Navbar({ locale }: { locale: string }) {
           <div
             className={`${
               !isMobileSearchOpen && "hidden"
-            } lg:block w-full lg:w-[250px] 2xl:w-[500px]`}
+            } lg:block w-full lg:w-[250px] 2xl:w-[500px] transition ease-out duration-300`}
           >
-            <label className="flex gap-3 rounded-full bg-gray-150 py-3 px-4 text-[14px]">
+            <label className="flex gap-3 rounded-full bg-gray-150 py-3 px-4 text-[14px] transition ease-out duration-300">
               <Image
-                src="/assets/icons/search-icon.svg"
+                src="/assets/icons/search.svg"
                 alt="search icon"
                 width={20}
                 height={20}
@@ -169,7 +149,7 @@ export default function Navbar({ locale }: { locale: string }) {
                 type="text"
                 name="search"
                 placeholder="Search"
-                className="border-none outline-none"
+                className="border-none outline-none transition ease-out duration-300"
                 ref={search}
                 onBlur={() => setIsMobileSearchOpen(false)}
                 style={{width: '100%'}}
@@ -192,7 +172,7 @@ export default function Navbar({ locale }: { locale: string }) {
                 }}
               >
                 <Image
-                  src="/assets/icons/search-icon-mobile.svg"
+                  src="/assets/icons/search-mobile.svg"
                   alt="search icon"
                   width={20}
                   height={20}
@@ -204,7 +184,7 @@ export default function Navbar({ locale }: { locale: string }) {
                 className="rounded-full cursor-pointer"
               >
                 <Image
-                  src="/assets/icons/cart-icon.svg"
+                  src="/assets/icons/cart.svg"
                   alt="cart icon"
                   width={20}
                   height={20}
@@ -216,7 +196,7 @@ export default function Navbar({ locale }: { locale: string }) {
                 className="rounded-full cursor-pointer"
               >
                 <Image
-                  src="/assets/icons/profile-icon.svg"
+                  src="/assets/icons/profile.svg"
                   alt="profile icon"
                   width={20}
                   height={20}
@@ -305,6 +285,6 @@ export default function Navbar({ locale }: { locale: string }) {
           </li>
         </ul>
       </aside>
-    </header>
+    </div>
   );
 }
