@@ -7,8 +7,6 @@ import { notFound } from "next/navigation";
 import { getFontClassName } from "@/lib/utils";
 import { getLangDir } from "rtl-detect";
 import Navbar from "./(public)/components/Navbar";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import Banner from "./(public)/components/Banner";
 
 export function generateStaticParams() {

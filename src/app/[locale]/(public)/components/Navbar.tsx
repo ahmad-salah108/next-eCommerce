@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { playfair_display } from "@/app/fonts";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -15,7 +14,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-
+import { getFontClassName } from "@/lib/utils";
 
 export default function Navbar({ locale }: { locale: string }) {
   const search = useRef<HTMLInputElement | null>(null);
@@ -51,9 +50,9 @@ export default function Navbar({ locale }: { locale: string }) {
       )}
       <nav className="block w-full max-w-screen mx-auto py-3 left-0 backdrop-blur-lg backdrop-saturate-150 z-30">
         <div className="container flex items-center justify-between mx-auto tracking-wide">
+          {/* Menu Button & Logo */}
           {!isMobileSearchOpen && (
             <div className="flex justify-center items-center gap-6">
-              {/* Menu Button */}
               <div className="lg:hidden flex justify-center items-center">
                 <button
                   className="flex justify-center items-center cursor-pointer relative ml-auto select-none rounded-lg text-center align-middle text-xs font-medium uppercase text-inherit transition-all hover:bg-transparent focus:bg-transparent active:bg-transparent disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none translate-y-0.5"
@@ -68,12 +67,14 @@ export default function Navbar({ locale }: { locale: string }) {
                   />
                 </button>
               </div>
-              <Link href="/" className="me-4 block cursor-pointer">
-                <h1
-                  className={`${playfair_display.className} font-extrabold text-2xl lg:text-3xl`}
+              <Link href="/" role="logo" className="me-4 block cursor-pointer">
+                <p
+                  className={`${getFontClassName(
+                    locale
+                  )} font-black text-2xl lg:text-3xl`}
                 >
                   SHOP.CO
-                </h1>
+                </p>
               </Link>
             </div>
           )}
@@ -152,9 +153,16 @@ export default function Navbar({ locale }: { locale: string }) {
                 className="border-none outline-none transition ease-out duration-300"
                 ref={search}
                 onBlur={() => setIsMobileSearchOpen(false)}
-                style={{width: '100%'}}
+                style={{ width: "100%" }}
               />
-              {isMobileSearchOpen && <span className="text-[14px] text-gray-700" onClick={()=>setIsMobileSearchOpen(false)}>Cancel</span>}
+              {isMobileSearchOpen && (
+                <span
+                  className="text-[14px] text-gray-700"
+                  onClick={() => setIsMobileSearchOpen(false)}
+                >
+                  Cancel
+                </span>
+              )}
             </label>
           </div>
 
@@ -211,7 +219,7 @@ export default function Navbar({ locale }: { locale: string }) {
       <aside
         className={`fixed top-0 left-0 min-h-screen w-70 bg-background shadow-lg transform transition-transform duration-300 ease-in-out ${
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-        } lg:hidden z-40`}
+        } lg:hidden z-50`}
       >
         <div className="flex flex-row items-center border-b pb-4 px-5 bg-linear-to-r from-main-400 to-main text-white">
           <div className={`flex flex-col`}>

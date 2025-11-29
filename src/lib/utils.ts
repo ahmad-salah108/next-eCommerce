@@ -6,6 +6,6 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export const getFontClassName = (locale: string, type: "heading" | "body" = "body"): string => {
+export const getFontClassName = (locale: string = "en", type: "heading" | "body" = "body"): string => {
   return locale === "ar" ? cairo.className : type === "heading" ? playfair_display.className : inter.className;
 };

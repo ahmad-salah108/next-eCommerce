@@ -5,8 +5,10 @@
 
 @theme {
   --color-gray-150: #f0f0f0;
+  --color-warm-gray: #F2F0F1;
   --container-padding: 2rem;
   --container-padding-lg: 7rem;
+  --breakpoint-xs: 30rem;
 }
 
 @theme inline {

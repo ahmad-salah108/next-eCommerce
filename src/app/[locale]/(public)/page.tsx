@@ -1,61 +1,11 @@
-import { useTranslations } from "next-intl";
+import Hero from "./components/Hero";
 
-export default function Home() {
-  const t = useTranslations();
+export default async function Home({params}:{params: Promise<{locale: string}>}) {
+  const {locale} = await params;
 
   return (
-    <div>
-      <h1>{t('home')}</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-        <h1>fqwdqwdq</h1>
-    </div>
+    <main>
+      <Hero locale={locale}/>
+    </main>
   );
 }
