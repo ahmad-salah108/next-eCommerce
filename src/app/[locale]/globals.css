@@ -9,6 +9,7 @@
   --container-padding: 2rem;
   --container-padding-lg: 7rem;
   --breakpoint-xs: 30rem;
+  --breakpoint-3xl: 125rem;
 }
 
 @theme inline {

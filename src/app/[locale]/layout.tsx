@@ -42,7 +42,7 @@ export default async function RootLayout({
     <html lang={locale} dir={direction}>
       <body className={`${fontClassName} antialiased`}>
         <NextIntlClientProvider>
-          <header className="sticky top-0">
+          <header className="sticky top-0 z-60">
             <Banner />
             <Navbar locale={locale} />
           </header>

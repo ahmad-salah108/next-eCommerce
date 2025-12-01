@@ -40,15 +40,7 @@ export default function Navbar({ locale }: { locale: string }) {
 
   return (
     <div>
-      {isMobileMenuOpen && (
-        <div
-          onClick={() => {
-            setIsMobileMenuOpen(false);
-          }}
-          className="fixed inset-0 z-35 bg-black/50 lg:hidden"
-        ></div>
-      )}
-      <nav className="block w-full max-w-screen mx-auto py-3 left-0 backdrop-blur-lg backdrop-saturate-150 z-30">
+      <nav className="block w-full max-w-screen mx-auto py-3 left-0 bg-white z-30">
         <div className="container flex items-center justify-between mx-auto tracking-wide">
           {/* Menu Button & Logo */}
           {!isMobileSearchOpen && (
@@ -152,7 +144,6 @@ export default function Navbar({ locale }: { locale: string }) {
                 placeholder="Search"
                 className="border-none outline-none transition ease-out duration-300"
                 ref={search}
-                onBlur={() => setIsMobileSearchOpen(false)}
                 style={{ width: "100%" }}
               />
               {isMobileSearchOpen && (
@@ -214,12 +205,20 @@ export default function Navbar({ locale }: { locale: string }) {
           )}
         </div>
       </nav>
-
-      {/* Mobile Menu */}
+      {/* Mobile black overlay when drawer is open*/}
+      {isMobileMenuOpen && (
+        <div
+          onClick={() => {
+            setIsMobileMenuOpen(false);
+          }}
+          className="fixed inset-0 z-35 bg-black/50 lg:hidden"
+        ></div>
+      )}
+      {/* Mobile drawer */}
       <aside
-        className={`fixed top-0 left-0 min-h-screen w-70 bg-background shadow-lg transform transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 left-0 z-50 min-h-screen w-70 bg-background shadow-lg transition-transform duration-300 ease-in-out ${
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
-        } lg:hidden z-50`}
+        } lg:hidden`}
       >
         <div className="flex flex-row items-center border-b pb-4 px-5 bg-linear-to-r from-main-400 to-main text-white">
           <div className={`flex flex-col`}>
