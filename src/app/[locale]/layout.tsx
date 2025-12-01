@@ -6,8 +6,8 @@ import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { getFontClassName } from "@/lib/utils";
 import { getLangDir } from "rtl-detect";
-import Navbar from "./(public)/components/Navbar";
-import Banner from "./(public)/components/Banner";
+import Navbar from "./(public)/sections/header/Navbar";
+import Banner from "./(public)/sections/header/Banner";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));

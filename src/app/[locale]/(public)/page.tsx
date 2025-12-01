@@ -1,4 +1,4 @@
-import Hero from "./components/Hero";
+import Hero from "./sections/hero/Hero";
 
 export default async function Home({params}:{params: Promise<{locale: string}>}) {
   const {locale} = await params;
