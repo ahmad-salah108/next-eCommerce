@@ -59,7 +59,7 @@ export default function Navbar({ locale }: { locale: string }) {
                   />
                 </button>
               </div>
-              <Link href="/" role="logo" className="me-4 block cursor-pointer">
+              <Link href="/" aria-label="Website logo" className="me-4 block cursor-pointer">
                 <p
                   className={`${getFontClassName(
                     locale

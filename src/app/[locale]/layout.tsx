@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "@/styles/globals.css";
+import "@/styles/embla.css";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { routing } from "@/i18n/routing";
 import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { getFontClassName } from "@/lib/utils";
 import { getLangDir } from "rtl-detect";
-import Navbar from "./(public)/sections/header/Navbar";
-import Banner from "./(public)/sections/header/Banner";
+import Navbar from "./(public)/components/Navbar";
+import Banner from "./(public)/components/Banner";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));

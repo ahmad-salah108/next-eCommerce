@@ -41,10 +41,9 @@ async function Hero({ locale }: { locale: string }) {
           Shop Now
         </Button>
         <div
-          aria-label="Shop stats"
           className="flex flex-wrap justify-center md:justify-start items-center gap-8 mt-8 md:mt-16 md:mb-20"
         >
-          <div>
+          <div aria-label="We have more than 200 of International Brands">
             <strong className="text-3xl md:text-[2.6rem]">
               {(200).toLocaleString("en-US")}+
             </strong>
@@ -53,7 +52,7 @@ async function Hero({ locale }: { locale: string }) {
             </p>
           </div>
           <Separator orientation="vertical" className="h-10!" />
-          <div>
+          <div aria-label="We have more than 2000 of High-Quality Products">
             <strong className="text-3xl md:text-[2.6rem]">
               {(2000).toLocaleString("en-US")}+
             </strong>
@@ -62,7 +61,7 @@ async function Hero({ locale }: { locale: string }) {
             </p>
           </div>
           <Separator orientation="vertical" className="hidden xs:block h-10!" />
-          <div>
+          <div aria-label="We have more than 30000 of Happy Customers">
             <strong className="text-3xl md:text-[2.6rem]">
               {(30000).toLocaleString("en-US")}+
             </strong>
@@ -101,7 +100,7 @@ async function Hero({ locale }: { locale: string }) {
       </div>
       <div aria-label="brands we deliver" className="bg-black">
         <div
-          role="list"
+          role="listbox"
           className="container mx-auto flex justify-center lg:justify-between items-center flex-wrap gap-x-6 gap-y-8 py-10 *:w-auto *:h-[25px]"
         >
           <Image

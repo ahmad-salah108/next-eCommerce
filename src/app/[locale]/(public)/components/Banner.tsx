@@ -15,7 +15,7 @@ function Banner() {
         <span className="underline font-normal">Sign Up Now</span>
       </small>
       <Button
-        role="Banner hide button"
+        aria-label="Banner hide button"
         variant={"ghost"}
         size={"icon-sm"}
         className="hover:bg-black h-fit w-fit p-1 ms-auto me-4 cursor-pointer"
