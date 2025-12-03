@@ -40,170 +40,172 @@ export default function Navbar({ locale }: { locale: string }) {
 
   return (
     <div>
-      <nav className="block w-full max-w-screen mx-auto py-3 left-0 bg-white z-30">
-        <div className="container flex items-center justify-between mx-auto tracking-wide">
-          {/* Menu Button & Logo */}
-          {!isMobileSearchOpen && (
-            <div className="flex justify-center items-center gap-6">
-              <div className="lg:hidden flex justify-center items-center">
-                <button
-                  className="flex justify-center items-center cursor-pointer relative ml-auto select-none rounded-lg text-center align-middle text-xs font-medium uppercase text-inherit transition-all hover:bg-transparent focus:bg-transparent active:bg-transparent disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none translate-y-0.5"
-                  onClick={toggleMobileMenu}
-                  type="button"
-                >
-                  <Image
-                    src={"/assets/icons/menu.svg"}
-                    alt="menu icon"
-                    width={20}
-                    height={20}
-                  />
-                </button>
+      <nav className=" mx-auto bg-white">
+        <div className="container mx-auto tracking-wide">
+          <div className="flex items-center justify-between py-4 border-b border-warm-gray">
+            {/* Menu Button & Logo */}
+            {!isMobileSearchOpen && (
+              <div className="flex justify-center items-center gap-6">
+                <div className="lg:hidden flex justify-center items-center">
+                  <button
+                    className="flex justify-center items-center cursor-pointer relative ml-auto select-none rounded-lg text-center align-middle text-xs font-medium uppercase text-inherit transition-all hover:bg-transparent focus:bg-transparent active:bg-transparent disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none translate-y-0.5"
+                    onClick={toggleMobileMenu}
+                    type="button"
+                  >
+                    <Image
+                      src={"/assets/icons/menu.svg"}
+                      alt="menu icon"
+                      width={20}
+                      height={20}
+                    />
+                  </button>
+                </div>
+                <Link href="/" aria-label="Website logo" className="me-4 block cursor-pointer">
+                  <p
+                    className={`${getFontClassName(
+                      locale
+                    )} font-black text-2xl lg:text-3xl`}
+                  >
+                    SHOP.CO
+                  </p>
+                </Link>
               </div>
-              <Link href="/" aria-label="Website logo" className="me-4 block cursor-pointer">
-                <p
-                  className={`${getFontClassName(
-                    locale
-                  )} font-black text-2xl lg:text-3xl`}
-                >
-                  SHOP.CO
-                </p>
-              </Link>
+            )}
+
+            {/* Desktop Menu */}
+            <div className={`hidden lg:block`}>
+              <NavigationMenu>
+                <NavigationMenuList className="gap-2 **:text-[1rem]">
+                  <NavigationMenuItem className="hidden md:block">
+                    <NavigationMenuLink asChild>
+                      <Link href="/">Home</Link>
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem className="hidden md:block">
+                    <NavigationMenuTrigger>List</NavigationMenuTrigger>
+                    <NavigationMenuContent>
+                      <ul className="grid w-[300px] gap-4">
+                        <li>
+                          <NavigationMenuLink asChild>
+                            <Link href="#">
+                              <div className="font-medium">Components</div>
+                              <div className="text-muted-foreground">
+                                Browse all components in the library.
+                              </div>
+                            </Link>
+                          </NavigationMenuLink>
+                          <NavigationMenuLink asChild>
+                            <Link href="#">
+                              <div className="font-medium">Documentation</div>
+                              <div className="text-muted-foreground">
+                                Learn how to use the library.
+                              </div>
+                            </Link>
+                          </NavigationMenuLink>
+                          <NavigationMenuLink asChild>
+                            <Link href="#">
+                              <div className="font-medium">Blog</div>
+                              <div className="text-muted-foreground">
+                                Read our latest blog posts.
+                              </div>
+                            </Link>
+                          </NavigationMenuLink>
+                        </li>
+                      </ul>
+                    </NavigationMenuContent>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem className="hidden md:block">
+                    <NavigationMenuLink asChild>
+                      <Link href="/docs">Documentation</Link>
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                  <NavigationMenuItem className="hidden md:block">
+                    <NavigationMenuLink asChild>
+                      <Link href="/contact">Contact</Link>
+                    </NavigationMenuLink>
+                  </NavigationMenuItem>
+                </NavigationMenuList>
+              </NavigationMenu>
             </div>
-          )}
-
-          {/* Desktop Menu */}
-          <div className={`hidden lg:block`}>
-            <NavigationMenu>
-              <NavigationMenuList className="gap-2 **:text-[1rem]">
-                <NavigationMenuItem className="hidden md:block">
-                  <NavigationMenuLink asChild>
-                    <Link href="/">Home</Link>
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-                <NavigationMenuItem className="hidden md:block">
-                  <NavigationMenuTrigger>List</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid w-[300px] gap-4">
-                      <li>
-                        <NavigationMenuLink asChild>
-                          <Link href="#">
-                            <div className="font-medium">Components</div>
-                            <div className="text-muted-foreground">
-                              Browse all components in the library.
-                            </div>
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link href="#">
-                            <div className="font-medium">Documentation</div>
-                            <div className="text-muted-foreground">
-                              Learn how to use the library.
-                            </div>
-                          </Link>
-                        </NavigationMenuLink>
-                        <NavigationMenuLink asChild>
-                          <Link href="#">
-                            <div className="font-medium">Blog</div>
-                            <div className="text-muted-foreground">
-                              Read our latest blog posts.
-                            </div>
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-                <NavigationMenuItem className="hidden md:block">
-                  <NavigationMenuLink asChild>
-                    <Link href="/docs">Documentation</Link>
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-                <NavigationMenuItem className="hidden md:block">
-                  <NavigationMenuLink asChild>
-                    <Link href="/contact">Contact</Link>
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-              </NavigationMenuList>
-            </NavigationMenu>
-          </div>
-          <div
-            className={`${
-              !isMobileSearchOpen && "hidden"
-            } lg:block w-full lg:w-[250px] 2xl:w-[500px] transition ease-out duration-300`}
-          >
-            <label className="flex gap-3 rounded-full bg-gray-150 py-3 px-4 text-[14px] transition ease-out duration-300">
-              <Image
-                src="/assets/icons/search.svg"
-                alt="search icon"
-                width={20}
-                height={20}
-                aria-hidden
-              />
-              <input
-                type="text"
-                name="search"
-                placeholder="Search"
-                className="border-none outline-none transition ease-out duration-300"
-                ref={search}
-                style={{ width: "100%" }}
-              />
-              {isMobileSearchOpen && (
-                <span
-                  className="text-[14px] text-gray-700"
-                  onClick={() => setIsMobileSearchOpen(false)}
-                >
-                  Cancel
-                </span>
-              )}
-            </label>
-          </div>
-
-          {!isMobileSearchOpen && (
-            <div className="gap-3 flex tracking-wider justify-center items-center">
-              <Button
-                variant={"ghost"}
-                size={"icon"}
-                className="rounded-full cursor-pointer flex lg:hidden"
-                onClick={() => {
-                  setIsMobileSearchOpen(true);
-                  setTimeout(() => {
-                    (search.current as HTMLInputElement).focus();
-                  }, 0);
-                }}
-              >
+            <div
+              className={`${
+                !isMobileSearchOpen && "hidden"
+              } lg:block w-full lg:w-[250px] 2xl:w-[500px] transition ease-out duration-300`}
+            >
+              <label className="flex gap-3 rounded-full bg-gray-150 py-2.5 px-4 text-[14px] transition ease-out duration-300">
                 <Image
-                  src="/assets/icons/search-mobile.svg"
+                  src="/assets/icons/search.svg"
                   alt="search icon"
                   width={20}
                   height={20}
+                  aria-hidden
                 />
-              </Button>
-              <Button
-                variant={"ghost"}
-                size={"icon"}
-                className="rounded-full cursor-pointer"
-              >
-                <Image
-                  src="/assets/icons/cart.svg"
-                  alt="cart icon"
-                  width={20}
-                  height={20}
+                <input
+                  type="text"
+                  name="search"
+                  placeholder="Search"
+                  className="border-none outline-none transition ease-out duration-300"
+                  ref={search}
+                  style={{ width: "100%" }}
                 />
-              </Button>
-              <Button
-                variant={"ghost"}
-                size={"icon"}
-                className="rounded-full cursor-pointer"
-              >
-                <Image
-                  src="/assets/icons/profile.svg"
-                  alt="profile icon"
-                  width={20}
-                  height={20}
-                />
-              </Button>
+                {isMobileSearchOpen && (
+                  <span
+                    className="text-[14px] text-gray-700"
+                    onClick={() => setIsMobileSearchOpen(false)}
+                  >
+                    Cancel
+                  </span>
+                )}
+              </label>
             </div>
-          )}
+
+            {!isMobileSearchOpen && (
+              <div className="gap-3 flex tracking-wider justify-center items-center">
+                <Button
+                  variant={"ghost"}
+                  size={"icon"}
+                  className="rounded-full cursor-pointer flex lg:hidden"
+                  onClick={() => {
+                    setIsMobileSearchOpen(true);
+                    setTimeout(() => {
+                      (search.current as HTMLInputElement).focus();
+                    }, 0);
+                  }}
+                >
+                  <Image
+                    src="/assets/icons/search-mobile.svg"
+                    alt="search icon"
+                    width={20}
+                    height={20}
+                  />
+                </Button>
+                <Button
+                  variant={"ghost"}
+                  size={"icon"}
+                  className="rounded-full cursor-pointer"
+                >
+                  <Image
+                    src="/assets/icons/cart.svg"
+                    alt="cart icon"
+                    width={20}
+                    height={20}
+                  />
+                </Button>
+                <Button
+                  variant={"ghost"}
+                  size={"icon"}
+                  className="rounded-full cursor-pointer"
+                >
+                  <Image
+                    src="/assets/icons/profile.svg"
+                    alt="profile icon"
+                    width={20}
+                    height={20}
+                  />
+                </Button>
+              </div>
+            )}
+          </div>
         </div>
       </nav>
       {/* Mobile black overlay when drawer is open*/}
