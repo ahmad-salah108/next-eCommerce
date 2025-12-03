@@ -137,6 +137,7 @@ export default function Navbar({ locale }: { locale: string }) {
                 alt="search icon"
                 width={20}
                 height={20}
+                aria-hidden
               />
               <input
                 type="text"

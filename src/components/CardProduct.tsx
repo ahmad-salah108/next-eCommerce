@@ -1,10 +1,10 @@
 import Image from "next/image";
 import { Rating, RatingButton } from "./ui/shadcn-io/rating";
 
-function CardProduct() {
+function CardProduct({className}:{className?: string}) {
   return (
     <div
-      className="w-fit p-3 rounded-main border-3 border-transparent hover:shadow-md cursor-pointer transition-all duration-300"
+      className={`w-fit p-3 rounded-main border-3 border-transparent hover:shadow-lg hover:-translate-y-1 cursor-pointer transition-all duration-300 ${className}`}
     >
       <div className="relative bg-warm-gray rounded-main overflow-hidden w-[190px] h-[190px] md:w-[250px] md:h-[250px]">
         <Image

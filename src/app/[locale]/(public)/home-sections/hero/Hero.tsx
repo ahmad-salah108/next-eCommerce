@@ -6,7 +6,7 @@ import Image from "next/image";
 async function Hero({ locale }: { locale: string }) {
   return (
     <section className="bg-warm-gray lg:bg-[url('/assets/images/hero.png')] bg-center bg-cover bg-no-repeat overflow-hidden">
-      <div className="container mx-auto pt-[40px] md:pt-[100px] relative">
+      <div className="container mx-auto pt-[40px] md:pt-[80px] md:pb-8 relative">
         <Image
           src={"/assets/icons/star.svg"}
           alt=""
@@ -100,7 +100,6 @@ async function Hero({ locale }: { locale: string }) {
       </div>
       <div aria-label="brands we deliver" className="bg-black">
         <div
-          role="listbox"
           className="container mx-auto flex justify-center lg:justify-between items-center flex-wrap gap-x-6 gap-y-8 py-10 *:w-auto *:h-[25px]"
         >
           <Image
