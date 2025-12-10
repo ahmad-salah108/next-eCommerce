@@ -6,6 +6,7 @@ import ProductImage from "./components/ProductImage";
 import ProductOptions from "./components/ProductOptions";
 import ProductReviews from "./components/ProductReviews";
 import { Rating, RatingButton } from "@/components/ui/shadcn-io/rating";
+import MightLike from "./components/MightLike";
 
 const LINKS = [
   {
@@ -95,6 +96,7 @@ function ProductPage() {
         </div>
       </div>
       <ProductReviews />
+      <MightLike/>
     </main>
   );
 }
