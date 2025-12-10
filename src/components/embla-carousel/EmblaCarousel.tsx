@@ -12,16 +12,16 @@ import {
   SelectedSnapDisplay,
   useSelectedSnapDisplay,
 } from "./EmblaCarouselSelectedSnapDisplay";
-import { Button } from "../ui/button";
 
 type PropType = {
   slides: React.ReactNode[];
   options?: EmblaOptionsType;
-  slideSizes: string
+  className?: string;
+  isGrab?: boolean
 };
 
 const EmblaCarousel: React.FC<PropType> = (props) => {
-  const { slides, options, slideSizes } = props;
+  const { slides, options, className, isGrab = true } = props;
   const [emblaRef, emblaApi] = useEmblaCarousel(options);
 
   const {
@@ -34,8 +34,8 @@ const EmblaCarousel: React.FC<PropType> = (props) => {
   const { selectedSnap, snapCount } = useSelectedSnapDisplay(emblaApi);
 
   return (
-    <section className={`embla ${slideSizes}`}>
-      <div className="embla__viewport" ref={emblaRef}>
+    <section className={`embla ${className}`}>
+      <div className={`embla__viewport ${isGrab && "cursor-grab select-none"}`} ref={emblaRef}>
         <div className="embla__container pb-2">
           {slides.map((card, i) => (
             <div

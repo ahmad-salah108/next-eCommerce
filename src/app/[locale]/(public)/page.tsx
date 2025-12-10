@@ -1,5 +1,4 @@
 import DressStyles from "./home-sections/dress-styles/DressStyles";
-import Footer from "./home-sections/footer/Footer";
 import Hero from "./home-sections/hero/Hero";
 import NewArrivals from "./home-sections/new-arrivals/NewArrivals";
 import OurCustomers from "./home-sections/our-customers/OurCustomers";
@@ -16,7 +15,6 @@ export default async function Home({params}:{params: Promise<{locale: string}>})
       <TopSelling/>
       <DressStyles/>
       <OurCustomers/>
-      <Footer/>
     </main>
   );
 }

@@ -30,7 +30,7 @@ export default function Navbar({ locale }: { locale: string }) {
   const pathWithoutLocale = pathname.replace(`/${locale}`, "");
 
   // Navigation items array
-  const navItems = [
+  const NAVITEMS = [
     { name: "home", href: "/" },
     { name: "services", href: "/services" },
     { name: "my_orders", href: "/my-orders" },
@@ -40,9 +40,9 @@ export default function Navbar({ locale }: { locale: string }) {
 
   return (
     <div>
-      <nav className=" mx-auto bg-white">
+      <nav className=" mx-auto bg-white border-b border-warm-gray shadow-[0_0_5px_rgba(0,0,0,0.1)]">
         <div className="container mx-auto tracking-wide">
-          <div className="flex items-center justify-between py-4 border-b border-warm-gray">
+          <div className="flex items-center justify-between py-4">
             {/* Menu Button & Logo */}
             {!isMobileSearchOpen && (
               <div className="flex justify-center items-center gap-6">
@@ -262,7 +262,7 @@ export default function Navbar({ locale }: { locale: string }) {
           </button>
         </div>
         <ul className="flex flex-col h-full gap-4 p-4">
-          {navItems.map((item, index) => {
+          {NAVITEMS.map((item, index) => {
             const isActive =
               item.href === "/"
                 ? pathWithoutLocale === "" || pathWithoutLocale === "/"

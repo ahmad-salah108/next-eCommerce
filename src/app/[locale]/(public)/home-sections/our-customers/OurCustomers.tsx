@@ -17,7 +17,7 @@ function OurCustomers() {
       <EmblaCarousel
         slides={SLIDES}
         options={OPTIONS}
-        slideSizes="[--slide-size:100%] md:[--slide-size:50%] 2xl:[--slide-size:calc(100%/3)]"
+        className="[--slide-size:100%] md:[--slide-size:50%] 2xl:[--slide-size:calc(100%/3)]"
       />
     </section>
   );
