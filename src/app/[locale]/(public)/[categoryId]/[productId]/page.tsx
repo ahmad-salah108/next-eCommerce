@@ -15,7 +15,7 @@ const LINKS = [
   },
   {
     title: "Category Name",
-    url: "/1",
+    url: "/casual",
   },
   {
     title: "Product Name",

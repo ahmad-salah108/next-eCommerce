@@ -183,13 +183,17 @@ export default function Navbar({ locale }: { locale: string }) {
                   variant={"ghost"}
                   size={"icon"}
                   className="rounded-full cursor-pointer"
+                  aria-label="My Cart"
+                  asChild
                 >
-                  <Image
-                    src="/assets/icons/cart.svg"
-                    alt="cart icon"
-                    width={20}
-                    height={20}
-                  />
+                  <Link href={"/cart"}>
+                    <Image
+                      src="/assets/icons/cart.svg"
+                      alt="cart icon"
+                      width={20}
+                      height={20}
+                    />
+                  </Link>
                 </Button>
                 <Button
                   variant={"ghost"}

@@ -3,7 +3,7 @@ import { MailIcon } from "lucide-react";
 
 function SubscribeToNewsletter() {
   return (
-    <section className="container mx-auto -mt-20 md:-mt-10">
+    <section className="container mx-auto -mt-20 lg:-mt-10">
       <div className="flex justify-between items-center flex-wrap rounded-main bg-black py-10 px-16 gap-y-8 translate-y-1/2">
         <h2 className="text-white font-black text-4xl md:text-5xl uppercase w-full lg:w-[60%]">
           STAY UPTO DATE ABOUT OUR LATEST OFFERS

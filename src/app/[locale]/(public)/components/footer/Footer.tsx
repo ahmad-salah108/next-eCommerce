@@ -21,7 +21,7 @@ const FooterLinks = ()=>(
     </Link>
   </div>
 );
-// grid grid-cols-12 gap-y-9
+
 function Footer() {
   return (
     <div>
