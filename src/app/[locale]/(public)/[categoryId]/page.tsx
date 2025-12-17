@@ -3,8 +3,6 @@ import CardProduct from "@/components/CardProduct";
 import SortBy from "./components/SortBy";
 import PaginationCategories from "./components/PaginationCategories";
 import Filters from "./components/Filters";
-import { Button } from "@/components/ui/button";
-import { SlidersHorizontal } from "lucide-react";
 import FiltersDrawer from "./components/FiltersDrawer";
 
 const LINKS = [
