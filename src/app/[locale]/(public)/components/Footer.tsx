@@ -1,5 +1,5 @@
 import Link from "next/link";
-import SubscribeToNewsletter from "./components/SubscribeToNewsletter";
+import SubscribeToNewsletter from "./SubscribeToNewsletter";
 import { Button } from "@/components/ui/button";
 import { Facebook, Github, Instagram, Linkedin } from "lucide-react";
 import Image from "next/image";

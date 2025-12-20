@@ -4,9 +4,9 @@ import Link from "next/link";
 
 function CardProduct({className}:{className?: string}) {
   return (
-    <Link href={"/casual/t-shirt"}>
+    <Link href={"/casual/t-shirt"} className={`${className}`}>
       <div
-        className={`w-fit p-3 rounded-main border-3 border-transparent hover:shadow-[0_5px_10px_rgba(0,0,0,0.15)] hover:-translate-y-1 cursor-pointer transition-all duration-300 ${className}`}
+        className={`w-fit p-3 rounded-main border-3 border-transparent hover:shadow-[0_5px_10px_rgba(0,0,0,0.15)] hover:-translate-y-1 cursor-pointer transition-all duration-300`}
       >
         <div className="relative bg-warm-gray rounded-main overflow-hidden mx-auto w-[190px] h-[190px] md:w-[250px] md:h-[250px]">
           <Image
