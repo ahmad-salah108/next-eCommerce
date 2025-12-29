@@ -3,6 +3,8 @@ import Banner from "./components/Banner";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { setRequestLocale } from "next-intl/server";
+import "@/styles/globals.css";
+import "@/styles/embla.css";
 
 async function PublicLayout({
   children,

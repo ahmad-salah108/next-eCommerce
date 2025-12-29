@@ -1,7 +1,13 @@
+import { SidebarProvider } from "@/context/admin/SidebarContext";
+import { ThemeProvider } from "@/context/admin/ThemeContext";
 import { createClient } from "@/lib/supabase/server";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import { redirect } from "next/navigation";
+import AppSidebar from "./layout/AppSidebar";
+import Backdrop from "./layout/Backdrop";
+import MainContent from "./MainContent";
+import "./admin-globals.css";
 
 export const metadata: Metadata = {
   title: "Admin Dashboard",
@@ -9,8 +15,10 @@ export const metadata: Metadata = {
 };
 
 async function AdminDashboardLayout({
+  children,
   params,
 }: {
+  children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }) {
   // Protected route
@@ -30,7 +38,21 @@ async function AdminDashboardLayout({
   // Enable static rendering for this locale
   setRequestLocale(locale);
 
-  return <div>AdminDashboardLayout</div>;
+  return (
+    <div className="dark:bg-gray-900">
+      <ThemeProvider>
+        <SidebarProvider>
+          <div className="min-h-screen xl:flex">
+            {/* Sidebar and Backdrop */}
+            <AppSidebar />
+            <Backdrop />
+            {/* Main Content Area */}
+            <MainContent>{children}</MainContent>
+          </div>
+        </SidebarProvider>
+      </ThemeProvider>
+    </div>
+  );
 }
 
 export default AdminDashboardLayout;

@@ -1,6 +1,4 @@
 import type { Metadata } from "next";
-import "@/styles/globals.css";
-import "@/styles/embla.css";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { routing } from "@/i18n/routing";
 import { setRequestLocale } from "next-intl/server";

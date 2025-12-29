@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { setRequestLocale } from "next-intl/server";
+import "@/styles/globals.css";
 
 export default async function AuthLayout({
   children,
