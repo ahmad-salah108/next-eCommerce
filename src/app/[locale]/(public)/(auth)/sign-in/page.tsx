@@ -11,6 +11,7 @@ import { ArrowLeftIcon } from "lucide-react";
 
 const initialState = {
   error: null,
+  email: null
 };
 
 let didInit = false;
@@ -43,7 +44,7 @@ export default function SignInPage() {
       </div>
 
       <label htmlFor="email">Email</label>
-      <input name="email" type="email" required className="border p-2" />
+      <input name="email" type="email" required defaultValue={state?.email ?? ""} className="border p-2" />
 
       <label htmlFor="password">Password</label>
       <input name="password" type="password" required className="border p-2" />

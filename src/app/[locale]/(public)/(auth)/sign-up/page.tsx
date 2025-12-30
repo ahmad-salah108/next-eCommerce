@@ -5,12 +5,13 @@ import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import Link from "next/link";
 import { ArrowLeftIcon } from "lucide-react";
+import { SignUpFormStateType } from "@/types/SignUpFormStateType";
 
-const initialState = { error: null };
+const initialState: SignUpFormStateType = { errors: null, values: null };
 
 export default function SignUpPage() {
   const [state, formAction, isPending] = useActionState(signUp, initialState);
-
+  console.log(state.errors);
   return (
     <form className="flex flex-col gap-4">
       <div className="flex justify-between items-center mb-2">
@@ -23,13 +24,22 @@ export default function SignUpPage() {
       </div>
 
       <label htmlFor="full_name">Full Name</label>
-      <input name="full_name" type="text" required className="border p-2" />
+      <input name="full_name" type="text" required defaultValue={state.values?.full_name ?? ""} className="border p-2" />
+      {state.errors?.full_name && (
+        <p className="text-red-500 text-sm -mt-2">{state.errors?.full_name}</p>
+      )}
 
       <label htmlFor="email">Email</label>
-      <input name="email" type="email" required className="border p-2" />
+      <input name="email" type="email" required defaultValue={state.values?.email ?? ""} className="border p-2" />
+      {state.errors?.email && (
+        <p className="text-red-500 text-sm -mt-2">{state.errors?.email}</p>
+      )}
 
       <label htmlFor="password">Password</label>
       <input name="password" type="password" required className="border p-2" />
+      {state.errors?.password && (
+        <p className="text-red-500 text-sm -mt-2">{state.errors?.password}</p>
+      )}
 
       <label htmlFor="confirm_password">Confirm Password</label>
       <input
@@ -38,8 +48,16 @@ export default function SignUpPage() {
         required
         className="border p-2"
       />
+      {state.errors?.confirm_password && (
+        <p className="text-red-500 text-sm -mt-2">
+          {state.errors?.confirm_password}
+        </p>
+      )}
 
-      {state.error && <p className="text-red-500 text-sm">{state.error}</p>}
+      {state.errors?.general && (
+        <p className="text-red-500 text-sm">{state.errors?.general}</p>
+      )}
+      {/* {state.errors && <p className="text-red-500 text-sm">{state.errors}</p>} */}
 
       <p className="text-sm">
         Already have an account?{" "}

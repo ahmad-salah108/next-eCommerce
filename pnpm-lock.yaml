@@ -89,6 +89,9 @@ importers:
       vaul:
         specifier: ^1.1.2
         version: 1.1.2(@types/react-dom@19.2.2(@types/react@19.2.2))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      zod:
+        specifier: ^4.2.1
+        version: 4.2.1
     devDependencies:
       '@svgr/webpack':
         specifier: ^8.1.0
@@ -3397,8 +3400,8 @@ packages:
     peerDependencies:
       zod: ^3.25.0 || ^4.0.0
 
-  zod@4.1.12:
-    resolution: {integrity: sha512-JInaHOamG8pt5+Ey8kGmdcAcg3OL9reK8ltczgHTAwNhMys/6ThXHityHxVV2p3fkw/c+MAvBHFVYHFZDmjMCQ==}
+  zod@4.2.1:
+    resolution: {integrity: sha512-0wZ1IRqGGhMP76gLqz8EyfBXKk0J2qo2+H3fi4mcUP/KtTocoX08nmIAHl1Z2kJIZbZee8KOpBCSNPRgauucjw==}
 
 snapshots:
 
@@ -5832,8 +5835,8 @@ snapshots:
       '@babel/parser': 7.28.5
       eslint: 9.39.1(jiti@2.6.1)
       hermes-parser: 0.25.1
-      zod: 4.1.12
-      zod-validation-error: 4.0.2(zod@4.1.12)
+      zod: 4.2.1
+      zod-validation-error: 4.0.2(zod@4.2.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -7093,8 +7096,8 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  zod-validation-error@4.0.2(zod@4.1.12):
+  zod-validation-error@4.0.2(zod@4.2.1):
     dependencies:
-      zod: 4.1.12
+      zod: 4.2.1
 
-  zod@4.1.12: {}
+  zod@4.2.1: {}
