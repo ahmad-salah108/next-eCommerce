@@ -1,19 +1,26 @@
 import type { Metadata } from "next";
-import EcommerceMetrics from "../components/ecommerce/EcommerceMetrics";
+import { getCurrentUserName } from "@/lib/getCurrnetUserName";
+import { EcommerceMetrics } from "../components/ecommerce/EcommerceMetrics";
 import MonthlySalesChart from "../components/ecommerce/MonthlySalesChart";
 import MonthlyTarget from "../components/ecommerce/MonthlyTarget";
 import StatisticsChart from "../components/ecommerce/StatisticsChart";
 import RecentOrders from "../components/ecommerce/RecentOrders";
+// import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
-  title:
-    "Next.js E-commerce Dashboard | TailAdmin - Next.js Dashboard Template",
+  title: "Dashboard",
   description: "This is Next.js Home for TailAdmin Dashboard Template",
 };
 
-export default function Ecommerce() {
+export default async function Ecommerce() {
+  // const supabase = await createClient();
+  // const { data } = await supabase.auth.getUser();
+  // const name = JSON.stringify(data)
+  const name = await getCurrentUserName();
+
   return (
     <div className="grid grid-cols-12 gap-4 md:gap-6">
+      <h1 className="text-2xl text-nowrap dark:text-white">{name} test</h1>
       <div className="col-span-12 space-y-6 xl:col-span-7">
         <EcommerceMetrics />
 

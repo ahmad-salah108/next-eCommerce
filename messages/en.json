@@ -1,3 +1,6 @@
 {
-  "home": "Home"
+  "home": "Home",
+  "auth": {
+    "register_success": "Verification link sent to your email."
+  }
 }
