@@ -11,10 +11,8 @@ import { ArrowLeftIcon } from "lucide-react";
 
 const initialState = {
   error: null,
-  email: null
+  email: null,
 };
-
-let didInit = false;
 
 export default function SignInPage() {
   const [state, formAction, isPending] = useActionState(signIn, initialState);
@@ -23,12 +21,9 @@ export default function SignInPage() {
   const t = useTranslations();
 
   useEffect(() => {
-    if (!didInit) {
-      if (searchParams.get("isRegistered") === "true") {
-        toast.success(t("auth.register_success"));
-        router.replace("/sign-in");
-      }
-      didInit = true;
+    if (searchParams.get("isRegistered") === "true") {
+      toast.success(t("auth.register_success"));
+      router.replace("/sign-in");
     }
   }, []);
 
@@ -44,7 +39,13 @@ export default function SignInPage() {
       </div>
 
       <label htmlFor="email">Email</label>
-      <input name="email" type="email" required defaultValue={state?.email ?? ""} className="border p-2" />
+      <input
+        name="email"
+        type="email"
+        required
+        defaultValue={state?.email ?? ""}
+        className="border p-2"
+      />
 
       <label htmlFor="password">Password</label>
       <input name="password" type="password" required className="border p-2" />

@@ -6,9 +6,13 @@ import AppHeader from "./layout/AppHeader";
 
 interface MainContentProps {
   children: React.ReactNode;
+  currentUserName: string;
 }
 
-export default function MainContent({ children }: MainContentProps) {
+export default function MainContent({
+  children,
+  currentUserName,
+}: MainContentProps) {
   const { isExpanded, isHovered, isMobileOpen } = useSidebar();
 
   // Dynamic class for main content margin based on sidebar state
@@ -23,9 +27,11 @@ export default function MainContent({ children }: MainContentProps) {
       className={`flex-1 transition-all duration-300 ease-in-out ${mainContentMargin}`}
     >
       {/* Header */}
-      <AppHeader />
+      <AppHeader currentUserName={currentUserName} />
       {/* Page Content */}
-      <div className="p-4 mx-auto max-w-(--breakpoint-2xl) md:p-6">{children}</div>
+      <div className="p-4 mx-auto max-w-(--breakpoint-2xl) md:p-6">
+        {children}
+      </div>
     </div>
   );
 }

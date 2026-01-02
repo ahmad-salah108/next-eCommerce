@@ -33,7 +33,7 @@ export async function signIn(
   const { data: profile } = await supabase
     .from("profiles")
     .select("role")
-    .eq("id", data.user.id)
+    .eq("user_id", data.user.id)
     .single();
 
   // Determine redirect based on role

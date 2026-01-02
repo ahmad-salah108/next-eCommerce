@@ -14,6 +14,7 @@ import { getFontClassName } from "@/lib/utils";
 import { getLangDir } from "rtl-detect";
 import { UserProvider } from "@/context/UserContext";
 import { Toaster } from "sonner";
+import { getCurrentUserName } from "@/lib/getCurrnetUserName";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -27,23 +28,27 @@ async function AdminDashboardLayout({
   children: React.ReactNode;
   params: Promise<{ locale: string }>;
 }) {
-  // Protected route
+  const currentUserName = await getCurrentUserName();
   const supabase = await createClient();
 
   const {
     data: { user },
     error,
   } = await supabase.auth.getUser();
+
+  // Get CurrentUser role
   const { data: profile } = await supabase
     .from("profiles")
     .select("role")
-    .eq("id", user?.id)
+    .eq("user_id", user?.id)
     .single();
 
+  // Redirect to sign in if CurrentUser is null
   if (error || !user) {
     redirect("/sign-in");
   }
 
+  // Redirect to home page if CurrentUser role is not admin
   if (profile?.role !== "admin") {
     redirect("/");
   }
@@ -74,7 +79,9 @@ async function AdminDashboardLayout({
                   <AppSidebar />
                   <Backdrop />
                   {/* Main Content Area */}
-                  <MainContent>{children}</MainContent>
+                  <MainContent currentUserName={currentUserName}>
+                    {children}
+                  </MainContent>
                 </div>
               </SidebarProvider>
             </ThemeProvider>

@@ -6,8 +6,8 @@ export const signInSchema = z.object({
 
   password: z
     .string()
-    .min(8, { message: "Password must be at least 8 characters long" })
-    .regex(/[a-zA-Z]/, { message: "Password must contain at least one letter" })
+    .min(8, { message: "Password must be at least 8 characters long with at least one letter" })
+    .regex(/[a-zA-Z]/, { message: "Password must be at least 8 characters long with at least one letter" })
     .regex(/[0-9]/, { message: "Password must contain at least one number" }),
 });
 
@@ -20,9 +20,9 @@ export const signUpSchema = z
 
     password: z
       .string()
-      .min(8, { message: "Password must be at least 8 characters long" })
+      .min(8, { message: "Password must be at least 8 characters long with at least one letter" })
       .regex(/[a-zA-Z]/, {
-        message: "Password must contain at least one letter",
+        message: "Password must be at least 8 characters long with at least one letter",
       })
       .regex(/[0-9]/, { message: "Password must contain at least one number" }),
 

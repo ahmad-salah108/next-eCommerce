@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 
-const AppHeader: React.FC = () => {
+const AppHeader = ({ currentUserName }: { currentUserName: string }) => {
   const [isApplicationMenuOpen, setApplicationMenuOpen] = useState(false);
 
   const { isMobileOpen, toggleSidebar, toggleMobileSidebar } = useSidebar();
@@ -165,12 +165,11 @@ const AppHeader: React.FC = () => {
             <ThemeToggleButton />
             {/* <!-- Dark Mode Toggler --> */}
 
-           <NotificationDropdown /> 
+            <NotificationDropdown />
             {/* <!-- Notification Menu Area --> */}
           </div>
           {/* <!-- User Area --> */}
-          <UserDropdown /> 
-    
+          <UserDropdown currentUserName={currentUserName} />
         </div>
       </div>
     </header>
