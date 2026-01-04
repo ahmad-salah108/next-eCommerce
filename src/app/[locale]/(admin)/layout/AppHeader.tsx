@@ -83,7 +83,7 @@ const AppHeader = ({ currentUserName }: { currentUserName: string }) => {
             {/* Cross Icon */}
           </button>
 
-          <Link href="/" className="lg:hidden">
+          {/* <Link href="/" className="lg:hidden">
             <Image
               width={154}
               height={32}
@@ -98,7 +98,7 @@ const AppHeader = ({ currentUserName }: { currentUserName: string }) => {
               src="./images/logo/logo-dark.svg"
               alt="Logo"
             />
-          </Link>
+          </Link> */}
 
           <button
             onClick={toggleApplicationMenu}
@@ -120,7 +120,7 @@ const AppHeader = ({ currentUserName }: { currentUserName: string }) => {
             </svg>
           </button>
 
-          <div className="hidden lg:block">
+          {/* <div className="hidden lg:block">
             <form>
               <div className="relative">
                 <span className="absolute -translate-y-1/2 left-4 top-1/2 pointer-events-none">
@@ -153,7 +153,7 @@ const AppHeader = ({ currentUserName }: { currentUserName: string }) => {
                 </button>
               </div>
             </form>
-          </div>
+          </div> */}
         </div>
         <div
           className={`${
@@ -165,7 +165,7 @@ const AppHeader = ({ currentUserName }: { currentUserName: string }) => {
             <ThemeToggleButton />
             {/* <!-- Dark Mode Toggler --> */}
 
-            <NotificationDropdown />
+            {/* <NotificationDropdown /> */}
             {/* <!-- Notification Menu Area --> */}
           </div>
           {/* <!-- User Area --> */}

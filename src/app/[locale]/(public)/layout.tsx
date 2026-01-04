@@ -7,6 +7,7 @@ import { getFontClassName } from "@/lib/utils";
 import { getLangDir } from "rtl-detect";
 import { UserProvider } from "@/context/UserContext";
 import { Toaster } from "sonner";
+import Providers from "@/app/providers";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -41,10 +42,12 @@ export default async function RootLayout({
     <html lang={locale} dir={direction}>
       <body className={`${fontClassName} antialiased`}>
         <NextIntlClientProvider>
-          <UserProvider>
-            <Toaster richColors/>
-            {children}
-          </UserProvider>
+          <Providers>
+            <UserProvider>
+              <Toaster richColors />
+              {children}
+            </UserProvider>
+          </Providers>
         </NextIntlClientProvider>
       </body>
     </html>

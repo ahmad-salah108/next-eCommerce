@@ -2,6 +2,8 @@ import UsersTable from "@/app/[locale]/(admin)/dashboard/users/components/UsersT
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 import { Metadata } from "next";
+import SearchInput from "./components/SearchInput";
+import ToastHandler from "./components/ToastHandler";
 
 export const metadata: Metadata = {
   title: "Users",
@@ -16,7 +18,7 @@ export default async function UsersPage() {
   /** 1. Fetch profiles */
   const { data: profiles, error: profilesError } = await supabase
     .from("profiles")
-    .select("id, user_id, full_name, role, created_at");
+    .select("id, user_id, full_name, role, is_verified, created_at");
 
   if (profilesError) {
     console.error(profilesError);
@@ -38,19 +40,23 @@ export default async function UsersPage() {
 
     return {
       id: profile.id,
+      user_id: authUser?.id,
       full_name: profile.full_name ?? "—",
       email: authUser?.email ?? "—",
       role: profile.role,
+      is_verified: profile.is_verified,
       created_at: profile.created_at,
     };
   });
 
   return (
     <div>
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+      <ToastHandler />
+      <div className="flex flex-wrap items-center justify-between gap-8 mb-6 w-full">
         <h2 className="text-xl font-semibold text-gray-800 dark:text-white/90">
           Users
         </h2>
+        <SearchInput/>
       </div>
       <div className="space-y-6">
         <UsersTable users={users} />

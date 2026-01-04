@@ -1,6 +1,7 @@
+import { UserType } from "@/types/UserType";
 import { createClient } from "./supabase/server";
 
-export async function getCurrentUserName() {
+export async function getCurrentUser() {
   const supabase = await createClient();
 
   const {
@@ -9,11 +10,11 @@ export async function getCurrentUserName() {
 
   if (!user) return null;
 
-  const { data: profile } = await supabase
+  const { data: profile }: {data: Omit<UserType, "email"> | null} = await supabase
     .from('profiles')
-    .select('full_name')
+    .select("*")
     .eq('user_id', user.id)
     .single();
 
-  return profile?.full_name ?? null;
+  return profile ?? null;
 }

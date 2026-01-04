@@ -5,6 +5,7 @@ export const supabaseAdmin = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!, // server-only
   {
     auth: {
+      autoRefreshToken: false,
       persistSession: false,
     },
   }

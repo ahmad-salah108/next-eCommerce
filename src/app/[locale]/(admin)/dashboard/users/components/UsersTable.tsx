@@ -1,3 +1,4 @@
+import { UserType } from "@/types/UserType";
 import {
   Table,
   TableBody,
@@ -5,6 +6,8 @@ import {
   TableHeader,
   TableRow,
 } from "../../../components/ui/table";
+import Badge from "../../../components/ui/badge/Badge";
+import ActionsButton from "./ActionsButton";
 
 export default function UsersTable({ users }: { users: Array<UserType> }) {
   return (
@@ -37,6 +40,12 @@ export default function UsersTable({ users }: { users: Array<UserType> }) {
                   isHeader
                   className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
                 >
+                  Email verification status
+                </TableCell>
+                <TableCell
+                  isHeader
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                >
                   Role
                 </TableCell>
                 <TableCell
@@ -44,6 +53,12 @@ export default function UsersTable({ users }: { users: Array<UserType> }) {
                   className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
                 >
                   Created at
+                </TableCell>
+                <TableCell
+                  isHeader
+                  className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
+                >
+                  Actions
                 </TableCell>
               </TableRow>
             </TableHeader>
@@ -70,17 +85,20 @@ export default function UsersTable({ users }: { users: Array<UserType> }) {
                     <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
                       {user.email}
                     </TableCell>
+                    <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
+                      <Badge size="sm" color={user.is_verified ? "success" : "warning"}>
+                        {user.is_verified}
+                        {user.is_verified ? "Verified" : "Pending"}
+                      </Badge>
+                    </TableCell>
                     <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
                       {user.role}
-                      {/* <Badge
-                      size="sm"
-                      color={"success"}
-                    >
-                      Active
-                    </Badge> */}
                     </TableCell>
                     <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
                       {formattedDate}
+                    </TableCell>
+                    <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
+                      <ActionsButton user={user}/>
                     </TableCell>
                   </TableRow>
                 );
