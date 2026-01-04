@@ -25,7 +25,7 @@ export default function SignInPage() {
       toast.success(t("auth.register_success"));
       router.replace("/sign-in");
     }
-  }, []);
+  }, [searchParams, router]);
 
   return (
     <form className="flex flex-col gap-4">
