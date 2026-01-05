@@ -5,9 +5,9 @@ import { setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { getFontClassName } from "@/lib/utils";
 import { getLangDir } from "rtl-detect";
-import { UserProvider } from "@/context/UserContext";
 import { Toaster } from "sonner";
-import Providers from "@/app/providers";
+import PublicProviders from "./PublicProviders";
+import NextTopLoader from "nextjs-toploader";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -41,13 +41,12 @@ export default async function RootLayout({
   return (
     <html lang={locale} dir={direction}>
       <body className={`${fontClassName} antialiased`}>
+        <NextTopLoader color="#00b8db"/>
         <NextIntlClientProvider>
-          <Providers>
-            <UserProvider>
-              <Toaster richColors />
-              {children}
-            </UserProvider>
-          </Providers>
+          <PublicProviders>
+            <Toaster richColors />
+            {children}
+          </PublicProviders>
         </NextIntlClientProvider>
       </body>
     </html>

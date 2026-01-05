@@ -6,7 +6,7 @@ import AppHeader from "./layout/AppHeader";
 
 interface MainContentProps {
   children: React.ReactNode;
-  currentUserName: string;
+  currentUserName: string | undefined;
 }
 
 export default function MainContent({

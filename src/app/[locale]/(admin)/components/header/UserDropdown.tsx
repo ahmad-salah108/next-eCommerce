@@ -9,7 +9,7 @@ import { logout } from "@/app/[locale]/(public)/(auth)/actions";
 export default function UserDropdown({
   currentUserName,
 }: {
-  currentUserName: string;
+  currentUserName: string | undefined;
 }) {
   const [isOpen, setIsOpen] = useState(false);
 

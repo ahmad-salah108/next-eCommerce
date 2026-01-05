@@ -1,5 +1,3 @@
-import { SidebarProvider } from "@/context/admin/SidebarContext";
-import { ThemeProvider } from "@/context/admin/ThemeContext";
 import { createClient } from "@/lib/supabase/server";
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
@@ -12,10 +10,10 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { routing } from "@/i18n/routing";
 import { getFontClassName } from "@/lib/utils";
 import { getLangDir } from "rtl-detect";
-import { UserProvider } from "@/context/UserContext";
 import { Toaster } from "sonner";
-import Providers from "@/app/providers";
 import { getCurrentUser } from "@/lib/getCurrentUser";
+import AdminProviders from "./AdminProviders";
+import NextTopLoader from "nextjs-toploader";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -72,28 +70,21 @@ async function AdminDashboardLayout({
   return (
     <html lang={locale} dir={direction}>
       <body className={`${fontClassName} antialiased dark:bg-gray-900`}>
-        {/* <QueryClientProvider client={queryClient}> */}
+        <NextTopLoader color="#00b8db" />
         <NextIntlClientProvider>
-          <Providers>
-            <UserProvider>
-              <ThemeProvider>
-                <SidebarProvider>
-                  <Toaster richColors />
-                  <div className="min-h-screen xl:flex">
-                    {/* Sidebar and Backdrop */}
-                    <AppSidebar />
-                    <Backdrop />
-                    {/* Main Content Area */}
-                    <MainContent currentUserName={currentUser?.full_name}>
-                      {children}
-                    </MainContent>
-                  </div>
-                </SidebarProvider>
-              </ThemeProvider>
-            </UserProvider>
-          </Providers>
+          <AdminProviders>
+            <Toaster richColors />
+            <div className="min-h-screen xl:flex">
+              {/* Sidebar and Backdrop */}
+              <AppSidebar />
+              <Backdrop />
+              {/* Main Content Area */}
+              <MainContent currentUserName={currentUser?.full_name}>
+                {children}
+              </MainContent>
+            </div>
+          </AdminProviders>
         </NextIntlClientProvider>
-        {/* </QueryClientProvider> */}
       </body>
     </html>
   );

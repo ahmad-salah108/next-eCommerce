@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 
-const AppHeader = ({ currentUserName }: { currentUserName: string }) => {
+const AppHeader = ({ currentUserName }: { currentUserName: string | undefined }) => {
   const [isApplicationMenuOpen, setApplicationMenuOpen] = useState(false);
 
   const { isMobileOpen, toggleSidebar, toggleMobileSidebar } = useSidebar();

@@ -16,15 +16,16 @@ export const metadata: Metadata = {
 const PAGE_SIZE = 10;
 
 type Props = {
-  searchParams: {
+  searchParams: Promise<{
     page?: string;
-  };
+  }>;
 };
 
 export default async function UsersPage({ searchParams }: Props) {
   const supabase = await createClient();
+  const { page: paramsPage } = await searchParams;
 
-  const page = Math.max(Number(searchParams.page) || 1, 1);
+  const page = Math.max(Number(paramsPage) || 1, 1);
   const from = (page - 1) * PAGE_SIZE;
   const to = from + PAGE_SIZE - 1;
 
@@ -86,7 +87,9 @@ export default async function UsersPage({ searchParams }: Props) {
       <div className="space-y-6">
         <UsersTable users={users ?? []} />
         <div className="flex justify-between items-center">
-          <p className="text-gray-500 dark:text-gray-400">Showing {PAGE_SIZE} users per page</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            Showing {PAGE_SIZE} users per page
+          </p>
           <Pagination currentPage={page} totalPages={totalPages} />
         </div>
       </div>
