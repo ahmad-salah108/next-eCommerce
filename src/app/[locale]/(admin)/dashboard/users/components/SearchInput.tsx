@@ -1,11 +1,34 @@
+"use client";
+
+import { useRouter, useSearchParams } from "next/navigation";
+import { useDebouncedCallback } from "use-debounce";
 import Input from "../../../components/form/input/InputField";
 
-function SearchInput() {
+export default function SearchInput() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const handleSearch = useDebouncedCallback((value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (value) {
+      params.set("q", value);
+      params.set("page", "1"); // reset pagination on new search
+    } else {
+      params.delete("q");
+    }
+
+    router.push(`?${params.toString()}`);
+  }, 400);
+
   return (
     <div className="w-full max-w-[500px]">
-      <Input type="text" placeholder="Search"/>
+      <Input
+        type="text"
+        placeholder="Search users..."
+        defaultValue={searchParams.get("q") ?? ""}
+        onChange={(e) => handleSearch(e.target.value)}
+      />
     </div>
   );
 }
-
-export default SearchInput;

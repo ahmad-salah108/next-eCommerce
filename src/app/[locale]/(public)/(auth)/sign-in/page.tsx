@@ -33,7 +33,7 @@ export default function SignInPage() {
         <h2 className="text-2xl font-bold">Sign In</h2>
         <Button variant={"outline"} asChild>
           <Link href={"/"}>
-            <ArrowLeftIcon /> Back to Home Page
+            <ArrowLeftIcon /> Back to Home
           </Link>
         </Button>
       </div>

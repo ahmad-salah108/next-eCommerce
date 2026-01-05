@@ -27,6 +27,7 @@ export async function updateUserAction(
     });
 
   if (authError) {
+    console.error(authError)
     return { error: authError.message };
   }
 
@@ -40,6 +41,7 @@ export async function updateUserAction(
     .eq("user_id", user_id);
 
   if (profileError) {
+    console.error(profileError)
     return { error: profileError.message };
   }
 

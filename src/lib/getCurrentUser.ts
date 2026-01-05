@@ -10,7 +10,7 @@ export async function getCurrentUser() {
 
   if (!user) return null;
 
-  const { data: profile }: {data: Omit<UserType, "email"> | null} = await supabase
+  const { data: profile }: {data: UserType | null} = await supabase
     .from('profiles')
     .select("*")
     .eq('user_id', user.id)
