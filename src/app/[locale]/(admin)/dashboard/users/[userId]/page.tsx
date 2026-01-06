@@ -1,9 +1,7 @@
 import { getUserById } from "@/lib/getUserById";
-import { ArrowLeftIcon } from "lucide-react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import EditUserForm from "./components/EditUserForm";
 import BackButton from "../../../components/BackButton";
+import { notFound } from "next/navigation";
 
 type Props = {
   params: Promise<{ userId: string }>;
@@ -11,7 +9,9 @@ type Props = {
 
 async function UserIdPage({ params }: Props) {
   const { userId } = await params;
-  const user = await getUserById(userId);
+  const {profile, error} = await getUserById(userId);
+
+  if(error) notFound()
 
   return (
     <div>
@@ -21,7 +21,7 @@ async function UserIdPage({ params }: Props) {
         </h2>
         <BackButton />
       </div>
-      <EditUserForm user={user} />
+      <EditUserForm user={profile} />
     </div>
   );
 }
