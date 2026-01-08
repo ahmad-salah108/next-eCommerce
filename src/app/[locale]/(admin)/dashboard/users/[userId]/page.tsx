@@ -1,5 +1,5 @@
-import { getUserById } from "@/lib/getUserById";
-import EditUserForm from "./components/EditUserForm";
+import { getUserById } from "@/lib/actions/users/getUserById";
+import UserEditForm from "./components/UserEditForm";
 import BackButton from "../../../components/BackButton";
 import { notFound } from "next/navigation";
 
@@ -21,7 +21,7 @@ async function UserIdPage({ params }: Props) {
         </h2>
         <BackButton />
       </div>
-      <EditUserForm user={profile} />
+      <UserEditForm user={profile} />
     </div>
   );
 }

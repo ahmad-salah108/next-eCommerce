@@ -3,6 +3,8 @@
 import { useSidebar } from "@/context/admin/SidebarContext";
 import React from "react";
 import AppHeader from "./layout/AppHeader";
+import { Toaster } from "sonner";
+import { useTheme } from "@/context/admin/ThemeContext";
 
 interface MainContentProps {
   children: React.ReactNode;
@@ -14,6 +16,7 @@ export default function MainContent({
   currentUserName,
 }: MainContentProps) {
   const { isExpanded, isHovered, isMobileOpen } = useSidebar();
+  const { theme } = useTheme();
 
   // Dynamic class for main content margin based on sidebar state
   const mainContentMargin = isMobileOpen
@@ -30,6 +33,7 @@ export default function MainContent({
       <AppHeader currentUserName={currentUserName} />
       {/* Page Content */}
       <div className="p-4 mx-auto max-w-(--breakpoint-2xl) md:p-6">
+        <Toaster richColors theme={theme} />
         {children}
       </div>
     </div>

@@ -1,5 +1,6 @@
+"use server"
 import { UserType } from "@/types/UserType";
-import { createClient } from "./supabase/server";
+import { createClient } from "../../supabase/server";
 import { PostgrestError } from "@supabase/supabase-js";
 
 export async function getUserById(id: string) {

@@ -1,29 +1,23 @@
 "use client";
 import { useActionState } from "react";
-import { UserType } from "@/types/UserType";
-import { updateUserAction } from "@/app/[locale]/(admin)/actions";
 import ComponentCard from "@/app/[locale]/(admin)/components/common/ComponentCard";
 import Label from "@/app/[locale]/(admin)/components/form/Label";
 import Input from "@/app/[locale]/(admin)/components/form/input/InputField";
-import Select from "@/app/[locale]/(admin)/components/form/Select";
 import StyledButton from "@/app/[locale]/(admin)/components/StyledButton";
 import { toast } from "sonner";
 import { useEffect } from "react";
+import { CategoryType } from "@/types/CategoryType";
+import { updateCategory } from "@/lib/actions/categories/updateCategory";
 
 type Props = {
-  user: UserType | null;
+  category: CategoryType | null;
 };
-
-const ROLES_OPTIONS = [
-  { label: "Customer", value: "customer" },
-  { label: "Admin", value: "admin" },
-];
 
 const initialState = { error: null };
 
-export default function EditUserForm({ user }: Props) {
+export default function CategoryEditForm({ category }: Props) {
   const [state, formAction, isPending] = useActionState(
-    updateUserAction,
+    updateCategory,
     initialState
   );
 
@@ -36,31 +30,18 @@ export default function EditUserForm({ user }: Props) {
   return (
     <ComponentCard title="">
       <form action={formAction}>
-        <input type="hidden" name="user_id" value={user?.user_id} />
+        <input type="hidden" name="id" value={category?.id} />
+        <input type="hidden" name="oldImageUrl" value={category?.image ?? ""} />
         <div className="space-y-6">
           <div className="max-w-[500px]">
-            <Label>Full Name</Label>
-            <Input
-              name="full_name"
-              type="text"
-              defaultValue={user?.full_name}
-            />
+            <Label>Image</Label>
+            <Input name="image" type="file" accept="image/*" />
           </div>
           <div className="max-w-[500px]">
-            <Label>Email</Label>
-            <Input name="email" type="email" defaultValue={user?.email} />
+            <Label>Category Name</Label>
+            <Input name="name" type="text" required defaultValue={category?.name} />
           </div>
-          <div className="max-w-[500px]">
-            <Label>Role</Label>
-            <Select
-              name="role"
-              options={ROLES_OPTIONS}
-              defaultValue={user?.role}
-            />
-          </div>
-          {state.error && (
-            <p className="text-red-500 text-sm">{state.error}</p>
-          )}
+          {state.error && <p className="text-red-500 text-sm">{state.error}</p>}
           <StyledButton
             type="submit"
             className="ms-auto px-6"

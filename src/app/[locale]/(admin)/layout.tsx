@@ -10,8 +10,7 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { routing } from "@/i18n/routing";
 import { getFontClassName } from "@/lib/utils";
 import { getLangDir } from "rtl-detect";
-import { Toaster } from "sonner";
-import { getCurrentUser } from "@/lib/getCurrentUser";
+import { getCurrentUser } from "@/lib/actions/users/getCurrentUser";
 import AdminProviders from "./AdminProviders";
 import NextTopLoader from "nextjs-toploader";
 
@@ -73,7 +72,6 @@ async function AdminDashboardLayout({
         <NextTopLoader color="#00b8db" />
         <NextIntlClientProvider>
           <AdminProviders>
-            <Toaster richColors />
             <div className="min-h-screen xl:flex">
               {/* Sidebar and Backdrop */}
               <AppSidebar />

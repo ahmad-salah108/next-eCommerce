@@ -6,7 +6,7 @@ import OurCustomers from "./home-sections/our-customers/OurCustomers";
 import TopSelling from "./home-sections/top-selling/TopSelling";
 import { Button } from "@/components/ui/button";
 import { logout } from "../(auth)/actions";
-import { getCurrentUser } from "@/lib/getCurrentUser";
+import { getCurrentUser } from "@/lib/actions/users/getCurrentUser";
 
 export default async function Home({
   params,

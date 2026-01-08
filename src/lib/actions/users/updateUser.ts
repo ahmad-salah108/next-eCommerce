@@ -7,7 +7,7 @@ type UpdateUserState = {
   success?: boolean;
 };
 
-export async function updateUserAction(
+export async function updateUser(
   prevState: UpdateUserState,
   formData: FormData
 ): Promise<UpdateUserState> {

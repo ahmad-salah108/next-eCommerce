@@ -1,7 +1,7 @@
 "use server"; // <--- because of this line, React Query will now automatically treat it
+import { supabaseAdmin } from "@/lib/supabase/admin";
 // as a network request to the server instead of trying to run the logic in the browser.
 
-import { supabaseAdmin } from "./supabase/admin";
 import { revalidatePath } from "next/cache";
 
 export async function deleteUserById(user_id: string) {

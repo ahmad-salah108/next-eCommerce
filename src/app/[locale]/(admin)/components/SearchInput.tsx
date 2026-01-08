@@ -2,9 +2,9 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
-import Input from "../../../components/form/input/InputField";
+import Input from "./form/input/InputField";
 
-export default function SearchInput() {
+export default function SearchInput({placeholder}:{placeholder: string}) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -25,7 +25,7 @@ export default function SearchInput() {
     <div className="w-full max-w-[500px]">
       <Input
         type="text"
-        placeholder="Search users..."
+        placeholder={placeholder}
         defaultValue={searchParams.get("q") ?? ""}
         onChange={(e) => handleSearch(e.target.value)}
       />

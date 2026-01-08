@@ -1,5 +1,7 @@
+"use server"
+
 import { UserType } from "@/types/UserType";
-import { createClient } from "./supabase/server";
+import { createClient } from "../../supabase/server";
 
 export async function getCurrentUser() {
   const supabase = await createClient();

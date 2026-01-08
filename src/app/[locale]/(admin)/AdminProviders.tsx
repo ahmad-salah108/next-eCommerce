@@ -17,8 +17,9 @@ export default function AdminProviders({
       new QueryClient({
         defaultOptions: {
           queries: {
-            // distinct caching for 1 minute
-            staleTime: 60 * 1000,
+            staleTime: 30_000, // data considered fresh for 30s
+            gcTime: 5 * 60 * 1000, // cache cleanup after 5mins of inactive data (data becomes inactive when component unmounts)
+            refetchOnWindowFocus: true,
           },
         },
       })
@@ -28,7 +29,9 @@ export default function AdminProviders({
     <QueryClientProvider client={queryClient}>
       <UserProvider>
         <ThemeProvider>
-          <SidebarProvider>{children}</SidebarProvider>
+          <SidebarProvider>
+            {children}
+          </SidebarProvider>
         </ThemeProvider>
       </UserProvider>
     </QueryClientProvider>
