@@ -25,7 +25,7 @@ function UsersMain({ getUsersParams }: Props) {
     refetchInterval: 60_000, // ⬅️ auto-check DB every 60s
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p className="dark:text-white/90">Loading...</p>;
 
   if (isFetching) toast("Refreshing...");
 

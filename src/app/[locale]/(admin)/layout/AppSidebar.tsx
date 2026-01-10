@@ -39,6 +39,11 @@ const navItems: NavItem[] = [
   },
   {
     // icon: <CalenderIcon />,
+    name: "Categories",
+    path: "/dashboard/categories",
+  },
+  {
+    // icon: <CalenderIcon />,
     name: "Calendar",
     path: "/calendar",
   },

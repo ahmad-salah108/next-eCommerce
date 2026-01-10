@@ -2,7 +2,7 @@ import React from 'react'
 
 function CategoriesLoading() {
   return (
-    <div>Loading...</div>
+    <div className="dark:text-white/90">Loading...</div>
   )
 }
 
