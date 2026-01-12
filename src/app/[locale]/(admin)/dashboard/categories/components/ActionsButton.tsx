@@ -64,7 +64,6 @@ function ActionsButton({ category }: { category: CategoryType }) {
         isOpen={isOpen}
         onClose={closeDropdown}
         className="w-40 p-2"
-        triggerRef={buttonRef as React.RefObject<HTMLElement>}
       >
         <Link href={`/dashboard/categories/${category.id}`}>
           <DropdownItem
