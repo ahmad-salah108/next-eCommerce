@@ -3,7 +3,7 @@ import { useActionState } from "react";
 import ComponentCard from "@/app/[locale]/(admin)/components/common/ComponentCard";
 import Label from "@/app/[locale]/(admin)/components/form/Label";
 import Input from "@/app/[locale]/(admin)/components/form/input/InputField";
-import StyledButton from "@/app/[locale]/(admin)/components/StyledButton";
+import StyledButton from "@/app/[locale]/(admin)/components/common/StyledButton";
 import { toast } from "sonner";
 import { useEffect } from "react";
 import { CategoryType } from "@/types/CategoryType";

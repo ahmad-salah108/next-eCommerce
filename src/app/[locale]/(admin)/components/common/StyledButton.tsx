@@ -11,7 +11,7 @@ function StyledButton({ className, children, ...props }: Props) {
   return (
     <Button
       className={cn(
-        "block bg-black text-white dark:border-gray-800 dark:bg-cyan-900",
+        "block bg-black text-white dark:border-gray-800 dark:bg-cyan-800",
         className
       )}
       {...props}

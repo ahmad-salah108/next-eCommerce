@@ -4,9 +4,9 @@ import Pagination from "../../components/tables/Pagination";
 import { PostgrestError } from "@supabase/supabase-js";
 import _ from "lodash"
 import { CategoryType } from "@/types/CategoryType";
-import SearchInput from "../../components/SearchInput";
 import CategoriesTable from "./components/CategoriesTable";
-import UpdateToastHandler from "../../components/UpdateToastHandler";
+import UpdateToastHandler from "../../components/common/UpdateToastHandler";
+import SearchInput from "../../components/common/SearchInput";
 
 export const metadata: Metadata = {
   title: "Categories",
@@ -79,7 +79,7 @@ export default async function CategoriesPage({ searchParams }: Props) {
         <CategoriesTable categories={categories ?? []} />
         <div className="flex justify-between items-center">
           <p className="text-sm text-gray-500 dark:text-gray-400">
-            Showing {PAGE_SIZE} categories per page
+            Showing {PAGE_SIZE} entries
           </p>
           <Pagination currentPage={page} totalPages={totalPages} />
         </div>

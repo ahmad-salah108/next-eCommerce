@@ -5,7 +5,7 @@ import ComponentCard from "@/app/[locale]/(admin)/components/common/ComponentCar
 import Label from "@/app/[locale]/(admin)/components/form/Label";
 import Input from "@/app/[locale]/(admin)/components/form/input/InputField";
 import Select from "@/app/[locale]/(admin)/components/form/Select";
-import StyledButton from "@/app/[locale]/(admin)/components/StyledButton";
+import StyledButton from "@/app/[locale]/(admin)/components/common/StyledButton";
 import { toast } from "sonner";
 import { useEffect } from "react";
 import { updateUser } from "@/lib/actions/users/updateUser";

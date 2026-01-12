@@ -1,12 +1,12 @@
 "use client";
-import UpdateToastHandler from "../../../components/UpdateToastHandler";
-import SearchInput from "../../../components/SearchInput";
+import UpdateToastHandler from "../../../components/common/UpdateToastHandler";
 import _ from "lodash";
 import UsersTable from "./UsersTable";
 import Pagination from "../../../components/tables/Pagination";
 import { useQuery } from "@tanstack/react-query";
 import getUsers from "@/lib/actions/users/getUsers";
 import { toast } from "sonner";
+import SearchInput from "../../../components/common/SearchInput";
 
 type Props = {
   getUsersParams: {
@@ -58,7 +58,7 @@ function UsersMain({ getUsersParams }: Props) {
           <UsersTable users={data?.users ?? []} />
           <div className="flex justify-between items-center">
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              Showing {PAGE_SIZE} users per page
+              Showing {PAGE_SIZE} entries
             </p>
             <Pagination
               currentPage={data?.page as number}

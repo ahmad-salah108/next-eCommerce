@@ -1,6 +1,6 @@
 import { getUserById } from "@/lib/actions/users/getUserById";
 import UserEditForm from "./components/UserEditForm";
-import BackButton from "../../../components/BackButton";
+import BackButton from "../../../components/common/BackButton";
 import { notFound } from "next/navigation";
 
 type Props = {

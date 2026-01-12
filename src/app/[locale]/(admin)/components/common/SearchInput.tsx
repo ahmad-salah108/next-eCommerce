@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
-import Input from "./form/input/InputField";
+import Input from "../form/input/InputField";
 
 export default function SearchInput({placeholder}:{placeholder: string}) {
   const router = useRouter();

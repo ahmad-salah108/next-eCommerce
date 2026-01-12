@@ -1,5 +1,5 @@
 import CategoryEditForm from "./components/CategoryEditForm";
-import BackButton from "../../../components/BackButton";
+import BackButton from "../../../components/common/BackButton";
 import { notFound } from "next/navigation";
 import { getCategoryById } from "@/lib/actions/categories/getCategoryById";
 
