@@ -3,12 +3,15 @@ import { SidebarProvider } from "@/context/admin/SidebarContext";
 import { ThemeProvider } from "@/context/admin/ThemeContext";
 import { UserProvider } from "@/context/UserContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { NextIntlClientProvider } from "next-intl";
 import { useState } from "react";
 
 export default function AdminProviders({
   children,
+  locale
 }: {
   children: React.ReactNode;
+  locale: string
 }) {
   // Using useState to ensure the QueryClient is only created once per session
   // and not recreated on every re-render.
@@ -17,9 +20,10 @@ export default function AdminProviders({
       new QueryClient({
         defaultOptions: {
           queries: {
-            staleTime: 30_000, // data considered fresh for 30s
+            staleTime: 60 * 1000, // data considered fresh for 30s
             gcTime: 5 * 60 * 1000, // cache cleanup after 5mins of inactive data (data becomes inactive when component unmounts)
-            refetchOnWindowFocus: true,
+            refetchInterval: 60 * 1000, // ⬅️ auto-check DB every 60s
+            refetchOnWindowFocus: false,
           },
         },
       })
@@ -27,13 +31,13 @@ export default function AdminProviders({
 
   return (
     <QueryClientProvider client={queryClient}>
-      <UserProvider>
-        <ThemeProvider>
-          <SidebarProvider>
-            {children}
-          </SidebarProvider>
-        </ThemeProvider>
-      </UserProvider>
+      <NextIntlClientProvider locale={locale}>
+        <UserProvider>
+          <ThemeProvider>
+            <SidebarProvider>{children}</SidebarProvider>
+          </ThemeProvider>
+        </UserProvider>
+      </NextIntlClientProvider>
     </QueryClientProvider>
   );
 }

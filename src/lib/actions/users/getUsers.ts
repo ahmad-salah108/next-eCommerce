@@ -5,12 +5,12 @@ import { UserType } from "@/types/UserType";
 import { PostgrestError } from "@supabase/supabase-js";
 
 type Props = {
-  paramsPage?: string;
+  page?: string;
   q?: string;
-  PAGE_SIZE: number;
+  PAGE_SIZE: number
 };
 
-async function getUsers({ paramsPage, q, PAGE_SIZE }: Props) {
+async function getUsers({ page: paramsPage, q, PAGE_SIZE }: Props) {
   const supabase = await createClient();
 
   const page = Math.max(Number(paramsPage) || 1, 1);

@@ -11,9 +11,10 @@ export default function PublicProviders({ children }: { children: React.ReactNod
       new QueryClient({
         defaultOptions: {
           queries: {
-            staleTime: 30_000,          // data considered fresh for 30s
+            staleTime: 60 * 1000,          // data considered fresh for 30s
             gcTime: 5 * 60 * 1000,      // cache cleanup after 5mins of inactive data (data becomes inactive when component unmounts)
-            refetchOnWindowFocus: true,
+            refetchInterval: 60 * 1000, // ⬅️ auto-check DB every 60s
+            refetchOnWindowFocus: false,
           },
         },
       })

@@ -1,3 +1,4 @@
+"use client"
 import { useTheme } from "@/context/admin/ThemeContext";
 import React from "react";
 
