@@ -3,6 +3,9 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
+  experimental:{
+    optimizePackageImports: ["@tanstack/react-query"]
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/i,

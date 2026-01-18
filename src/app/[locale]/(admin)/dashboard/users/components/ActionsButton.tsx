@@ -46,7 +46,7 @@ function ActionsButton({ user }: { user: UserType }) {
   }
 
   function handleUserDelete() {
-    mutate(user.user_id as string);
+    if(!isPending) mutate(user.user_id as string);
   }
 
   return (

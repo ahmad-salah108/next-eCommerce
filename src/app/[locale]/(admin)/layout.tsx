@@ -46,7 +46,7 @@ function AdminDashboardLayout({
     <html lang={locale} dir={direction}>
       <body className={`${fontClassName} antialiased dark:bg-gray-900`}>
         <NextTopLoader color="#00b8db" />
-        <Toaster richColors />
+        <Toaster richColors expand/>
         <AdminProviders locale={locale}>
           <div className="min-h-screen xl:flex">
             {/* Sidebar and Backdrop */}

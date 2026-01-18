@@ -1,17 +1,16 @@
 "use client";
-import { useActionState } from "react";
 import { UserType } from "@/types/UserType";
 import ComponentCard from "@/app/[locale]/(admin)/components/common/ComponentCard";
 import Label from "@/app/[locale]/(admin)/components/form/Label";
 import Input from "@/app/[locale]/(admin)/components/form/input/InputField";
 import Select from "@/app/[locale]/(admin)/components/form/Select";
 import StyledButton from "@/app/[locale]/(admin)/components/common/StyledButton";
-import { toast } from "sonner";
-import { useEffect } from "react";
 import { updateUser } from "@/lib/actions/users/updateUser";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
 type Props = {
-  user: UserType | null;
+  user: UserType | null | undefined;
 };
 
 const ROLES_OPTIONS = [
@@ -19,28 +18,35 @@ const ROLES_OPTIONS = [
   { label: "Admin", value: "admin" },
 ];
 
-const initialState = { error: null };
-
 export default function UserEditForm({ user }: Props) {
-  const [state, formAction, isPending] = useActionState(
-    updateUser,
-    initialState
-  );
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  const { mutate, isPending, isError, error, isSuccess } = useMutation({
+    mutationFn: (formData: FormData) => updateUser(formData),
+    onSuccess: () => {
+      // 🔄 refresh list + single user cache
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+      queryClient.invalidateQueries({ queryKey: ["users", user?.id] });
 
-  useEffect(() => {
-    if (state.error) {
-      toast.error(state.error);
+      router.push("/dashboard/users?updated=true")
     }
-  }, [state.error]);
+  });
+
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    if(!isPending && !isSuccess) mutate(formData);
+  }
 
   return (
     <ComponentCard title="">
-      <form action={formAction}>
-        <input type="hidden" name="user_id" value={user?.user_id} />
+      <form onSubmit={onSubmit}>
+        <input type="hidden" name="user_id" defaultValue={user?.user_id} />
         <div className="space-y-6">
           <div className="max-w-[500px]">
             <Label>Full Name</Label>
             <Input
+              key={user?.full_name}
               name="full_name"
               type="text"
               defaultValue={user?.full_name}
@@ -49,25 +55,30 @@ export default function UserEditForm({ user }: Props) {
           </div>
           <div className="max-w-[500px]">
             <Label>Email</Label>
-            <Input name="email" type="email" defaultValue={user?.email} required/>
+            <Input
+              key={user?.email}
+              name="email"
+              type="email"
+              defaultValue={user?.email}
+              required
+            />
           </div>
           <div className="max-w-[500px]">
             <Label>Role</Label>
             <Select
+              key={user?.role}
               name="role"
               options={ROLES_OPTIONS}
               defaultValue={user?.role}
             />
           </div>
-          {state.error && (
-            <p className="text-red-500 text-sm">{state.error}</p>
-          )}
+          {isError && <p className="text-red-500 text-sm">{error.message}</p>}
           <StyledButton
             type="submit"
             className="ms-auto px-6"
-            disabled={isPending}
+            disabled={isPending || isSuccess}
           >
-            {isPending ? "Saving..." : "Save Changes"}
+            {isPending ? "Saving..." : isSuccess ? "Navigating..." : "Save Changes"}
           </StyledButton>
         </div>
       </form>

@@ -25,12 +25,6 @@ function UsersPage() {
   const { data, isLoading, isFetching, error } = useQuery({
     queryKey: ["users", usersParams.page, usersParams.q],
     queryFn: () => getUsers({...usersParams, PAGE_SIZE}),
-
-    staleTime: 60 * 1000, // ✅ cache is fresh for 1 minute
-    gcTime: 5 * 60 * 1000, // optional (default is 5 min)
-
-    refetchInterval: 60 * 1000, // ⬅️ auto-check DB every 60s
-    refetchOnWindowFocus: false,
   });
 
   useEffect(() => {
@@ -51,9 +45,6 @@ function UsersPage() {
         <UsersTableSkeleton />
       </div>
     );
-
-  // isLoading → only first-ever fetch
-  // isFetching → background refresh
 
   if (error) return <p className="text-red-500">Failed to load users</p>;
 

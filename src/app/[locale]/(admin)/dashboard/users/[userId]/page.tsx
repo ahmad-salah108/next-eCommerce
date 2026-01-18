@@ -1,17 +1,23 @@
+"use client";
 import { getUserById } from "@/lib/actions/users/getUserById";
 import UserEditForm from "./components/UserEditForm";
 import BackButton from "../../../components/common/BackButton";
 import { notFound } from "next/navigation";
+import { use } from "react";
+import { useQuery } from "@tanstack/react-query";
 
 type Props = {
   params: Promise<{ userId: string }>;
 };
 
-async function UserIdPage({ params }: Props) {
-  const { userId } = await params;
-  const {profile, error} = await getUserById(userId);
+function UserIdPage({ params }: Props) {
+  const { userId } = use(params);
+  const { data, error } = useQuery({
+    queryKey: ["users", userId],
+    queryFn: () => getUserById(userId),
+  });
 
-  if(error) notFound()
+  if (error) notFound();
 
   return (
     <div>
@@ -21,7 +27,7 @@ async function UserIdPage({ params }: Props) {
         </h2>
         <BackButton />
       </div>
-      <UserEditForm user={profile} />
+      <UserEditForm user={data} />
     </div>
   );
 }

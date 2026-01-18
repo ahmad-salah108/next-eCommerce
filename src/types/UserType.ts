@@ -3,7 +3,7 @@ export type UserType = {
   user_id: string | undefined;
   full_name: string;
   email: string | undefined;
-  role: string;
+  role: "admin" | "customer";
   is_verified: boolean;
   created_at: string;
 };

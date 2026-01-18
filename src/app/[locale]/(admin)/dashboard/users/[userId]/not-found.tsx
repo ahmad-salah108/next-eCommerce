@@ -8,7 +8,7 @@ export default function NotFound() {
       <GridShape />
       <div className="mx-auto w-full max-w-[242px] text-center sm:max-w-[472px]">
         <h1 className="mb-8 font-bold text-gray-800 text-title-md dark:text-white/90 xl:text-title-2xl">
-          ERROR
+          User Not Found
         </h1>
 
         <Image
@@ -39,7 +39,7 @@ export default function NotFound() {
       </div>
       {/* <!-- Footer --> */}
       <p className="absolute text-sm text-center text-gray-500 -translate-x-1/2 bottom-6 left-1/2 dark:text-gray-400">
-        &copy; {new Date().getFullYear()} - Shopya
+        &copy; {new Date().getFullYear()} - SHOPYA
       </p>
     </div>
   );

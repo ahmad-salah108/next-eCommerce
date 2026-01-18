@@ -19,5 +19,5 @@ export async function getUserById(id: string) {
     console.error(error)
   }
 
-  return {profile, error};
+  return profile;
 }
