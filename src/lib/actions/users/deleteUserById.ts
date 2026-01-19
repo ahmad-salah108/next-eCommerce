@@ -2,8 +2,6 @@
 import { supabaseAdmin } from "@/lib/supabase/admin";
 // as a network request to the server instead of trying to run the logic in the browser.
 
-import { revalidatePath } from "next/cache";
-
 export async function deleteUserById(user_id: string) {
   // 1️⃣ Delete from Supabase Auth (this is the real user)
   const { error: authError } =
@@ -25,5 +23,5 @@ export async function deleteUserById(user_id: string) {
     throw profileError;
   }
 
-  revalidatePath("/dashboard/users");
+  return { success: true };
 }

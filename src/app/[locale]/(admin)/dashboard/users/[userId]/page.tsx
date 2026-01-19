@@ -6,13 +6,15 @@ import { notFound } from "next/navigation";
 import { use } from "react";
 import { useQuery } from "@tanstack/react-query";
 
+import UserEditFormSkeleton from "./components/UserEditFormSkeleton";
+
 type Props = {
   params: Promise<{ userId: string }>;
 };
 
 function UserIdPage({ params }: Props) {
   const { userId } = use(params);
-  const { data, error } = useQuery({
+  const { data, isPending, error } = useQuery({
     queryKey: ["users", userId],
     queryFn: () => getUserById(userId),
   });
@@ -27,7 +29,7 @@ function UserIdPage({ params }: Props) {
         </h2>
         <BackButton />
       </div>
-      <UserEditForm user={data} />
+      {isPending ? <UserEditFormSkeleton /> : <UserEditForm user={data} />}
     </div>
   );
 }

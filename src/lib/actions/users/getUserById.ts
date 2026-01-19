@@ -17,6 +17,7 @@ export async function getUserById(id: string) {
 
   if (error) {
     console.error(error)
+    throw error
   }
 
   return profile;

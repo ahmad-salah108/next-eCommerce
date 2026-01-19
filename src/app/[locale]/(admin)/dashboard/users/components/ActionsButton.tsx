@@ -1,11 +1,11 @@
 "use client";
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { Dropdown } from "../../../components/ui/dropdown/Dropdown";
 import { DropdownItem } from "../../../components/ui/dropdown/DropdownItem";
 import { MoreVerticalIcon, UserPenIcon, UserRoundXIcon } from "lucide-react";
 import { Modal } from "../../../components/ui/modal";
 import { useModal } from "@/hooks/useModal";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { UserType } from "@/types/UserType";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
@@ -17,9 +17,11 @@ function ActionsButton({ user }: { user: UserType }) {
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { isOpen: isModalOpen, openModal, closeModal } = useModal();
-  const { mutate, isPending } = useMutation({
+  const queryClient = useQueryClient();
+  const { mutate, isPending, isSuccess } = useMutation({
     mutationFn: deleteUserById,
     onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ["users"]})
       toast.success("User has been deleted");
       closeModal();
     },
@@ -46,7 +48,7 @@ function ActionsButton({ user }: { user: UserType }) {
   }
 
   function handleUserDelete() {
-    if(!isPending) mutate(user.user_id as string);
+    if(!isPending && !isSuccess) mutate(user.user_id as string);
   }
 
   return (
@@ -106,9 +108,9 @@ function ActionsButton({ user }: { user: UserType }) {
           <Button
             onClick={handleUserDelete}
             className="bg-red-500 text-white w-20 flex justify-center items-center"
-            disabled={isPending}
+            disabled={isPending || isSuccess}
           >
-            {isPending && <Spinner />}
+            {(isPending || isSuccess) && <Spinner />}
             Yes
           </Button>
         </div>
