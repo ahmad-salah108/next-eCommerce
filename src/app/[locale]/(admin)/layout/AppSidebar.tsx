@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSidebar } from "@/context/admin/SidebarContext";
-import { BlocksIcon, UsersIcon } from "lucide-react";
+import { BlocksIcon, BoxesIcon, UsersIcon } from "lucide-react";
 
 type NavItem = {
   name: string;
@@ -22,6 +22,11 @@ const navItems: NavItem[] = [
     icon: <BlocksIcon />,
     name: "Categories",
     path: "/dashboard/categories",
+  },
+  {
+    icon: <BoxesIcon />,
+    name: "Products",
+    path: "/dashboard/products",
   },
   // {
   //   name: "Items",

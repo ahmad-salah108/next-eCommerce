@@ -39,27 +39,6 @@ function CategoriesPage() {
     }
   }, [isFetching]);
 
-  // if (isLoading)
-  //   return (
-  //     <div className="space-y-6">
-  //       <div className="flex flex-wrap flex-col sm:flex-row items-start sm:items-center justify-between gap-8 mb-6 w-full">
-  //         <h2 className="text-xl font-semibold text-gray-800 dark:text-white/90">
-  //           Categories
-  //         </h2>
-  //         <div className="w-full sm:w-auto flex flex-wrap sm:flex-nowrap flex-col-reverse sm:flex-row justify-center items-start sm:items-center gap-4">
-  //           <SearchInput placeholder="Search categories..." />
-  //           <Link href={"/dashboard/categories/new-category"}>
-  //             <StyledButton className="flex">
-  //               <PlusIcon />
-  //               Create New Category
-  //             </StyledButton>
-  //           </Link>
-  //         </div>
-  //       </div>
-  //       <CategoriesTableSkeleton />
-  //     </div>
-  //   );
-
   if (error) return <p className="text-red-500">Failed to load categories</p>;
 
   return (

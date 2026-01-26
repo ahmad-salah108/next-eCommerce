@@ -7,7 +7,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
-import { ArrowLeftIcon } from "lucide-react";
 
 const initialState = {
   error: null,
@@ -43,12 +42,12 @@ export default function SignInPage() {
         name="email"
         type="email"
         required
-        defaultValue={state?.email ?? ""}
+        defaultValue={state?.email ?? "u@u.com"}
         className="border p-2"
       />
 
       <label htmlFor="password">Password</label>
-      <input name="password" type="password" required className="border p-2" />
+      <input name="password" type="password" defaultValue={"123123"} required className="border p-2" />
 
       {state.error && <p className="text-red-500 text-sm">{state.error}</p>}
 

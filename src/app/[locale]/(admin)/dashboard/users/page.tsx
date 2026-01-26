@@ -11,20 +11,22 @@ import UsersTable from "./components/UsersTable";
 import Pagination from "../../components/tables/Pagination";
 import { useSearchParams } from "next/navigation";
 
-const PAGE_SIZE = 10
+const PAGE_SIZE = 10;
 
 type UsersParamsType = {
-  page?: string,
-  q?: string
+  page?: string;
+  q?: string;
 };
 
 function UsersPage() {
   const searchParams = useSearchParams();
-  const usersParams: UsersParamsType = Object.fromEntries(searchParams.entries());
+  const usersParams: UsersParamsType = Object.fromEntries(
+    searchParams.entries(),
+  );
 
   const { data, isLoading, isFetching, error } = useQuery({
     queryKey: ["users", usersParams.page, usersParams.q],
-    queryFn: () => getUsers({...usersParams, PAGE_SIZE}),
+    queryFn: () => getUsers({ ...usersParams, PAGE_SIZE }),
   });
 
   useEffect(() => {
@@ -32,19 +34,6 @@ function UsersPage() {
       toast("Refreshing...");
     }
   }, [isFetching]);
-
-  if (isLoading)
-    return (
-      <div className="space-y-6">
-        <div className="flex flex-wrap items-center justify-between gap-8 mb-6 w-full">
-          <h2 className="text-xl font-semibold text-gray-800 dark:text-white/90">
-            Users
-          </h2>
-          <SearchInput placeholder="Search users..." />
-        </div>
-        <UsersTableSkeleton />
-      </div>
-    );
 
   if (error) return <p className="text-red-500">Failed to load users</p>;
 
@@ -60,17 +49,17 @@ function UsersPage() {
         </h2>
         <SearchInput placeholder="Search users..." />
       </div>
-      {_.isEmpty(data?.users) && !usersParams.q && (
+      {_.isEmpty(data?.users) && !isLoading && !usersParams.q && (
         <p className="text-center text-gray-500 dark:text-gray-400 mt-16">
           There are no users
         </p>
       )}
-      {_.isEmpty(data?.users) && usersParams.q && (
+      {_.isEmpty(data?.users) && !isLoading && usersParams.q && (
         <p className="text-center text-gray-500 dark:text-gray-400 mt-16">
           There is no user {usersParams.q && `matches "${usersParams.q}"`}
         </p>
       )}
-      {!_.isEmpty(data?.users) && (
+      {!_.isEmpty(data?.users) && !isLoading ? (
         <div className="space-y-6">
           <UsersTable users={data?.users ?? []} />
           <div className="flex justify-between items-center">
@@ -83,6 +72,10 @@ function UsersPage() {
             />
           </div>
         </div>
+      ) : isLoading ? (
+        <UsersTableSkeleton />
+      ) : (
+        ""
       )}
     </div>
   );
