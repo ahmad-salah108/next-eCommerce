@@ -8,7 +8,7 @@ export async function updateUser(formData: FormData) {
   const role = formData.get("role") as "customer" | "admin";
 
   if (!user_id || !email || !full_name || !role) {
-    return { error: "Missing required fields" };
+    throw new Error("Missing required fields")
   }
 
   /* 1️⃣ Update email in auth.users */
@@ -21,7 +21,7 @@ export async function updateUser(formData: FormData) {
 
   if (authError) {
     console.error(authError);
-    return { error: authError.message };
+    throw authError
   }
 
   /* 2️⃣ Update profile data */
@@ -35,7 +35,7 @@ export async function updateUser(formData: FormData) {
 
   if (profileError) {
     console.error(profileError);
-    return { error: profileError.message };
+    throw profileError
   }
 
   return { success: true };

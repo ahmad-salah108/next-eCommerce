@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import "./admin-globals.css";
 import { hasLocale } from "next-intl";
 import { routing } from "@/i18n/routing";
-import { getFontClassName } from "@/lib/utils";
+import { getFontClassName } from "@/lib/utils/getFontClassName";
 import { getLangDir } from "rtl-detect";
 import { getCurrentUser } from "@/lib/actions/users/getCurrentUser";
 import { use } from "react";

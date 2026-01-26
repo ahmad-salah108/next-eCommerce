@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
-import { uploadImage } from "@/lib/uploadImage";
+import { uploadImage } from "@/lib/utils/uploadImage";
 
 export async function createCategory(formData: FormData) {
   const supabase = await createClient();

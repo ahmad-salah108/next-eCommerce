@@ -39,7 +39,7 @@ const Input: FC<InputProps> = ({
   required = false
 }) => {
   // Determine input styles based on state (disabled, success, error)
-  let inputClasses = `h-11 w-full rounded-lg border appearance-none px-4 py-2.5 text-sm shadow-theme-xs placeholder:text-gray-400 focus:outline-hidden focus:ring-3 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-cyan-900 ${className}`;
+  let inputClasses = `h-[36px] ${type === "file" && "leading-[35px]"} flex items-center justify-center w-full rounded-lg border appearance-none px-4 text-sm shadow-theme-xs placeholder:text-gray-400 focus:outline-hidden focus:ring-3 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-cyan-900 ${className}`;
 
   // Add styles for the different states
   if (disabled) {

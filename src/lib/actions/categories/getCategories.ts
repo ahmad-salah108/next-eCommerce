@@ -23,6 +23,7 @@ async function getCategories({ page: paramsPage, q, PAGE_SIZE }: Props) {
     .select("*", {
       count: "exact",
     })
+    .is("deleted_at", null)
     .order("created_at", { ascending: false })
     .range(from, to);
 

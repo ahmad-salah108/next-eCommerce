@@ -3,8 +3,16 @@ import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
-  experimental:{
-    optimizePackageImports: ["@tanstack/react-query"]
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "aqfombnsjhlgkvoqmmqj.supabase.co",
+      },
+    ],
+  },
+  experimental: {
+    optimizePackageImports: ["@tanstack/react-query"],
   },
   webpack(config) {
     config.module.rules.push({

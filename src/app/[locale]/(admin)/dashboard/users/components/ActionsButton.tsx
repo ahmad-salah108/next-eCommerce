@@ -95,7 +95,7 @@ function ActionsButton({ user }: { user: UserType }) {
           Delete User
         </h4>
         <p className="text-[1rem] leading-6 text-gray-500 dark:text-gray-400">
-          Are you sure you want to <strong>DELETE</strong> &quot;{user.full_name}&quot; ?
+          Are you sure you want to delete user <strong>&quot;{user.full_name}&quot;</strong> ?
         </p>
         <div className="flex items-center justify-end w-full gap-3 mt-8">
           <Button

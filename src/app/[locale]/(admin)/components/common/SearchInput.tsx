@@ -22,7 +22,7 @@ export default function SearchInput({placeholder}:{placeholder: string}) {
   }, 400);
 
   return (
-    <div className="w-full max-w-[500px]">
+    <div className="w-full sm:w-[400px]">
       <Input
         type="text"
         placeholder={placeholder}

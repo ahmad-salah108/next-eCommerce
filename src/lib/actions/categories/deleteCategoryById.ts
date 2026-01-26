@@ -1,7 +1,5 @@
 "use server"; // <--- because of this line, React Query will now automatically treat it
 // as a network request to the server instead of trying to run the logic in the browser.
-
-import { revalidatePath } from "next/cache";
 import { createClient } from "../../supabase/server";
 
 export async function deleteCategoryById(id: string) {
@@ -16,5 +14,5 @@ export async function deleteCategoryById(id: string) {
     throw error;
   }
 
-  revalidatePath("/dashboard/categories");
+  return { success: true };
 }

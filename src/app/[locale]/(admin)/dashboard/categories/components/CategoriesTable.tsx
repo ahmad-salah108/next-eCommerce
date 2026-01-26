@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   Table,
   TableBody,
@@ -77,7 +78,7 @@ export default function CategoriesTable({
                       {category.id}
                     </TableCell>
                     <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                      {category.image ?? <p className="text-xs">No Image</p>}
+                      {category.image ? <Image src={category.image} alt={`${category.name} Image`} width={50} height={50}/> : <p className="text-xs">No Image</p>}
                     </TableCell>
                     <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
                       {category.name}

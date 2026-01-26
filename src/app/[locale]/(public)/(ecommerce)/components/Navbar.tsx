@@ -14,7 +14,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { getFontClassName } from "@/lib/utils";
+import { getFontClassName } from "@/lib/utils/getFontClassName";
 
 export default function Navbar({ locale }: { locale: string }) {
   const search = useRef<HTMLInputElement | null>(null);

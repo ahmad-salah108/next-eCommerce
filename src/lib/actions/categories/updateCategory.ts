@@ -1,17 +1,9 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
-import { uploadImage } from "@/lib/uploadImage";
-import { redirect } from "next/navigation";
+import { uploadImage } from "@/lib/utils/uploadImage";
 
-type UpdateCategoryState = {
-  error: string | null;
-};
-
-export async function updateCategory(
-  prevState: UpdateCategoryState,
-  formData: FormData
-): Promise<UpdateCategoryState> {
+export async function updateCategory(formData: FormData) {
   const supabase = await createClient();
 
   const id = formData.get("id") as string;
@@ -40,8 +32,8 @@ export async function updateCategory(
 
   if (error) {
     console.error(error);
-    return { error: error.message };
+    throw error;
   }
 
-  redirect("/dashboard/categories?updated=true");
+  return {success: true}
 }

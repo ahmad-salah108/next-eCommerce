@@ -12,6 +12,7 @@ export async function getUserById(id: string) {
   }: { data: UserType | null; error: PostgrestError | null } = await supabase
     .from("profiles")
     .select("*")
+    .is("deleted_at", null)
     .eq("id", id)
     .single();
 

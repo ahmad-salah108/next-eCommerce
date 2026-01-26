@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { getFontClassName } from "@/lib/utils";
+import { getFontClassName } from "@/lib/utils/getFontClassName";
 import Image from "next/image";
 
 async function Hero({ locale }: { locale: string }) {

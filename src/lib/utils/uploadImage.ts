@@ -1,15 +1,15 @@
-import { createClient } from "@/lib/supabase/client";
+import { createClient } from "@/lib/supabase/server";
 
 type Props = {
-  file: File,
-  oldImageUrl?: string,
-  table: string,
-  path: string
-}
+  file: File;
+  oldImageUrl?: string;
+  table: string;
+  path: string;
+};
 
-const supabase = createClient();
+export async function uploadImage({ file, oldImageUrl, table, path }: Props) {
+  const supabase = await createClient();
 
-export async function uploadImage({file, oldImageUrl, table, path}: Props) {
   const fileExt = file.name.split(".").pop();
   const fileName = `${crypto.randomUUID()}.${fileExt}`;
   const filePath = `${path}/${fileName}`;
@@ -21,7 +21,10 @@ export async function uploadImage({file, oldImageUrl, table, path}: Props) {
       upsert: false,
     });
 
-  if (uploadError) throw uploadError;
+  if (uploadError) {
+    console.error(uploadError);
+    throw uploadError;
+  }
 
   // DELETE old image on update
   if (oldImageUrl) {
