@@ -47,7 +47,7 @@ function AppSidebar() {
     navItems: NavItem[],
   ) => (
     <ul className="flex flex-col gap-4">
-      {navItems.map((nav, index) => (
+      {navItems.map((nav) => (
         <li key={nav.name}>
           {nav.path && (
             <Link

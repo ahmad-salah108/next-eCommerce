@@ -4,14 +4,13 @@ import { useActionState } from "react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import Link from "next/link";
-import { ArrowLeftIcon } from "lucide-react";
 import { SignUpFormStateType } from "@/types/SignUpFormStateType";
 
 const initialState: SignUpFormStateType = { errors: null, values: null };
 
 export default function SignUpPage() {
   const [state, formAction, isPending] = useActionState(signUp, initialState);
-  console.log(state.errors);
+
   return (
     <form className="flex flex-col gap-4">
       <div className="flex justify-between items-center mb-2">
@@ -57,7 +56,6 @@ export default function SignUpPage() {
       {state.errors?.general && (
         <p className="text-red-500 text-sm">{state.errors?.general}</p>
       )}
-      {/* {state.errors && <p className="text-red-500 text-sm">{state.errors}</p>} */}
 
       <p className="text-sm">
         Already have an account?{" "}
