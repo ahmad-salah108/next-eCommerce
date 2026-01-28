@@ -10,19 +10,21 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Spinner } from "@/components/ui/spinner";
 import Link from "next/link";
-import { CategoryType } from "@/types/CategoryType";
-import { deleteCategoryById } from "@/lib/actions/categories/deleteCategoryById";
+import { ProductType } from "@/types/ProductType";
+import { deleteProductById } from "@/lib/actions/products/deleteProductById";
+import { useLocale } from "next-intl";
 
-function ActionsButton({ category }: { category: CategoryType }) {
+function ActionsButton({ product }: { product: ProductType }) {
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const { isOpen: isModalOpen, openModal, closeModal } = useModal();
   const queryClient = useQueryClient();
+  const locale = useLocale() as "en" | "ar"
   const { mutate, isPending, isSuccess } = useMutation({
-    mutationFn: deleteCategoryById,
+    mutationFn: deleteProductById,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["categories"] });
-      toast.success("Category has been deleted");
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+      toast.success("Product has been deleted");
       closeModal();
     },
     onError: (err) => {
@@ -47,8 +49,8 @@ function ActionsButton({ category }: { category: CategoryType }) {
     setIsOpen(false);
   }
 
-  function handleCategoryDelete() {
-    if (!isPending && !isSuccess) mutate(category.id as string);
+  function handleProductDelete() {
+    if (!isPending && !isSuccess) mutate(product.id);
   }
 
   return (
@@ -63,7 +65,7 @@ function ActionsButton({ category }: { category: CategoryType }) {
         <MoreVerticalIcon />
       </Button>
       <Dropdown isOpen={isOpen} onClose={closeDropdown} className="w-40 p-2">
-        <Link href={`/dashboard/categories/${category.id}/${category.slug}`}>
+        <Link href={`/dashboard/products/${product.id}/${product.slug}`}>
           <DropdownItem
             tag="a"
             onItemClick={closeDropdown}
@@ -87,11 +89,11 @@ function ActionsButton({ category }: { category: CategoryType }) {
         className="max-w-[600px] p-5 lg:p-10"
       >
         <h4 className="font-semibold text-gray-800 mb-7 text-title-sm dark:text-white/90">
-          Delete Category
+          Delete Product
         </h4>
         <p className="text-[1rem] leading-6 text-gray-500 dark:text-gray-400">
-          Are you sure you want to delete <strong>&quot;{category.name}
-          &quot;</strong> category?
+          Are you sure you want to delete <strong>&quot;{product.name[locale]}
+          &quot;</strong> product?
         </p>
         <div className="flex items-center justify-end w-full gap-3 mt-8">
           <Button
@@ -102,7 +104,7 @@ function ActionsButton({ category }: { category: CategoryType }) {
             No
           </Button>
           <Button
-            onClick={handleCategoryDelete}
+            onClick={handleProductDelete}
             className="bg-red-500 text-white w-20 flex justify-center items-center"
             disabled={isPending || isSuccess}
           >

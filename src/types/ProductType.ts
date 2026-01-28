@@ -1,3 +1,5 @@
+import { CategoryType } from "./CategoryType";
+
 export type ProductType = {
   id: number;
   images: string[];
@@ -11,7 +13,7 @@ export type ProductType = {
     ar: string;
   };
   slug: string;
-  category_id: number;
+  product_categories: Array<CategoryType>
   price: number;
   stock: number;
   created_at: string;

@@ -7,7 +7,7 @@ import { PostgrestError } from "@supabase/supabase-js";
 type Props = {
   page?: string;
   q?: string;
-  PAGE_SIZE: number
+  PAGE_SIZE: number;
 };
 
 async function getProducts({ page: paramsPage, q, PAGE_SIZE }: Props) {
@@ -20,9 +20,15 @@ async function getProducts({ page: paramsPage, q, PAGE_SIZE }: Props) {
   /** 1. Fetch products chained with search value */
   let query = supabase
     .from("products")
-    .select("*", {
-      count: "exact",
-    })
+    .select(
+      `
+    *,
+    product_categories:categories (*)
+  `,
+      {
+        count: "exact",
+      },
+    )
     .is("deleted_at", null)
     .order("created_at", { ascending: false })
     .range(from, to);

@@ -7,13 +7,13 @@ import SearchInput from "../../components/common/SearchInput";
 import UpdateToastHandler from "../../components/common/UpdateToastHandler";
 import Pagination from "../../components/tables/Pagination";
 import { useSearchParams } from "next/navigation";
-import CategoriesTable from "./components/CategoriesTable";
-import getCategories from "@/lib/actions/categories/getCategories";
-import CategoriesTableSkeleton from "./components/CategoriesTableSkeleton";
+import ProductsTable from "./components/ProductsTable";
+import ProductsTableSkeleton from "./components/ProductsTableSkeleton";
 import { PlusIcon } from "lucide-react";
 import StyledButton from "../../components/common/StyledButton";
 import Link from "next/link";
 import CreateToastHandler from "../../components/common/CreateToastHandler";
+import getProducts from "@/lib/actions/products/getProducts";
 
 const PAGE_SIZE = 10;
 
@@ -30,7 +30,7 @@ function ProductsPage() {
 
   const { data, isLoading, isFetching, error } = useQuery({
     queryKey: ["products", productsParams.page, productsParams.q],
-    queryFn: () => getCategories({ ...productsParams, PAGE_SIZE }),
+    queryFn: () => getProducts({ ...productsParams, PAGE_SIZE }),
   });
 
   useEffect(() => {
@@ -39,46 +39,47 @@ function ProductsPage() {
     }
   }, [isFetching]);
 
-  if (error) return <p className="text-red-500">Failed to load categories</p>;
+  if (error) return <p className="text-red-500">Failed to load products</p>;
 
   return (
     <div>
+      <title>SHOPYA | Products</title>
       <CreateToastHandler
-        message="Category Created successfully!"
-        urlToReplace="/dashboard/categories"
+        message="Product Created successfully!"
+        urlToReplace="/dashboard/products"
       />
       <UpdateToastHandler
-        message="Category updated successfully!"
-        urlToReplace="/dashboard/categories"
+        message="Product updated successfully!"
+        urlToReplace="/dashboard/products"
       />
       <div className="flex flex-wrap flex-col sm:flex-row items-start sm:items-center justify-between gap-8 mb-6 w-full">
         <h2 className="text-xl font-semibold text-gray-800 dark:text-white/90">
-          Categories
+          Products
         </h2>
         <div className="w-full sm:w-auto flex flex-wrap sm:flex-nowrap flex-col-reverse sm:flex-row justify-center items-start sm:items-center gap-4">
-          <SearchInput placeholder="Search categories..." />
-          <Link href={"/dashboard/categories/new-category"}>
+          <SearchInput placeholder="Search products..." />
+          <Link href={"/dashboard/products/new-product"}>
             <StyledButton className="flex">
               <PlusIcon />
-              Create New Category
+              Create New Product
             </StyledButton>
           </Link>
         </div>
       </div>
-      {_.isEmpty(data?.categories) && !isLoading && !productsParams.q && (
+      {_.isEmpty(data?.products) && !isLoading && !productsParams.q && (
         <p className="text-center text-gray-500 dark:text-gray-400 mt-16">
-          There are no categories
+          There are no products
         </p>
       )}
-      {_.isEmpty(data?.categories) && !isLoading && productsParams.q && (
+      {_.isEmpty(data?.products) && !isLoading && productsParams.q && (
         <p className="text-center text-gray-500 dark:text-gray-400 mt-16">
-          There is no category{" "}
+          There is no product{" "}
           {productsParams.q && `matches "${productsParams.q}"`}
         </p>
       )}
-      {!_.isEmpty(data?.categories) && !isLoading ? (
+      {!_.isEmpty(data?.products) && !isLoading ? (
         <div className="space-y-6">
-          <CategoriesTable categories={data?.categories ?? []} />
+          <ProductsTable products={data?.products ?? []} />
           <div className="flex justify-between items-center">
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Showing {PAGE_SIZE} entries
@@ -89,7 +90,7 @@ function ProductsPage() {
             />
           </div>
         </div>
-      ) : isLoading ? <CategoriesTableSkeleton /> : ""}
+      ) : isLoading ? <ProductsTableSkeleton /> : ""}
     </div>
   );
 }

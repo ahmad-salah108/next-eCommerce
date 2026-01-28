@@ -9,6 +9,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "aqfombnsjhlgkvoqmmqj.supabase.co",
       },
+      {
+        protocol: "https",
+        hostname: "www.apple.com",
+      },
     ],
   },
   experimental: {
