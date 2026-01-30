@@ -32,7 +32,9 @@ function ActionsButton({ product }: { product: ProductType }) {
     },
   });
 
-  function toggleDropdown() {
+  function toggleDropdown(e: React.MouseEvent<HTMLButtonElement>) {
+    e.stopPropagation();
+    
     const newIsOpen = !isOpen;
     setIsOpen(newIsOpen);
 
@@ -56,6 +58,7 @@ function ActionsButton({ product }: { product: ProductType }) {
   return (
     <div>
       <Button
+        id="actionButton"
         ref={buttonRef}
         onClick={toggleDropdown}
         variant={"ghost"}

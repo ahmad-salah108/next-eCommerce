@@ -1,5 +1,5 @@
 import Breadcrumbs from "@/components/Breadcrumbs";
-import EmblaThumbsCarousel from "@/components/embla-carousel/EmblaThumbsCarousel";
+import EmblaThumbsCarousel from "@/components/embla-thumbs-carousel/EmblaThumbsCarousel";
 import { EmblaOptionsType } from "embla-carousel";
 import Thumbnail from "./components/Thumbnail";
 import ProductImage from "./components/ProductImage";

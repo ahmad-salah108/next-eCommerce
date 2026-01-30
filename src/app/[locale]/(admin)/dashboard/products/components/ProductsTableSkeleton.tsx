@@ -53,13 +53,25 @@ export default function ProductsTableSkeleton() {
                     <div className="h-4 w-30 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
                   </TableCell>
                   <TableCell className="px-4 py-3">
-                    <div className="h-5 w-40 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
+                    <div className="h-5 w-60 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
                   </TableCell>
                   <TableCell className="px-4 py-3">
                     <div className="h-4 w-10 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
                   </TableCell>
                   <TableCell className="px-4 py-3">
-                    <div className="h-4 w-24 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
+                    <div className="h-4 w-30 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
+                  </TableCell>
+                  <TableCell className="px-4 py-3">
+                    <div className="h-4 w-10 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
+                  </TableCell>
+                  <TableCell className="px-4 py-3">
+                    <div className="h-4 w-10 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
+                  </TableCell>
+                  <TableCell className="px-4 py-3">
+                    <div className="h-4 w-20 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
+                  </TableCell>
+                  <TableCell className="px-4 py-3">
+                    <div className="h-4 w-15 animate-pulse rounded bg-gray-200 dark:bg-gray-700" />
                   </TableCell>
                 </TableRow>
               ))}

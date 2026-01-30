@@ -10,7 +10,8 @@ import ActionsButton from "./ActionsButton";
 import { ProductType } from "@/types/ProductType";
 import { useLocale } from "next-intl";
 import Badge from "../../../components/ui/badge/Badge";
-import { ImagesIcon } from "lucide-react";
+import ViewProduct from "./ViewProduct";
+import { useModal } from "@/hooks/useModal";
 
 export default function ProductsTable({
   products,
@@ -18,6 +19,7 @@ export default function ProductsTable({
   products: Array<ProductType>;
 }) {
   const locale = useLocale() as "en" | "ar";
+  const { isOpen: isModalOpen, openModal, closeModal } = useModal();
 
   return (
     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
@@ -37,7 +39,7 @@ export default function ProductsTable({
                   isHeader
                   className="px-5 py-3 font-medium text-gray-500 text-start text-theme-xs dark:text-gray-400"
                 >
-                  Images
+                  Image
                 </TableCell>
                 <TableCell
                   isHeader
@@ -101,38 +103,64 @@ export default function ProductsTable({
                 }).format(date);
 
                 return (
-                  <TableRow key={product.id}>
-                    <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                      {product.id}
-                    </TableCell>
-                    <TableCell className="flex px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                      {product.main_image ? <Image src={product.main_image} alt={`${product.name} Image`} width={50} height={50}/> : <p className="text-xs">No Image</p>}<ImagesIcon/>
-                    </TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                      {product.name[locale]}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                      {product.description[locale]}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                      {product.slug}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 space-x-2 space-y-2 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                      {product.product_categories.map(e => <Badge key={e.id}>{e.name}</Badge>)}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                      ${product.price}
-                    </TableCell>
-                    <TableCell className={`px-4 py-3 font-semibold ${product.stock > 10 ? "text-success-600 dark:text-success-500" : product.stock > 5 ? "text-warning-500" : "text-error-500 dark:text-error-600"} text-start text-theme-sm`}>
-                      {product.stock}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                      {formattedDate}
-                    </TableCell>
-                    <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                      <ActionsButton product={product} />
-                    </TableCell>
-                  </TableRow>
+                  <>
+                    <ViewProduct
+                      isModalOpen={isModalOpen}
+                      closeModal={closeModal}
+                      product={product}
+                      locale={locale}
+                    />
+                    <TableRow
+                      key={product.id}
+                      onClick={openModal}
+                      className="cursor-pointer hover:bg-gray-50 hover:dark:bg-black"
+                    >
+                      <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                        {product.id}
+                      </TableCell>
+                      <TableCell className="flex justify-center items-center px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                        {product.main_image ? (
+                          <Image
+                            src={product.main_image}
+                            alt={`${product.name} Image`}
+                            width={50}
+                            height={50}
+                          />
+                        ) : (
+                          <p className="text-xs">No Image</p>
+                        )}
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                        {product.name[locale]}
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400 max-w-[25ch] truncate">
+                        {product.description[locale]} Lorem ipsum dolor sit amet
+                        consectetur, adipisicing elit. Ipsam, labore.
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                        {product.slug}
+                      </TableCell>
+                      <TableCell className="px-4 py-3 space-x-2 space-y-2 text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                        {product.product_categories.map((e) => (
+                          <Badge key={e.id}>{e.name}</Badge>
+                        ))}
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
+                        ${product.price}
+                      </TableCell>
+                      <TableCell
+                        className={`px-4 py-3 font-semibold ${product.stock > 10 ? "text-success-600 dark:text-success-500" : product.stock > 5 ? "text-warning-500" : "text-error-500 dark:text-error-600"} text-start text-theme-sm`}
+                      >
+                        {product.stock}
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
+                        {formattedDate}
+                      </TableCell>
+                      <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
+                        <ActionsButton product={product} />
+                      </TableCell>
+                    </TableRow>
+                  </>
                 );
               })}
             </TableBody>
