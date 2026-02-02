@@ -1,4 +1,5 @@
-"use client"
+"use client";
+import { useState } from "react";
 import { UserType } from "@/types/UserType";
 import {
   Table,
@@ -9,12 +10,34 @@ import {
 } from "../../../components/ui/table";
 import Badge from "../../../components/ui/badge/Badge";
 import ActionsButton from "./ActionsButton";
+import { useModal } from "@/hooks/useModal";
+import UserDeleteModal from "./UserDeleteModal";
+import _ from "lodash";
 
 export default function UsersTable({ users }: { users: Array<UserType> }) {
+  const [user, setUser] = useState<UserType>({} as UserType);
+  const {
+    isOpen: isDeleteModalOpen,
+    openModal: openDeleteModal,
+    closeModal: closeDeleteModal,
+  } = useModal();
+
+  function handleOpenDeleteModal(user: UserType) {
+    setUser(user);
+    openDeleteModal();
+  }
+
   return (
     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
       <div className="max-w-full overflow-x-auto">
         <div className="min-w-[1102px]">
+          {!_.isEmpty(user) && user.user_id && (
+            <UserDeleteModal
+              isModalOpen={isDeleteModalOpen}
+              closeModal={closeDeleteModal}
+              user={user}
+            />
+          )}
           <Table>
             {/* Table Header */}
             <TableHeader className="border-b border-gray-100 dark:border-white/[0.05]">
@@ -99,7 +122,10 @@ export default function UsersTable({ users }: { users: Array<UserType> }) {
                       {formattedDate}
                     </TableCell>
                     <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                      <ActionsButton user={user}/>
+                      <ActionsButton
+                        user={user}
+                        openDeleteModal={() => handleOpenDeleteModal(user)}
+                      />
                     </TableCell>
                   </TableRow>
                 );

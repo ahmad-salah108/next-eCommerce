@@ -10,21 +10,61 @@ import ActionsButton from "./ActionsButton";
 import { ProductType } from "@/types/ProductType";
 import { useLocale } from "next-intl";
 import Badge from "../../../components/ui/badge/Badge";
-import ViewProduct from "./ViewProduct";
+import ProductViewModal from "./ProductViewModal";
 import { useModal } from "@/hooks/useModal";
+import ProductDeleteModal from "./ProductDeleteModal";
+import { Fragment } from "react/jsx-runtime";
+import { useState } from "react";
+import _ from "lodash";
 
 export default function ProductsTable({
   products,
 }: {
   products: Array<ProductType>;
 }) {
-  const locale = useLocale() as "en" | "ar";
-  const { isOpen: isModalOpen, openModal, closeModal } = useModal();
+  const [product, setProduct] = useState<ProductType>({} as ProductType);
+  const locale = useLocale();
+  const {
+    isOpen: isViewModalOpen,
+    openModal: openViewModal,
+    closeModal: closeViewModal,
+  } = useModal();
+  const {
+    isOpen: isDeleteModalOpen,
+    openModal: openDeleteModal,
+    closeModal: closeDeleteModal,
+  } = useModal();
+
+  function handleOpenViewModal(product: ProductType) {
+    setProduct(product);
+    openViewModal();
+  }
+
+  function handleOpenDeleteModal(product: ProductType) {
+    setProduct(product);
+    openDeleteModal();
+  }
 
   return (
     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
       <div className="max-w-full overflow-x-auto">
         <div className="min-w-[1102px]">
+          {!_.isEmpty(product) && (
+            <>
+              <ProductViewModal
+                isModalOpen={isViewModalOpen}
+                closeModal={closeViewModal}
+                product={product}
+                locale={locale}
+              />
+              <ProductDeleteModal
+                isModalOpen={isDeleteModalOpen}
+                closeModal={closeDeleteModal}
+                product={product}
+                locale={locale}
+              />
+            </>
+          )}
           <Table>
             {/* Table Header */}
             <TableHeader className="border-b border-gray-100 dark:border-white/[0.05]">
@@ -103,16 +143,9 @@ export default function ProductsTable({
                 }).format(date);
 
                 return (
-                  <>
-                    <ViewProduct
-                      isModalOpen={isModalOpen}
-                      closeModal={closeModal}
-                      product={product}
-                      locale={locale}
-                    />
+                  <Fragment key={product.id}>
                     <TableRow
-                      key={product.id}
-                      onClick={openModal}
+                      onClick={() => handleOpenViewModal(product)}
                       className="cursor-pointer hover:bg-gray-50 hover:dark:bg-black"
                     >
                       <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
@@ -134,8 +167,7 @@ export default function ProductsTable({
                         {product.name[locale]}
                       </TableCell>
                       <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400 max-w-[25ch] truncate">
-                        {product.description[locale]} Lorem ipsum dolor sit amet
-                        consectetur, adipisicing elit. Ipsam, labore.
+                        {product.description[locale]}
                       </TableCell>
                       <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
                         {product.slug}
@@ -157,10 +189,13 @@ export default function ProductsTable({
                         {formattedDate}
                       </TableCell>
                       <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                        <ActionsButton product={product} />
+                        <ActionsButton
+                          product={product}
+                          openDeleteModal={() => handleOpenDeleteModal(product)}
+                        />
                       </TableCell>
                     </TableRow>
-                  </>
+                  </Fragment>
                 );
               })}
             </TableBody>

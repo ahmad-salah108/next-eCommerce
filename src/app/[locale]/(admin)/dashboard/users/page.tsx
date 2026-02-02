@@ -1,6 +1,6 @@
 "use client";
 import _ from "lodash";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import getUsers from "@/lib/actions/users/getUsers";
 import { toast } from "sonner";
 import { useEffect } from "react";
@@ -10,6 +10,8 @@ import UpdateToastHandler from "../../components/common/UpdateToastHandler";
 import UsersTable from "./components/UsersTable";
 import Pagination from "../../components/tables/Pagination";
 import { useSearchParams } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { RefreshCcwIcon } from "lucide-react";
 
 const PAGE_SIZE = 10;
 
@@ -19,6 +21,7 @@ type UsersParamsType = {
 };
 
 function UsersPage() {
+  const queryClient = useQueryClient();
   const searchParams = useSearchParams();
   const usersParams: UsersParamsType = Object.fromEntries(
     searchParams.entries(),
@@ -29,11 +32,11 @@ function UsersPage() {
     queryFn: () => getUsers({ ...usersParams, PAGE_SIZE }),
   });
 
-  useEffect(() => {
-    if (isFetching) {
-      toast("Refreshing...");
+  function handleRefreshButton() {
+    if (!isFetching && !isLoading) {
+      queryClient.invalidateQueries({ queryKey: ["users"] });
     }
-  }, [isFetching]);
+  }
 
   if (error) return <p className="text-red-500">Failed to load users</p>;
 
@@ -47,7 +50,26 @@ function UsersPage() {
         <h2 className="text-xl font-semibold text-gray-800 dark:text-white/90">
           Users
         </h2>
-        <SearchInput placeholder="Search users..." />
+        <div className="flex flex-row-reverse 2xsm:flex-row items-center gap-2">
+          <Button
+            size={"icon-sm"}
+            variant={"outline"}
+            className="bg-white dark:bg-[#171e2e] dark:border-gray-800 dark:text-white/90"
+            disabled={isFetching || isLoading}
+            onClick={handleRefreshButton}
+          >
+            <div
+              className={
+                isFetching || isLoading
+                  ? "animate-spin-loading"
+                  : "animate-spin-stop"
+              }
+            >
+              <RefreshCcwIcon />
+            </div>
+          </Button>
+          <SearchInput placeholder="Search users..." />
+        </div>
       </div>
       {_.isEmpty(data?.users) && !isLoading && !usersParams.q && (
         <p className="text-center text-gray-500 dark:text-gray-400 mt-16">

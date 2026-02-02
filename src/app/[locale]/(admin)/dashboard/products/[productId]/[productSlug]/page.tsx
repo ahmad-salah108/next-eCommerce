@@ -3,19 +3,19 @@ import BackButton from "../../../../components/common/BackButton";
 import { notFound } from "next/navigation";
 import { use } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getCategoryById } from "@/lib/actions/categories/getCategoryById";
-import CategoryEditForm from "./components/CategoryEditForm";
+import ProductEditForm from "./components/ProductEditForm";
 import CategoryEditFormSkeleton from "./components/CategoryEditFormSkeleton";
+import { getProductById } from "@/lib/actions/products/getProductById";
 
 type Props = {
-  params: Promise<{ categoryId: string }>;
+  params: Promise<{ productId: string }>;
 };
 
-function CategoryIdPage({ params }: Props) {
-  const { categoryId } = use(params);
+function ProductSlugPage({ params }: Props) {
+  const { productId } = use(params);
   const { data, isPending, error } = useQuery({
-    queryKey: ["categories", categoryId],
-    queryFn: () => getCategoryById(categoryId),
+    queryKey: ["products", productId],
+    queryFn: () => getProductById(productId),
   });
 
   if (error) notFound();
@@ -24,13 +24,13 @@ function CategoryIdPage({ params }: Props) {
     <div>
       <div className="flex flex-wrap items-center justify-between gap-8 mb-6 w-full">
         <h2 className="text-xl font-semibold text-gray-800 dark:text-white/90">
-          Edit Category
+          Edit Product
         </h2>
         <BackButton />
       </div>
-      {isPending ? <CategoryEditFormSkeleton /> : <CategoryEditForm category={data} />}
+      {isPending ? <CategoryEditFormSkeleton /> : <ProductEditForm product={data} />}
     </div>
   );
 }
 
-export default CategoryIdPage;
+export default ProductSlugPage;

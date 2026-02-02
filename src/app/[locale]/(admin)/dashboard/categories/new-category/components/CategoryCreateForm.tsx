@@ -53,7 +53,7 @@ export default function CategoryCreateForm() {
           <div className="max-w-[500px] space-y-3">
             <Label>Image</Label>
             {previewUrl && <Image src={previewUrl || ""} alt={`Category Image`} width={70} height={70}/>}
-            <Input name="image" type="file" accept="image/*" onChange={handleImageChange} />
+            <Input name="image" type="file" accept="image/*" required onChange={handleImageChange} />
           </div>
           <div className="max-w-[500px]">
             <Label>Category Name</Label>

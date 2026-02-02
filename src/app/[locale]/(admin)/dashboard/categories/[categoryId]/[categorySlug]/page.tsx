@@ -11,7 +11,7 @@ type Props = {
   params: Promise<{ categoryId: string }>;
 };
 
-function CategoryIdPage({ params }: Props) {
+function CategorySlugPage({ params }: Props) {
   const { categoryId } = use(params);
   const { data, isPending, error } = useQuery({
     queryKey: ["categories", categoryId],
@@ -33,4 +33,4 @@ function CategoryIdPage({ params }: Props) {
   );
 }
 
-export default CategoryIdPage;
+export default CategorySlugPage;

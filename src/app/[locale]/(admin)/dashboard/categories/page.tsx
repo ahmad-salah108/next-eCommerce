@@ -1,6 +1,6 @@
 "use client";
 import _ from "lodash";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useEffect } from "react";
 import SearchInput from "../../components/common/SearchInput";
@@ -10,10 +10,11 @@ import { useSearchParams } from "next/navigation";
 import CategoriesTable from "./components/CategoriesTable";
 import getCategories from "@/lib/actions/categories/getCategories";
 import CategoriesTableSkeleton from "./components/CategoriesTableSkeleton";
-import { PlusIcon } from "lucide-react";
+import { PlusIcon, RefreshCcwIcon } from "lucide-react";
 import StyledButton from "../../components/common/StyledButton";
 import Link from "next/link";
 import CreateToastHandler from "../../components/common/CreateToastHandler";
+import { Button } from "@/components/ui/button";
 
 const PAGE_SIZE = 10;
 
@@ -23,6 +24,7 @@ type CategoriesParamsType = {
 };
 
 function CategoriesPage() {
+  const queryClient = useQueryClient();
   const searchParams = useSearchParams();
   const categoriesParams: CategoriesParamsType = Object.fromEntries(
     searchParams.entries(),
@@ -33,11 +35,11 @@ function CategoriesPage() {
     queryFn: () => getCategories({ ...categoriesParams, PAGE_SIZE }),
   });
 
-  useEffect(() => {
-    if (isFetching) {
-      toast("Refreshing...");
+  function handleRefreshButton() {
+    if (!isFetching && !isLoading) {
+      queryClient.invalidateQueries({ queryKey: ["categories"] });
     }
-  }, [isFetching]);
+  }
 
   if (error) return <p className="text-red-500">Failed to load categories</p>;
 
@@ -56,7 +58,26 @@ function CategoriesPage() {
           Categories
         </h2>
         <div className="w-full sm:w-auto flex flex-wrap sm:flex-nowrap flex-col-reverse sm:flex-row justify-center items-start sm:items-center gap-4">
-          <SearchInput placeholder="Search categories..." />
+          <div className="flex flex-row-reverse sm:flex-row items-center gap-2">
+            <Button
+              size={"icon-sm"}
+              variant={"outline"}
+              className="bg-white dark:bg-[#171e2e] dark:border-gray-800 dark:text-white/90"
+              disabled={isFetching || isLoading}
+              onClick={handleRefreshButton}
+            >
+              <div
+                className={
+                  isFetching || isLoading
+                    ? "animate-spin-loading"
+                    : "animate-spin-stop"
+                }
+              >
+                <RefreshCcwIcon />
+              </div>
+            </Button>
+            <SearchInput placeholder="Search categories..." />
+          </div>
           <Link href={"/dashboard/categories/new-category"}>
             <StyledButton className="flex">
               <PlusIcon />
@@ -89,7 +110,11 @@ function CategoriesPage() {
             />
           </div>
         </div>
-      ) : isLoading ? <CategoriesTableSkeleton /> : ""}
+      ) : isLoading ? (
+        <CategoriesTableSkeleton />
+      ) : (
+        ""
+      )}
     </div>
   );
 }

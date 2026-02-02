@@ -1,6 +1,6 @@
 "use client";
 import _ from "lodash";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useEffect } from "react";
 import SearchInput from "../../components/common/SearchInput";
@@ -9,11 +9,12 @@ import Pagination from "../../components/tables/Pagination";
 import { useSearchParams } from "next/navigation";
 import ProductsTable from "./components/ProductsTable";
 import ProductsTableSkeleton from "./components/ProductsTableSkeleton";
-import { PlusIcon } from "lucide-react";
+import { PlusIcon, RefreshCcwIcon } from "lucide-react";
 import StyledButton from "../../components/common/StyledButton";
 import Link from "next/link";
 import CreateToastHandler from "../../components/common/CreateToastHandler";
 import getProducts from "@/lib/actions/products/getProducts";
+import { Button } from "@/components/ui/button";
 
 const PAGE_SIZE = 10;
 
@@ -23,21 +24,20 @@ type Params = {
 };
 
 function ProductsPage() {
+  const queryClient = useQueryClient();
   const searchParams = useSearchParams();
-  const productsParams: Params = Object.fromEntries(
-    searchParams.entries(),
-  );
+  const productsParams: Params = Object.fromEntries(searchParams.entries());
 
   const { data, isLoading, isFetching, error } = useQuery({
     queryKey: ["products", productsParams.page, productsParams.q],
     queryFn: () => getProducts({ ...productsParams, PAGE_SIZE }),
   });
 
-  useEffect(() => {
-    if (isFetching) {
-      toast("Refreshing...");
+  function handleRefreshButton() {
+    if (!isFetching && !isLoading) {
+      queryClient.invalidateQueries({ queryKey: ["products"] });
     }
-  }, [isFetching]);
+  }
 
   if (error) return <p className="text-red-500">Failed to load products</p>;
 
@@ -57,7 +57,26 @@ function ProductsPage() {
           Products
         </h2>
         <div className="w-full sm:w-auto flex flex-wrap sm:flex-nowrap flex-col-reverse sm:flex-row justify-center items-start sm:items-center gap-4">
-          <SearchInput placeholder="Search products..." />
+          <div className="flex flex-row-reverse sm:flex-row items-center gap-2">
+            <Button
+              size={"icon-sm"}
+              variant={"outline"}
+              className="bg-white dark:bg-[#171e2e] dark:border-gray-800 dark:text-white/90"
+              disabled={isFetching || isLoading}
+              onClick={handleRefreshButton}
+            >
+              <div
+                className={
+                  isFetching || isLoading
+                    ? "animate-spin-loading"
+                    : "animate-spin-stop"
+                }
+              >
+                <RefreshCcwIcon />
+              </div>
+            </Button>
+            <SearchInput placeholder="Search products..." />
+          </div>
           <Link href={"/dashboard/products/new-product"}>
             <StyledButton className="flex">
               <PlusIcon />
@@ -90,7 +109,11 @@ function ProductsPage() {
             />
           </div>
         </div>
-      ) : isLoading ? <ProductsTableSkeleton /> : ""}
+      ) : isLoading ? (
+        <ProductsTableSkeleton />
+      ) : (
+        ""
+      )}
     </div>
   );
 }

@@ -3,28 +3,30 @@ import ComponentCard from "@/app/[locale]/(admin)/components/common/ComponentCar
 import Label from "@/app/[locale]/(admin)/components/form/Label";
 import Input from "@/app/[locale]/(admin)/components/form/input/InputField";
 import StyledButton from "@/app/[locale]/(admin)/components/common/StyledButton";
-import { CategoryType } from "@/types/CategoryType";
 import { updateCategory } from "@/lib/actions/categories/updateCategory";
 import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { ChangeEvent, useState } from "react";
+import { ProductType } from "@/types/ProductType";
+import { useLocale } from "next-intl";
 
 type Props = {
-  category: CategoryType | null;
+  product: ProductType | null;
 };
 
-export default function CategoryEditForm({ category }: Props) {
+export default function ProductEditForm({ product }: Props) {
+  const locale = useLocale()
   const router = useRouter();
   const queryClient = useQueryClient();
   const { mutate, isPending, isError, error, isSuccess } = useMutation({
     mutationFn: (formData: FormData) => updateCategory(formData),
     onSuccess: () => {
       // 🔄 refresh list + single user cache
-      queryClient.invalidateQueries({ queryKey: ["categories"] });
-      queryClient.invalidateQueries({ queryKey: ["categories", category?.id] });
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+      queryClient.invalidateQueries({ queryKey: ["products", product?.id] });
 
-      router.push("/dashboard/categories?updated=true");
+      router.push("/dashboard/products?updated=true");
     },
   });
 
@@ -55,21 +57,21 @@ export default function CategoryEditForm({ category }: Props) {
   return (
     <ComponentCard title="">
       <form onSubmit={onSubmit}>
-        <input type="hidden" name="id" value={category?.id} />
-        <input type="hidden" name="oldImageUrl" value={category?.image ?? ""} />
+        <input type="hidden" name="id" value={product?.id} />
+        <input type="hidden" name="oldImageUrl" value={product?.main_image ?? ""} />
         <div className="space-y-6">
           <div className="max-w-[500px] space-y-3">
             <Label>Image</Label>
-            {(previewUrl || category?.image) && <Image src={previewUrl || category?.image || ""} alt={`${category?.name} Image`} width={70} height={70}/>}
+            {(previewUrl || product?.main_image) && <Image src={previewUrl || product?.main_image || ""} alt={`${product?.name[locale]} Image`} width={70} height={70}/>}
             <Input name="image" type="file" accept="image/*" onChange={handleImageChange} />
           </div>
           <div className="max-w-[500px]">
-            <Label>Category Name</Label>
+            <Label>Product Name</Label>
             <Input
               name="name"
               type="text"
               required
-              defaultValue={category?.name}
+              defaultValue={product?.name.en}
             />
           </div>
           {isError && <p className="text-red-500 text-sm">{error.message}</p>}

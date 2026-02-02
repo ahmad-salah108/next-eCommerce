@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 
-function CategoryIdPage() {
+function ProductIdPage() {
   return notFound()
 }
 
-export default CategoryIdPage
+export default ProductIdPage

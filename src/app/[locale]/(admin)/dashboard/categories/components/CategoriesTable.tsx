@@ -8,16 +8,39 @@ import {
 } from "../../../components/ui/table";
 import ActionsButton from "./ActionsButton";
 import { CategoryType } from "@/types/CategoryType";
+import { useModal } from "@/hooks/useModal";
+import { useState } from "react";
+import CategoryDeleteModal from "./CategoryDeleteModal";
+import _ from "lodash";
 
 export default function CategoriesTable({
   categories,
 }: {
   categories: Array<CategoryType>;
 }) {
+  const [category, setCategory] = useState<CategoryType>({} as CategoryType);
+  const {
+    isOpen: isDeleteModalOpen,
+    openModal: openDeleteModal,
+    closeModal: closeDeleteModal,
+  } = useModal();
+
+  function handleOpenDeleteModal(category: CategoryType) {
+    setCategory(category);
+    openDeleteModal();
+  }
+
   return (
     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
       <div className="max-w-full overflow-x-auto">
         <div className="min-w-[1102px]">
+          {!_.isEmpty(category) && (
+            <CategoryDeleteModal
+              isModalOpen={isDeleteModalOpen}
+              closeModal={closeDeleteModal}
+              category={category}
+            />
+          )}
           <Table>
             {/* Table Header */}
             <TableHeader className="border-b border-gray-100 dark:border-white/[0.05]">
@@ -78,7 +101,16 @@ export default function CategoriesTable({
                       {category.id}
                     </TableCell>
                     <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
-                      {category.image ? <Image src={category.image} alt={`${category.name} Image`} width={50} height={50}/> : <p className="text-xs">No Image</p>}
+                      {category.image ? (
+                        <Image
+                          src={category.image}
+                          alt={`${category.name} Image`}
+                          width={50}
+                          height={50}
+                        />
+                      ) : (
+                        <p className="text-xs">No Image</p>
+                      )}
                     </TableCell>
                     <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
                       {category.name}
@@ -90,7 +122,10 @@ export default function CategoriesTable({
                       {formattedDate}
                     </TableCell>
                     <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                      <ActionsButton category={category} />
+                      <ActionsButton
+                        category={category}
+                        openDeleteModal={() => handleOpenDeleteModal(category)}
+                      />
                     </TableCell>
                   </TableRow>
                 );

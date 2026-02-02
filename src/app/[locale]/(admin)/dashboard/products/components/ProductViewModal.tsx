@@ -5,15 +5,16 @@ import Image from "next/image";
 import Link from "next/link";
 import Badge from "../../../components/ui/badge/Badge";
 import React from "react";
+import { routing } from "@/i18n/routing";
 
 type Props = {
   isModalOpen: boolean;
   closeModal: () => void;
   product: ProductType;
-  locale: "en" | "ar";
+  locale: typeof routing.locales[number];
 };
 
-function ViewProduct({ isModalOpen, closeModal, product, locale }: Props) {
+function ProductViewModal({ isModalOpen, closeModal, product, locale }: Props) {
   const date = new Date(product.created_at);
   const formattedDate = new Intl.DateTimeFormat("en-US", {
     day: "numeric",
@@ -130,4 +131,4 @@ function ViewProduct({ isModalOpen, closeModal, product, locale }: Props) {
   );
 }
 
-export default ViewProduct;
+export default ProductViewModal;
