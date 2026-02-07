@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { use } from "react";
 import { useQuery } from "@tanstack/react-query";
 import ProductEditForm from "./components/ProductEditForm";
-import CategoryEditFormSkeleton from "./components/CategoryEditFormSkeleton";
+import ProductEditFormSkeleton from "./components/ProductEditFormSkeleton";
 import { getProductById } from "@/lib/actions/products/getProductById";
 
 type Props = {
@@ -17,6 +17,7 @@ function ProductSlugPage({ params }: Props) {
     queryKey: ["products", productId],
     queryFn: () => getProductById(productId),
   });
+  const categoryIds = data?.product_categories?.map(c => Number(c.id)) ?? []
 
   if (error) notFound();
 
@@ -28,7 +29,7 @@ function ProductSlugPage({ params }: Props) {
         </h2>
         <BackButton />
       </div>
-      {isPending ? <CategoryEditFormSkeleton /> : <ProductEditForm product={data} />}
+      {isPending ? <ProductEditFormSkeleton /> : <ProductEditForm product={data} categoryIds={categoryIds} />}
     </div>
   );
 }

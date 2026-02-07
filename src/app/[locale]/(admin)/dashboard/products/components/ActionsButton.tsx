@@ -2,7 +2,7 @@
 import { useState, useRef } from "react";
 import { Dropdown } from "../../../components/ui/dropdown/Dropdown";
 import { DropdownItem } from "../../../components/ui/dropdown/DropdownItem";
-import { MoreVerticalIcon, PenBoxIcon, Trash2 } from "lucide-react";
+import { EyeIcon, MoreVerticalIcon, PenBoxIcon, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ProductType } from "@/types/ProductType";
@@ -10,9 +10,11 @@ import { ProductType } from "@/types/ProductType";
 function ActionsButton({
   product,
   openDeleteModal,
+  openViewModal,
 }: {
   product: ProductType;
   openDeleteModal: () => void;
+  openViewModal: () => void;
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -49,6 +51,14 @@ function ActionsButton({
         <MoreVerticalIcon />
       </Button>
       <Dropdown isOpen={isOpen} onClose={closeDropdown} className="w-40 p-2">
+        <DropdownItem
+          tag="a"
+          onItemClick={()=>{openViewModal(); closeDropdown();}}
+          className="flex justify-start items-center text-nowrap gap-2 w-full font-normal text-left text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
+        >
+          <EyeIcon className="w-4 h-4" /> View Product
+        </DropdownItem>
+
         <Link href={`/dashboard/products/${product.id}/${product.slug}`}>
           <DropdownItem
             tag="a"

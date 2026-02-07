@@ -7,10 +7,11 @@ import { PostgrestError } from "@supabase/supabase-js";
 type Props = {
   page?: string;
   q?: string;
-  PAGE_SIZE: number
+  PAGE_SIZE?: number;
+  getAll?: boolean
 };
 
-async function getCategories({ page: paramsPage, q, PAGE_SIZE }: Props) {
+async function getCategories({ page: paramsPage, q, PAGE_SIZE = 10, getAll = false }: Props) {
   const supabase = await createClient();
 
   const page = Math.max(Number(paramsPage) || 1, 1);
@@ -24,14 +25,18 @@ async function getCategories({ page: paramsPage, q, PAGE_SIZE }: Props) {
       count: "exact",
     })
     .is("deleted_at", null)
-    .order("created_at", { ascending: false })
-    .range(from, to);
+    .order("created_at", { ascending: false });
+
+  /** 2. Conditionally apply range */
+  if (!getAll) {
+    query = query.range(from, to);
+  }
 
   if (q) {
     query = query.or(`name.ilike.%${q}%`);
   }
 
-  /** 2. Await for categories */
+  /** 3. Await for categories */
   const {
     data: categories,
     error,

@@ -13,6 +13,7 @@ async function Hero({ locale }: { locale: string }) {
           width={100}
           height={100}
           className="hidden lg:block 3xl:hidden absolute -end-40 xl:end-0 top-15"
+          loading="eager"
         />
         <Image
           src={"/assets/icons/star.svg"}
@@ -20,6 +21,7 @@ async function Hero({ locale }: { locale: string }) {
           width={60}
           height={60}
           className="hidden lg:block 3xl:hidden absolute start-160 xl:start-200 top-80"
+          loading="eager"
         />
         <h1
           className={`${getFontClassName(
@@ -81,6 +83,7 @@ async function Hero({ locale }: { locale: string }) {
           width={70}
           height={70}
           className="absolute end-10 top-15"
+          loading="eager"
         />
         <Image
           src={"/assets/icons/star.svg"}
@@ -88,6 +91,7 @@ async function Hero({ locale }: { locale: string }) {
           width={40}
           height={40}
           className="absolute start-10 top-40"
+          loading="eager"
         />
         <Image
           src={"/assets/images/hero-mobile.png"}
@@ -96,6 +100,7 @@ async function Hero({ locale }: { locale: string }) {
           height={370}
           preload
           className="mx-auto w-[400px]"
+          loading="eager"
         />
       </div>
       <div aria-label="brands we deliver" className="bg-black">

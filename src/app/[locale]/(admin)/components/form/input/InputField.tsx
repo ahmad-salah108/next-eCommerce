@@ -18,6 +18,7 @@ interface InputProps {
   hint?: string; // Optional hint text
   accept?: string;
   required?: boolean
+  multiple?: boolean
 }
 
 const Input: FC<InputProps> = ({
@@ -36,7 +37,8 @@ const Input: FC<InputProps> = ({
   error = false,
   hint,
   accept,
-  required = false
+  required = false,
+  multiple = false
 }) => {
   // Determine input styles based on state (disabled, success, error)
   let inputClasses = `h-[36px] ${type === "file" && "leading-[35px]"} flex items-center justify-center w-full rounded-lg border appearance-none px-4 text-sm shadow-theme-xs placeholder:text-gray-400 focus:outline-hidden focus:ring-3 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-cyan-900 ${className}`;
@@ -68,6 +70,7 @@ const Input: FC<InputProps> = ({
         className={inputClasses}
         accept={accept}
         required={required}
+        multiple={multiple}
       />
 
       {/* Optional Hint Text */}

@@ -158,6 +158,7 @@ export default function ProductsTable({
                             alt={`${product.name} Image`}
                             width={50}
                             height={50}
+                            className="rounded shadow"
                           />
                         ) : (
                           <p className="text-xs">No Image</p>
@@ -192,6 +193,7 @@ export default function ProductsTable({
                         <ActionsButton
                           product={product}
                           openDeleteModal={() => handleOpenDeleteModal(product)}
+                          openViewModal={() => handleOpenViewModal(product)}
                         />
                       </TableCell>
                     </TableRow>

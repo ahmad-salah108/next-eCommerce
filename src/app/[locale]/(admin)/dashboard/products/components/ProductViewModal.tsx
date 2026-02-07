@@ -6,12 +6,13 @@ import Link from "next/link";
 import Badge from "../../../components/ui/badge/Badge";
 import React from "react";
 import { routing } from "@/i18n/routing";
+import _ from "lodash";
 
 type Props = {
   isModalOpen: boolean;
   closeModal: () => void;
   product: ProductType;
-  locale: typeof routing.locales[number];
+  locale: (typeof routing.locales)[number];
 };
 
 function ProductViewModal({ isModalOpen, closeModal, product, locale }: Props) {
@@ -42,13 +43,14 @@ function ProductViewModal({ isModalOpen, closeModal, product, locale }: Props) {
           <Link
             href={product.main_image}
             target="_blank"
-            className="cursor-zoom-in"
+            className="cursor-zoom-in block w-fit"
           >
             <Image
               src={product.main_image}
               alt={`${product.name[locale]}'s Image`}
               width={150}
               height={150}
+              className="rounded shadow w-[150px] h-[150px] object-cover"
             />
           </Link>
         </div>
@@ -58,11 +60,22 @@ function ProductViewModal({ isModalOpen, closeModal, product, locale }: Props) {
           Images
         </p>
         <div className="mb-6 flex flex-wrap gap-4">
-          {product.images.map((url, i) => (
-            <Link key={i} href={url} target="_blank" className="cursor-zoom-in">
-              <Image src={url} alt="" width={70} height={70} />
-            </Link>
-          ))}
+          {_.isEmpty(product.images) ? (
+            <p className="text-[1rem] leading-6 text-gray-500 dark:text-gray-400">
+              No Images
+            </p>
+          ) : (
+            product.images.map((url, i) => (
+              <Link
+                key={i}
+                href={url}
+                target="_blank"
+                className="cursor-zoom-in"
+              >
+                <Image src={url} alt="" width={70} height={70} className="rounded shadow w-[70px] h-[70px] object-cover"/>
+              </Link>
+            ))
+          )}
         </div>
 
         {/* Product's Description */}
@@ -104,7 +117,7 @@ function ProductViewModal({ isModalOpen, closeModal, product, locale }: Props) {
           Stock
         </p>
         <p
-          className={`mb-6 text-[1rem] leading-6 text-gray-500 dark:text-gray-400 font-semibold ${product.stock > 10 ? "text-success-600 dark:text-success-500" : product.stock > 5 ? "text-warning-500" : "text-error-500 dark:text-error-600"}`}
+          className={`mb-6 text-[1rem] leading-6 font-semibold ${product.stock > 10 ? "text-success-600 dark:text-success-500" : product.stock > 5 ? "text-warning-500" : "text-error-500 dark:text-error-600"}`}
         >
           {product.stock}
         </p>

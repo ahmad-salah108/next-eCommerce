@@ -47,8 +47,8 @@ export default function CategoryEditForm({ category }: Props) {
 
       // Clean up memory when the component unmounts or file changes
       return () => URL.revokeObjectURL(url);
-    }else{
-      setPreviewUrl(null)
+    } else {
+      setPreviewUrl(null);
     }
   };
 
@@ -60,8 +60,23 @@ export default function CategoryEditForm({ category }: Props) {
         <div className="space-y-6">
           <div className="max-w-[500px] space-y-3">
             <Label>Image</Label>
-            {(previewUrl || category?.image) && <Image src={previewUrl || category?.image || ""} alt={`${category?.name} Image`} width={70} height={70}/>}
-            <Input name="image" type="file" accept="image/*" onChange={handleImageChange} />
+
+            <Input
+              name="image"
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+            />
+
+            {(previewUrl || category?.image) && (
+              <Image
+                src={previewUrl || category?.image || ""}
+                alt={`${category?.name} Image`}
+                width={70}
+                height={70}
+                className="rounded shadow w-[70px] h-[70px] object-cover"
+              />
+            )}
           </div>
           <div className="max-w-[500px]">
             <Label>Category Name</Label>
