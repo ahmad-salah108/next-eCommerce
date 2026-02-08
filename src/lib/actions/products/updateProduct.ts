@@ -9,7 +9,6 @@ export async function updateProduct(formData: FormData) {
   const productId = Number(formData.get("id"));
 
   /* -------------------- BASIC FIELDS -------------------- */
-
   const productData = {
     name: {
       en: formData.get("name_en"),
@@ -25,7 +24,6 @@ export async function updateProduct(formData: FormData) {
   };
 
   /* -------------------- MAIN IMAGE -------------------- */
-
   const oldImageUrl = formData.get("oldImageUrl") as string;
   const mainImage = formData.get("main_image") as File | null;
   let mainImageUrl;
@@ -40,7 +38,6 @@ export async function updateProduct(formData: FormData) {
   }
 
   /* -------------------- IMAGES -------------------- */
-
   const keptImages: string[] = JSON.parse(
     (formData.get("kept_images") as string) || "[]",
   );
@@ -75,8 +72,19 @@ export async function updateProduct(formData: FormData) {
     uploadedImages.push(imageUrl);
   }
 
-  /* -------------------- UPDATE PRODUCT -------------------- */
+  /*-----CHECK IF CATEGORY SELECTED BEFORE UPDATE-----*/
+  const categoryIdsRaw = formData.get("category_ids") as string;
+  if (categoryIdsRaw === "Select option" || !categoryIdsRaw)
+    throw new Error("Select at least one category");
 
+  const newCategoryIds: number[] = JSON.parse(
+    (formData.get("category_ids") as string) || "[]",
+  );
+  if (newCategoryIds.length === 0) {
+    throw new Error("Select at least one category");
+  }
+
+  /* -------------------- UPDATE PRODUCT -------------------- */
   const { error: productError } = await supabase
     .from("products")
     .update({
@@ -89,14 +97,6 @@ export async function updateProduct(formData: FormData) {
   if (productError) throw productError;
 
   /* ---------------- PRODUCT CATEGORIES ---------------- */
-
-  if ((formData.get("category_ids") as string) === "Select option")
-    throw new Error("Select at least one category");
-  
-  const newCategoryIds: number[] = JSON.parse(
-    (formData.get("category_ids") as string) || "[]",
-  );
-
   const existingCategoryIds: number[] = JSON.parse(
     (formData.get("old_category_ids") as string) || "[]",
   );

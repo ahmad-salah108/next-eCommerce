@@ -12,15 +12,23 @@ export async function createCategory(formData: FormData) {
   let imageUrl: string | null = null;
 
   if (imageFile && imageFile.size > 0) {
-    imageUrl = await uploadImage({file: imageFile, table: "categories", path: "category-images"});
+    imageUrl = await uploadImage({
+      file: imageFile,
+      table: "categories",
+      path: "category-images",
+    });
   }
 
-  const { error } = await supabase
-    .from("categories")
-    .insert({
-      name,
-      image: imageUrl,
-    });
+  const { error } = await supabase.from("categories").insert({
+    name,
+    image: imageUrl,
+  });
+
+  if (error?.code === "23505") {
+    throw new Error("A category with the same name already exists");
+  }
 
   if (error) throw error;
+
+  return { success: true };
 }

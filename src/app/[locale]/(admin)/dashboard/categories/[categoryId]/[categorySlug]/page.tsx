@@ -22,6 +22,7 @@ function CategorySlugPage({ params }: Props) {
 
   return (
     <div>
+      <title>Category | SHOPYA</title>
       <div className="flex flex-wrap items-center justify-between gap-8 mb-6 w-full">
         <h2 className="text-xl font-semibold text-gray-800 dark:text-white/90">
           Edit Category

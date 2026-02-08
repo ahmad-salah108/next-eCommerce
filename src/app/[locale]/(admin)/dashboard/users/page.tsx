@@ -42,6 +42,7 @@ function UsersPage() {
 
   return (
     <div>
+      <title>Users | SHOPYA</title>
       <UpdateToastHandler
         message="User updated successfully!"
         urlToReplace="/dashboard/users"

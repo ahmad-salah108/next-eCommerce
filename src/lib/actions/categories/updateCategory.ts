@@ -30,10 +30,11 @@ export async function updateCategory(formData: FormData) {
     .update(updateData)
     .eq("id", id);
 
-  if (error) {
-    console.error(error);
-    throw error;
+  if (error?.code === "23505") {
+    throw new Error("A category with the same name already exists");
   }
 
-  return {success: true}
+  if (error) throw error;
+
+  return { success: true };
 }
