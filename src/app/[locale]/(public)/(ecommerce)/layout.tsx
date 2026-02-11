@@ -3,6 +3,9 @@ import Banner from "./components/Banner";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { setRequestLocale } from "next-intl/server";
+import { hasLocale } from "next-intl";
+import { routing } from "@/i18n/routing";
+import { notFound } from "next/navigation";
 import "@/styles/globals.css";
 import "@/styles/embla.css";
 
@@ -14,6 +17,11 @@ async function PublicLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+
+  // Ensure that the incoming `locale` is valid
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
 
   // Enable static rendering for this locale
   setRequestLocale(locale);

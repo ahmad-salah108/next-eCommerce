@@ -1,6 +1,8 @@
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { setRequestLocale } from "next-intl/server";
+import { hasLocale } from "next-intl";
+import { routing } from "@/i18n/routing";
 import "@/styles/globals.css";
 
 export default async function AuthLayout({
@@ -26,6 +28,11 @@ export default async function AuthLayout({
   }
 
   const { locale } = await params;
+
+  // Ensure that the incoming `locale` is valid
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
 
   // Enable static rendering for this locale
   setRequestLocale(locale);

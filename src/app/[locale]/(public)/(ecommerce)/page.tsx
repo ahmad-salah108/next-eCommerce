@@ -7,6 +7,9 @@ import TopSelling from "./home-sections/top-selling/TopSelling";
 import { Button } from "@/components/ui/button";
 import { logout } from "../(auth)/actions";
 import { getCurrentUser } from "@/lib/actions/users/getCurrentUser";
+import { hasLocale } from "next-intl";
+import { routing } from "@/i18n/routing";
+import { notFound } from "next/navigation";
 
 export default async function Home({
   params,
@@ -14,6 +17,11 @@ export default async function Home({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+
+  // Ensure that the incoming `locale` is valid
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
 
   // Enable static rendering for this locale
   setRequestLocale(locale);

@@ -2,6 +2,7 @@
 import { SidebarProvider } from "@/context/admin/SidebarContext";
 import { ThemeProvider } from "@/context/admin/ThemeContext";
 import { UserProvider } from "@/context/UserContext";
+import { routing } from "@/i18n/routing";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { NextIntlClientProvider } from "next-intl";
 import { useState } from "react";
@@ -11,7 +12,7 @@ export default function AdminProviders({
   locale
 }: {
   children: React.ReactNode;
-  locale: string
+  locale: (typeof routing.locales)[number]
 }) {
   // Using useState to ensure the QueryClient is only created once per session
   // and not recreated on every re-render.

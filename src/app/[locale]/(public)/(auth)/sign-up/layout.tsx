@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { setRequestLocale } from "next-intl/server";
 import React, { use } from "react";
+import { hasLocale } from "next-intl";
+import { routing } from "@/i18n/routing";
 
 export const metadata: Metadata = {
   title: "Sign Up",
@@ -15,6 +17,12 @@ function SignUpLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = use(params);
+
+  // Ensure that the incoming `locale` is valid
+  if (!hasLocale(routing.locales, locale)) {
+    // If invalid locale, just render children or handle as desired
+    return <div>{children}</div>;
+  }
 
   // Enable static rendering for this locale
   setRequestLocale(locale);
