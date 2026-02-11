@@ -2,8 +2,6 @@
 import _ from "lodash";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import getUsers from "@/lib/actions/users/getUsers";
-import { toast } from "sonner";
-import { useEffect } from "react";
 import SearchInput from "../../components/common/SearchInput";
 import UsersTableSkeleton from "./components/UsersTableSkeleton";
 import UpdateToastHandler from "../../components/common/UpdateToastHandler";

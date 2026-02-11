@@ -1,8 +1,6 @@
 "use client";
 import _ from "lodash";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { toast } from "sonner";
-import { useEffect } from "react";
 import SearchInput from "../../components/common/SearchInput";
 import UpdateToastHandler from "../../components/common/UpdateToastHandler";
 import Pagination from "../../components/tables/Pagination";
