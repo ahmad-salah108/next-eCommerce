@@ -156,7 +156,7 @@ export default function ProductEditForm({ product, categoryIds }: Props) {
                 <div key={img} className="relative">
                   <Image
                     src={img}
-                    alt={`${product?.name[locale]} image`}
+                    alt={`${product?.name?.en} image`}
                     width={70}
                     height={70}
                     className="rounded shadow w-[70px] h-[70px] object-cover"

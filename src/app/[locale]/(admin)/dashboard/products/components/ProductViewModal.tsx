@@ -47,7 +47,7 @@ function ProductViewModal({ isModalOpen, closeModal, product, locale }: Props) {
           >
             <Image
               src={product.main_image}
-              alt={`${product.name[locale]}'s Image`}
+              alt={`${product.name.en}'s Image`}
               width={150}
               height={150}
               className="rounded shadow w-[150px] h-[150px] object-cover"
