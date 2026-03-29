@@ -197,7 +197,7 @@
 }
 
 @utility menu-item-active {
-  @apply bg-[#000] text-white dark:bg-cyan-800;
+  @apply bg-[#000] text-white dark:bg-brand-500/[0.12] dark:text-brand-400;
 }
 
 @utility menu-item-inactive {
@@ -209,7 +209,7 @@
 }
 
 @utility menu-item-icon-active {
-  @apply text-white/90;
+  @apply text-white/90 dark:text-brand-400;
 }
 
 @utility menu-item-icon-inactive {

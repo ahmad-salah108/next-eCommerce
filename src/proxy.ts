@@ -56,7 +56,7 @@ export default async function proxy(request: NextRequest) {
   const segmentsToRedirect = pathSegments.slice(2)
 
   // If path is exactly /[resource]/[id] redirect to /[resource]/[id]/edit
-  if (pathSegments[1] === "dashboard" && segmentsToRedirect.length === 2 && resources.includes(segmentsToRedirect[0])) {
+  if (pathSegments[1] === "dashboard" && segmentsToRedirect[1] !== "new" && segmentsToRedirect.length === 2 && resources.includes(segmentsToRedirect[0])) {
     const [resource, id] = segmentsToRedirect;
 
     // Perform the redirect to /[resource]/[id]/edit

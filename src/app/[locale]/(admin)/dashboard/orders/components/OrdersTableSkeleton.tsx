@@ -7,7 +7,7 @@ import {
   TableRow,
 } from "../../../components/ui/table";
 
-export default function CategoriesTableSkeleton() {
+export default function OrdersTableSkeleton() {
   return (
     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">
       <div className="max-w-full overflow-x-auto">
@@ -18,11 +18,11 @@ export default function CategoriesTableSkeleton() {
               <TableRow>
                 {[
                   "ID",
-                  "Image",
-                  "Name",
-                  "Slug",
+                  "User",
+                  "Total",
+                  "Status",
+                  "Payment Status",
                   "Created at",
-                  "Actions",
                 ].map((header, index) => (
                   <TableCell
                     key={index}

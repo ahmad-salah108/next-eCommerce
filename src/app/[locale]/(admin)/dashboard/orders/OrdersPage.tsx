@@ -2,22 +2,18 @@
 import _ from "lodash";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import SearchInput from "../../components/common/SearchInput";
-import UpdateToastHandler from "../../components/common/UpdateToastHandler";
 import Pagination from "../../components/tables/Pagination";
 import { useSearchParams } from "next/navigation";
 import OrdersTable from "./components/OrdersTable";
-import getCategories from "@/lib/actions/categories/getCategories";
-import CategoriesTableSkeleton from "./components/CategoriesTableSkeleton";
-import { PlusIcon, RefreshCcwIcon } from "lucide-react";
-import StyledButton from "../../components/common/StyledButton";
-import Link from "next/link";
-import CreateToastHandler from "../../components/common/CreateToastHandler";
+import OrdersTableSkeleton from "./components/OrdersTableSkeleton";
+import { RefreshCcwIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { QUERY_KEYS } from "@/constants/query-keys";
+import { getOrders } from "@/lib/actions/orders/getOrders";
 
 const PAGE_SIZE = 10;
 
-type OrdersParamsType = {
+type OrdersParams = {
   page?: string;
   q?: string;
 };
@@ -25,37 +21,28 @@ type OrdersParamsType = {
 function OrdersPage() {
   const queryClient = useQueryClient();
   const searchParams = useSearchParams();
-  const categoriesParams: OrdersParamsType = Object.fromEntries(
+  const ordersParams: OrdersParams = Object.fromEntries(
     searchParams.entries(),
   );
 
   const { data, isLoading, isFetching, error } = useQuery({
-    queryKey: QUERY_KEYS.categories.list(categoriesParams.page, categoriesParams.q),
-    queryFn: () => getCategories({ ...categoriesParams, PAGE_SIZE }),
+    queryKey: QUERY_KEYS.orders.list(ordersParams.page, ordersParams.q),
+    queryFn: () => getOrders({ ...ordersParams, PAGE_SIZE }),
   });
 
   function handleRefreshButton() {
     if (!isFetching && !isLoading) {
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.categories.all });
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.orders.all });
     }
   }
 
-  if (error) return <p className="text-red-500">Failed to load categories</p>;
+  if (error) return <p className="text-red-500">Failed to load orders</p>;
 
   return (
     <div>
-      <title>Categories | SHOPYA</title>
-      <CreateToastHandler
-        message="Category Created successfully!"
-        urlToReplace="/dashboard/categories"
-      />
-      <UpdateToastHandler
-        message="Category updated successfully!"
-        urlToReplace="/dashboard/categories"
-      />
       <div className="flex flex-wrap flex-col sm:flex-row items-start sm:items-center justify-between gap-8 mb-6 w-full">
         <h2 className="text-xl font-semibold text-gray-800 dark:text-white/90">
-          Categories
+          Orders
         </h2>
         <div className="w-full sm:w-auto flex flex-wrap sm:flex-nowrap flex-col-reverse sm:flex-row justify-center items-start sm:items-center gap-4">
           <div className="flex flex-row-reverse sm:flex-row items-center gap-2">
@@ -76,30 +63,24 @@ function OrdersPage() {
                 <RefreshCcwIcon />
               </div>
             </Button>
-            <SearchInput placeholder="Search categories..." />
+            <SearchInput placeholder="Search orders..." />
           </div>
-          <Link href={"/dashboard/categories/new"}>
-            <StyledButton className="flex">
-              <PlusIcon />
-              Create New Category
-            </StyledButton>
-          </Link>
         </div>
       </div>
-      {_.isEmpty(data?.categories) && !isLoading && !categoriesParams.q && (
+      {_.isEmpty(data?.orders) && !isLoading && !ordersParams.q && (
         <p className="text-center text-gray-500 dark:text-gray-400 mt-16">
-          There are no categories
+          There are no orders
         </p>
       )}
-      {_.isEmpty(data?.categories) && !isLoading && categoriesParams.q && (
+      {_.isEmpty(data?.orders) && !isLoading && ordersParams.q && (
         <p className="text-center text-gray-500 dark:text-gray-400 mt-16">
-          There is no category{" "}
-          {categoriesParams.q && `matches "${categoriesParams.q}"`}
+          There is no order{" "}
+          {ordersParams.q && `matches "${ordersParams.q}"`}
         </p>
       )}
-      {!_.isEmpty(data?.categories) && !isLoading ? (
+      {!_.isEmpty(data?.orders) && !isLoading ? (
         <div className="space-y-6">
-          <OrdersTable categories={data?.categories ?? []} />
+          <OrdersTable orders={data?.orders ?? []} />
           <div className="flex justify-between items-center">
             <p className="text-sm text-gray-500 dark:text-gray-400">
               Showing {PAGE_SIZE} entries
@@ -111,7 +92,7 @@ function OrdersPage() {
           </div>
         </div>
       ) : isLoading ? (
-        <CategoriesTableSkeleton />
+        <OrdersTableSkeleton />
       ) : (
         ""
       )}

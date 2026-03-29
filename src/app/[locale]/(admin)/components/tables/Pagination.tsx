@@ -44,8 +44,8 @@ const Pagination: React.FC<PaginationProps> = ({
             key={page}
             className={`rounded ${
               currentPage === page
-                ? "bg-black hover:bg-black text-white dark:bg-cyan-800"
-                : "text-black hover:bg-black/5 dark:text-cyan-600 dark:hover:bg-cyan-500/5"
+                ? "bg-black hover:bg-black text-white dark:bg-brand-500"
+                : "text-black hover:bg-black/5 dark:text-brand-600 dark:hover:bg-brand-500/5"
             } flex w-9 items-center justify-center h-9 rounded-lg text-sm font-medium`}
             asChild
           >

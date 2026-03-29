@@ -9,13 +9,13 @@ import {
 import ActionsButton from "./ActionsButton";
 import { Product } from "@/types/Product";
 import { useLocale } from "next-intl";
-import Badge from "../../../components/ui/badge/Badge";
 import ProductViewModal from "./ProductViewModal";
 import { useModal } from "@/hooks/useModal";
 import ProductDeleteModal from "./ProductDeleteModal";
 import { Fragment } from "react/jsx-runtime";
 import { useState } from "react";
 import _ from "lodash";
+import { Badge } from "../../../components/ui/badge/Badge";
 
 export default function ProductsTable({
   products,
@@ -175,7 +175,7 @@ export default function ProductsTable({
                       </TableCell>
                       <TableCell className="px-4 py-3 space-x-2 space-y-2 text-gray-500 text-start text-theme-sm dark:text-gray-400">
                         {product.product_categories.map((e) => (
-                          <Badge key={e.id}>{e.name}</Badge>
+                          <Badge key={e.id} label={e.name}/>
                         ))}
                       </TableCell>
                       <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">

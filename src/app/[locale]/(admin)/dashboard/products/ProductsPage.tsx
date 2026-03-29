@@ -42,7 +42,6 @@ function ProductsPage() {
 
   return (
     <div>
-      <title>Products | SHOPYA</title>
       <CreateToastHandler
         message="Product Created successfully!"
         urlToReplace="/dashboard/products"

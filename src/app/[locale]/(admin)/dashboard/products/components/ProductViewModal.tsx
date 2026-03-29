@@ -3,9 +3,9 @@ import { Button } from "@/components/ui/button";
 import { Product } from "@/types/Product";
 import Image from "next/image";
 import Link from "next/link";
-import Badge from "../../../components/ui/badge/Badge";
 import { routing } from "@/i18n/routing";
 import _ from "lodash";
+import { Badge } from "../../../components/ui/badge/Badge";
 
 type Props = {
   isModalOpen: boolean;
@@ -99,7 +99,7 @@ function ProductViewModal({ isModalOpen, closeModal, product, locale }: Props) {
         </p>
         <div className="mb-6 flex gap-2 flex-wrap">
           {product.product_categories.map((e) => (
-            <Badge key={e.id}>{e.name}</Badge>
+            <Badge key={e.id} label={e.name} color={"bg-indigo-100 text-indigo-800 dark:bg-indigo-900/40 dark:text-indigo-300"}/>
           ))}
         </div>
 

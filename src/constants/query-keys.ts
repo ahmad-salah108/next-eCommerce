@@ -16,4 +16,9 @@ export const QUERY_KEYS = {
     list: (page: OptionalString, search: OptionalString) => [...QUERY_KEYS.products.all, page, search] as const,
     details: (id: string) => [...QUERY_KEYS.products.all, id]
   },
+  orders: {
+    all: ['orders'] as const,
+    list: (page: OptionalString, search: OptionalString) => [...QUERY_KEYS.orders.all, page, search] as const,
+    details: (id: string) => [...QUERY_KEYS.orders.all, id]
+  },
 }

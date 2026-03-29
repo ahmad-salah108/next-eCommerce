@@ -44,7 +44,6 @@ function CategoriesPage() {
 
   return (
     <div>
-      <title>Categories | SHOPYA</title>
       <CreateToastHandler
         message="Category Created successfully!"
         urlToReplace="/dashboard/categories"

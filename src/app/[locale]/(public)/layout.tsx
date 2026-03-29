@@ -41,7 +41,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} dir={direction}>
       <body className={`${fontClassName} antialiased`}>
-        <NextTopLoader color="#00b8db"/>
+        <NextTopLoader color="#465fff"/>
         <NextIntlClientProvider>
           <PublicProviders>
             <Toaster richColors />

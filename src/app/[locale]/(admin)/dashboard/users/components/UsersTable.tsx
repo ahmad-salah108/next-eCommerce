@@ -8,11 +8,11 @@ import {
   TableHeader,
   TableRow,
 } from "../../../components/ui/table";
-import Badge from "../../../components/ui/badge/Badge";
 import ActionsButton from "./ActionsButton";
 import { useModal } from "@/hooks/useModal";
 import UserDeleteModal from "./UserDeleteModal";
 import _ from "lodash";
+import { Badge } from "../../../components/ui/badge/Badge";
 
 export default function UsersTable({ users }: { users: Array<User> }) {
   const [user, setUser] = useState<User>({} as User);
@@ -110,10 +110,7 @@ export default function UsersTable({ users }: { users: Array<User> }) {
                       {user.email}
                     </TableCell>
                     <TableCell className="px-4 py-3 text-gray-500 text-theme-sm dark:text-gray-400">
-                      <Badge size="sm" color={user.is_verified ? "success" : "warning"}>
-                        {user.is_verified}
-                        {user.is_verified ? "Verified" : "Pending"}
-                      </Badge>
+                      <Badge label={user.is_verified ? "Verified" : "Pending"} color={user.is_verified ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300" : "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300"}/>
                     </TableCell>
                     <TableCell className="px-4 py-3 text-gray-500 text-start text-theme-sm dark:text-gray-400">
                       {user.role}
