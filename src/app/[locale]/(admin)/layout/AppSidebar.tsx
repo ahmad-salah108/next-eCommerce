@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSidebar } from "@/context/admin/SidebarContext";
-import { BlocksIcon, BoxesIcon, UsersIcon } from "lucide-react";
+import { BlocksIcon, BoxesIcon, ChartColumn, UsersIcon } from "lucide-react";
 
 type NavItem = {
   name: string;
@@ -13,6 +13,11 @@ type NavItem = {
 };
 
 const navItems: NavItem[] = [
+  {
+    icon: <ChartColumn />,
+    name: "Statistics",
+    path: "/dashboard",
+  },
   {
     icon: <UsersIcon />,
     name: "Users",

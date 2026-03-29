@@ -5,14 +5,14 @@ import { DropdownItem } from "../../../components/ui/dropdown/DropdownItem";
 import { EyeIcon, MoreVerticalIcon, PenBoxIcon, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ProductType } from "@/types/ProductType";
+import { Product } from "@/types/Product";
 
 function ActionsButton({
   product,
   openDeleteModal,
   openViewModal,
 }: {
-  product: ProductType;
+  product: Product;
   openDeleteModal: () => void;
   openViewModal: () => void;
 }) {
@@ -59,7 +59,7 @@ function ActionsButton({
           <EyeIcon className="w-4 h-4" /> View Product
         </DropdownItem>
 
-        <Link href={`/dashboard/products/${product.id}/${product.slug}`}>
+        <Link href={`/dashboard/products/${product.id}/edit`}>
           <DropdownItem
             tag="a"
             onItemClick={closeDropdown}

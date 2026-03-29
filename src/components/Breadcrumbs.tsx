@@ -6,10 +6,14 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { BreadcrumbsPropsType } from "@/types/BreadcrumbsPropsType";
 import { Fragment } from "react/jsx-runtime";
 
-function Breadcrumbs({ links }: { links: Array<BreadcrumbsPropsType> }) {
+type BreadcrumbsProps = {
+  title: string,
+  url?: string
+}
+
+function Breadcrumbs({ links }: { links: Array<BreadcrumbsProps> }) {
   return (
     <Breadcrumb>
       <BreadcrumbList>

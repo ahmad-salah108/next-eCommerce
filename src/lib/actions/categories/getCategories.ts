@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
-import { CategoryType } from "@/types/CategoryType";
+import { Category } from "@/types/Category";
 import { PostgrestError } from "@supabase/supabase-js";
 
 type Props = {
@@ -42,7 +42,7 @@ async function getCategories({ page: paramsPage, q, PAGE_SIZE = 10, getAll = fal
     error,
     count,
   }: {
-    data: Array<CategoryType> | null;
+    data: Array<Category> | null;
     error: PostgrestError | null;
     count: number | null;
   } = await query;

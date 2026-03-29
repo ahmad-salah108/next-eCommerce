@@ -1,5 +1,4 @@
-"use client"; // Wrap the dashboard with client component to make instant rendering using react-query. 
-
+"use client"
 import { useSidebar } from "@/context/admin/SidebarContext";
 import React from "react";
 import AppHeader from "./layout/AppHeader";

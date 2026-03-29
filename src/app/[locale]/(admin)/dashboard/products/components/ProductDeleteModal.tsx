@@ -3,14 +3,15 @@ import { Button } from "@/components/ui/button";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteProductById } from "@/lib/actions/products/deleteProductById";
 import { toast } from "sonner";
-import { ProductType } from "@/types/ProductType";
+import { Product } from "@/types/Product";
 import { routing } from "@/i18n/routing";
 import { Spinner } from "@/components/ui/spinner";
+import { QUERY_KEYS } from "@/constants/query-keys";
 
 type Props = {
   isModalOpen: boolean;
   closeModal: () => void;
-  product: ProductType;
+  product: Product;
   locale: (typeof routing.locales)[number];
 };
 
@@ -24,7 +25,7 @@ function ProductDeleteModal({
   const { mutate, isPending, isSuccess } = useMutation({
     mutationFn: deleteProductById,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["products"] });
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.products.all });
       toast.success("Product has been deleted");
       closeModal();
     },

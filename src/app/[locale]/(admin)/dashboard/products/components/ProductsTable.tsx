@@ -7,7 +7,7 @@ import {
   TableRow,
 } from "../../../components/ui/table";
 import ActionsButton from "./ActionsButton";
-import { ProductType } from "@/types/ProductType";
+import { Product } from "@/types/Product";
 import { useLocale } from "next-intl";
 import Badge from "../../../components/ui/badge/Badge";
 import ProductViewModal from "./ProductViewModal";
@@ -20,9 +20,9 @@ import _ from "lodash";
 export default function ProductsTable({
   products,
 }: {
-  products: Array<ProductType>;
+  products: Array<Product>;
 }) {
-  const [product, setProduct] = useState<ProductType>({} as ProductType);
+  const [product, setProduct] = useState<Product>({} as Product);
   const locale = useLocale();
   const {
     isOpen: isViewModalOpen,
@@ -35,12 +35,12 @@ export default function ProductsTable({
     closeModal: closeDeleteModal,
   } = useModal();
 
-  function handleOpenViewModal(product: ProductType) {
+  function handleOpenViewModal(product: Product) {
     setProduct(product);
     openViewModal();
   }
 
-  function handleOpenDeleteModal(product: ProductType) {
+  function handleOpenDeleteModal(product: Product) {
     setProduct(product);
     openDeleteModal();
   }

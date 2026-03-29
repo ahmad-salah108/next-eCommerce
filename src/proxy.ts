@@ -8,11 +8,11 @@ const handleI18n = createMiddleware(routing);
 function proxyRedirect(
   request: NextRequest,
   response: NextResponse,
-  redirectPath: string
+  redirectPath: string,
 ) {
   const redirectUrl = new URL(redirectPath, request.url);
   const redirectResponse = NextResponse.redirect(redirectUrl);
-  
+
   // Preserve cookies from Supabase response
   response.cookies.getAll().forEach((cookie) => {
     redirectResponse.cookies.set(cookie.name, cookie.value, cookie);
@@ -48,6 +48,22 @@ export default async function proxy(request: NextRequest) {
 
   if (error || !user) {
     proxyRedirect(request, response, `/${locale}/sign-in`);
+  }
+
+  // Resources that should auto-redirect to /edit
+  const resources = ["users", "categories", "products", "orders"];
+
+  const segmentsToRedirect = pathSegments.slice(2)
+
+  // If path is exactly /[resource]/[id] redirect to /[resource]/[id]/edit
+  if (pathSegments[1] === "dashboard" && segmentsToRedirect.length === 2 && resources.includes(segmentsToRedirect[0])) {
+    const [resource, id] = segmentsToRedirect;
+
+    // Perform the redirect to /[resource]/[id]/edit
+    const url = request.nextUrl.clone();
+    url.pathname = `/dashboard/${resource}/${id}/edit`;
+
+    return NextResponse.redirect(url);
   }
 
   // If user is logged in, check their role and redirect accordingly

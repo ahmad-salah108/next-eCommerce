@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
-import { ProductType } from "@/types/ProductType";
+import { Product } from "@/types/Product";
 import { PostgrestError } from "@supabase/supabase-js";
 
 type Props = {
@@ -43,7 +43,7 @@ async function getProducts({ page: paramsPage, q, PAGE_SIZE }: Props) {
     error,
     count,
   }: {
-    data: Array<ProductType> | null;
+    data: Array<Product> | null;
     error: PostgrestError | null;
     count: number | null;
   } = await query;

@@ -1,17 +1,16 @@
 import { Modal } from "../../../components/ui/modal";
 import { Button } from "@/components/ui/button";
-import { ProductType } from "@/types/ProductType";
+import { Product } from "@/types/Product";
 import Image from "next/image";
 import Link from "next/link";
 import Badge from "../../../components/ui/badge/Badge";
-import React from "react";
 import { routing } from "@/i18n/routing";
 import _ from "lodash";
 
 type Props = {
   isModalOpen: boolean;
   closeModal: () => void;
-  product: ProductType;
+  product: Product;
   locale: (typeof routing.locales)[number];
 };
 

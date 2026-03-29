@@ -1,5 +1,5 @@
 "use server"
-import { UserType } from "@/types/UserType";
+import { User } from "@/types/User";
 import { createClient } from "../../supabase/server";
 import { PostgrestError } from "@supabase/supabase-js";
 
@@ -9,7 +9,7 @@ export async function getUserById(id: string) {
   const {
     data: profile,
     error,
-  }: { data: UserType | null; error: PostgrestError | null } = await supabase
+  }: { data: User | null; error: PostgrestError | null } = await supabase
     .from("profiles")
     .select("*")
     .is("deleted_at", null)

@@ -1,6 +1,6 @@
 "use server"
 
-import { UserType } from "@/types/UserType";
+import { User } from "@/types/User";
 import { createClient } from "../../supabase/server";
 import { redirect } from "next/navigation";
 
@@ -16,7 +16,7 @@ export async function getCurrentUser() {
     redirect("/sign-in")
   };
   
-  const { data: profile }: {data: UserType | null} = await supabase
+  const { data: profile }: {data: User | null} = await supabase
     .from('profiles')
     .select("*")
     .eq('user_id', user.id)

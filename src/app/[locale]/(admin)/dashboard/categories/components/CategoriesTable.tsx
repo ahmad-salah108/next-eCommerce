@@ -7,7 +7,7 @@ import {
   TableRow,
 } from "../../../components/ui/table";
 import ActionsButton from "./ActionsButton";
-import { CategoryType } from "@/types/CategoryType";
+import { Category } from "@/types/Category";
 import { useModal } from "@/hooks/useModal";
 import { useState } from "react";
 import CategoryDeleteModal from "./CategoryDeleteModal";
@@ -16,16 +16,16 @@ import _ from "lodash";
 export default function CategoriesTable({
   categories,
 }: {
-  categories: Array<CategoryType>;
+  categories: Array<Category>;
 }) {
-  const [category, setCategory] = useState<CategoryType>({} as CategoryType);
+  const [category, setCategory] = useState<Category>({} as Category);
   const {
     isOpen: isDeleteModalOpen,
     openModal: openDeleteModal,
     closeModal: closeDeleteModal,
   } = useModal();
 
-  function handleOpenDeleteModal(category: CategoryType) {
+  function handleOpenDeleteModal(category: Category) {
     setCategory(category);
     openDeleteModal();
   }

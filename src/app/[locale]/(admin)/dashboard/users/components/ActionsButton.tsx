@@ -5,13 +5,13 @@ import { DropdownItem } from "../../../components/ui/dropdown/DropdownItem";
 import { MoreVerticalIcon, PenBoxIcon, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { UserType } from "@/types/UserType";
+import { User } from "@/types/User";
 
 function ActionsButton({
   user,
   openDeleteModal,
 }: {
-  user: UserType;
+  user: User;
   openDeleteModal: () => void;
 }) {
   const [isOpen, setIsOpen] = useState(false);

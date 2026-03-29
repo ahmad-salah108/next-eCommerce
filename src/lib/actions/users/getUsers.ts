@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
-import { UserType } from "@/types/UserType";
+import { User } from "@/types/User";
 import { PostgrestError } from "@supabase/supabase-js";
 
 type Props = {
@@ -37,7 +37,7 @@ async function getUsers({ page: paramsPage, q, PAGE_SIZE }: Props) {
     error,
     count,
   }: {
-    data: Array<UserType> | null;
+    data: Array<User> | null;
     error: PostgrestError | null;
     count: number | null;
   } = await query;

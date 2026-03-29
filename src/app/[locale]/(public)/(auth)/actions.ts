@@ -3,14 +3,14 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { mapSignUpError, mapSignInError } from "@/lib/supabase/auth-errors";
-import { SignUpFormStateType } from "@/types/SignUpFormStateType";
+import { SignUpFormState } from "@/types/SignUpFormState";
 import { signUpSchema } from "@/lib/validations/auth";
-import { SignInFormStateType } from "@/types/SignInFormStateType";
+import { SignInFormState } from "@/types/SignInFormState";
 
 export async function signIn(
-  _prevState: SignInFormStateType,
+  _prevState: SignInFormState,
   formData: FormData
-): Promise<SignInFormStateType> {
+): Promise<SignInFormState> {
   const supabase = await createClient();
 
   const email = formData.get("email")?.toString() as string;
@@ -46,9 +46,9 @@ export async function signIn(
 
 
 export async function signUp(
-  _prevState: SignUpFormStateType,
+  _prevState: SignUpFormState,
   formData: FormData
-): Promise<SignUpFormStateType> {
+): Promise<SignUpFormState> {
     const values = {
     full_name: formData.get("full_name")?.toString(),
     email: formData.get("email")?.toString(),

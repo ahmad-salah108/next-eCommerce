@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { UserType } from "@/types/UserType";
+import { User } from "@/types/User";
 import {
   Table,
   TableBody,
@@ -14,15 +14,15 @@ import { useModal } from "@/hooks/useModal";
 import UserDeleteModal from "./UserDeleteModal";
 import _ from "lodash";
 
-export default function UsersTable({ users }: { users: Array<UserType> }) {
-  const [user, setUser] = useState<UserType>({} as UserType);
+export default function UsersTable({ users }: { users: Array<User> }) {
+  const [user, setUser] = useState<User>({} as User);
   const {
     isOpen: isDeleteModalOpen,
     openModal: openDeleteModal,
     closeModal: closeDeleteModal,
   } = useModal();
 
-  function handleOpenDeleteModal(user: UserType) {
+  function handleOpenDeleteModal(user: User) {
     setUser(user);
     openDeleteModal();
   }

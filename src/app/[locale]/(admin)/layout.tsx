@@ -13,6 +13,19 @@ import AppSidebar from "./layout/AppSidebar";
 import Backdrop from "./layout/Backdrop";
 import MainContent from "./MainContent";
 import { Toaster } from "sonner";
+import { Metadata } from "next";
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+export const metadata: Metadata = {
+  title: {
+    template: "%s | SHOPYA", // %s will be replaced by the child page title
+    default: "Admin Dashboard | SHOPYA", // Fallback if a page has no title
+  },
+  description: "E-commerce Management System",
+};
 
 function AdminDashboardLayout({
   children,
@@ -39,7 +52,7 @@ function AdminDashboardLayout({
   return (
     <html lang={locale} dir={direction}>
       <body className={`${fontClassName} antialiased dark:bg-gray-900`}>
-        <NextTopLoader color="#00b8db" />
+        <NextTopLoader />
         <Toaster richColors expand/>
         <AdminProviders locale={locale}>
           <div className="min-h-screen xl:flex">

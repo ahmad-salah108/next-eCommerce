@@ -1,7 +1,7 @@
 "use server";
 import { createClient } from "../../supabase/server";
 import { PostgrestError } from "@supabase/supabase-js";
-import { ProductType } from "@/types/ProductType";
+import { Product } from "@/types/Product";
 
 export async function getProductById(id: string) {
   const supabase = await createClient();
@@ -9,7 +9,7 @@ export async function getProductById(id: string) {
   const {
     data: product,
     error,
-  }: { data: ProductType | null; error: PostgrestError | null } = await supabase
+  }: { data: Product | null; error: PostgrestError | null } = await supabase
     .from("products")
     .select(
       `

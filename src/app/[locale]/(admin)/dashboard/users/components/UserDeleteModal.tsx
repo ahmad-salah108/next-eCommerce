@@ -4,12 +4,13 @@ import { Spinner } from "@/components/ui/spinner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteUserById } from "@/lib/actions/users/deleteUserById";
 import { toast } from "sonner";
-import { UserType } from "@/types/UserType";
+import { User } from "@/types/User";
+import { QUERY_KEYS } from "@/constants/query-keys";
 
 type Props = {
   isModalOpen: boolean;
   closeModal: () => void;
-  user: UserType;
+  user: User;
 };
 
 function UserDeleteModal({
@@ -21,7 +22,7 @@ function UserDeleteModal({
   const { mutate, isPending, isSuccess } = useMutation({
     mutationFn: deleteUserById,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["users"] });
+      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.users.all });
       toast.success("User has been deleted");
       closeModal();
     },

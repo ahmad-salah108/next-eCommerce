@@ -4,9 +4,9 @@ import { useActionState } from "react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import Link from "next/link";
-import { SignUpFormStateType } from "@/types/SignUpFormStateType";
+import { SignUpFormState } from "@/types/SignUpFormState";
 
-const initialState: SignUpFormStateType = { errors: null, values: null };
+const initialState: SignUpFormState = { errors: null, values: null };
 
 export default function SignUpPage() {
   const [state, formAction, isPending] = useActionState(signUp, initialState);
