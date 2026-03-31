@@ -16,6 +16,7 @@ import { Fragment } from "react/jsx-runtime";
 import { useState } from "react";
 import _ from "lodash";
 import { Badge } from "../../../components/ui/badge/Badge";
+import { routing } from "@/i18n/routing";
 
 export default function ProductsTable({
   products,
@@ -23,7 +24,7 @@ export default function ProductsTable({
   products: Array<Product>;
 }) {
   const [product, setProduct] = useState<Product>({} as Product);
-  const locale = useLocale();
+  const locale = useLocale() as (typeof routing.locales)[number];
   const {
     isOpen: isViewModalOpen,
     openModal: openViewModal,
