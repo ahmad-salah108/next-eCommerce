@@ -54,7 +54,7 @@ function ActionsButton({
         <DropdownItem
           tag="a"
           onItemClick={()=>{openViewModal(); closeDropdown();}}
-          className="flex justify-start items-center text-nowrap gap-2 w-full font-normal text-left text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
+          className="flex justify-start items-center text-nowrap gap-2 w-full font-normal text-left text-gray-500 rounded-md hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
         >
           <EyeIcon className="w-4 h-4" /> View Product
         </DropdownItem>
@@ -63,7 +63,7 @@ function ActionsButton({
           <DropdownItem
             tag="a"
             onItemClick={closeDropdown}
-            className="flex justify-start items-center gap-2 w-full font-normal text-left text-gray-500 rounded-lg hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
+            className="flex justify-start items-center gap-2 w-full font-normal text-left text-gray-500 rounded-md hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-gray-300"
           >
             <PenBoxIcon className="w-4 h-4" /> Edit
           </DropdownItem>
@@ -72,7 +72,7 @@ function ActionsButton({
         <DropdownItem
           tag="a"
           onItemClick={openDeleteModal}
-          className="flex justify-start items-center gap-2 w-full font-normal text-left text-red-500 hover:text-red-500 rounded-lg hover:bg-red-50 dark:hover:bg-red-500/10"
+          className="flex justify-start items-center gap-2 w-full font-normal text-left text-red-500 hover:text-red-500 rounded-md hover:bg-red-50 dark:hover:bg-red-500/10"
         >
           <Trash2 className="w-4 h-4" /> Delete
         </DropdownItem>

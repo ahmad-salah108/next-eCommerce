@@ -28,6 +28,7 @@ export default function SearchInput({placeholder}:{placeholder: string}) {
         placeholder={placeholder}
         defaultValue={searchParams.get("q") ?? ""}
         onChange={(e) => handleSearch(e.target.value)}
+        isSearch={true}
       />
     </div>
   );

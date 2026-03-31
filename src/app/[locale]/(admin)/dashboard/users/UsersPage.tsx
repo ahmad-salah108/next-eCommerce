@@ -1,6 +1,6 @@
 "use client";
 import _ from "lodash";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import getUsers from "@/lib/actions/users/getUsers";
 import SearchInput from "../../components/common/SearchInput";
 import UsersTableSkeleton from "./components/UsersTableSkeleton";
@@ -8,11 +8,9 @@ import UpdateToastHandler from "../../components/common/UpdateToastHandler";
 import UsersTable from "./components/UsersTable";
 import Pagination from "../../components/tables/Pagination";
 import { useSearchParams } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { RefreshCcwIcon } from "lucide-react";
 import { QUERY_KEYS } from "@/constants/query-keys";
-
-const PAGE_SIZE = 10;
+import { PAGE_SIZE } from "@/constants/page-size";
+import RefreshButton from "../../components/common/RefreshButton";
 
 type UsersParamsType = {
   page?: string;
@@ -20,7 +18,6 @@ type UsersParamsType = {
 };
 
 function UsersPage() {
-  const queryClient = useQueryClient();
   const searchParams = useSearchParams();
   const usersParams: UsersParamsType = Object.fromEntries(
     searchParams.entries(),
@@ -30,12 +27,6 @@ function UsersPage() {
     queryKey: QUERY_KEYS.users.list(usersParams.page, usersParams.q),
     queryFn: () => getUsers({ ...usersParams, PAGE_SIZE }),
   });
-
-  function handleRefreshButton() {
-    if (!isFetching && !isLoading) {
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.users.all });
-    }
-  }
 
   if (error) return <p className="text-red-500">Failed to load users</p>;
 
@@ -50,23 +41,7 @@ function UsersPage() {
           Users
         </h2>
         <div className="flex flex-row-reverse 2xsm:flex-row items-center gap-2">
-          <Button
-            size={"icon-sm"}
-            variant={"outline"}
-            className="bg-white dark:bg-[#171e2e] dark:border-gray-800 dark:text-white/90"
-            disabled={isFetching || isLoading}
-            onClick={handleRefreshButton}
-          >
-            <div
-              className={
-                isFetching || isLoading
-                  ? "animate-spin-loading"
-                  : "animate-spin-stop"
-              }
-            >
-              <RefreshCcwIcon />
-            </div>
-          </Button>
+          <RefreshButton QueryKeyToRefresh={QUERY_KEYS.users.all} isFetching={isFetching} isLoading={isLoading}/>
           <SearchInput placeholder="Search users..." />
         </div>
       </div>

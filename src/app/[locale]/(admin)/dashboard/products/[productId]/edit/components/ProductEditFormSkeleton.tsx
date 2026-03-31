@@ -4,7 +4,7 @@ import Label from "@/app/[locale]/(admin)/components/form/Label";
 function SkeletonLine({ className = "" }: { className?: string }) {
   return (
     <div
-      className={`h-9 w-full animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700 ${className}`}
+      className={`h-9 w-full animate-pulse rounded-md bg-gray-200 dark:bg-gray-700 ${className}`}
     />
   );
 }
@@ -12,7 +12,7 @@ function SkeletonLine({ className = "" }: { className?: string }) {
 function SkeletonTextArea({ className = "" }: { className?: string }) {
   return (
     <div
-      className={`h-24 w-full animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700 ${className}`}
+      className={`h-24 w-full animate-pulse rounded-md bg-gray-200 dark:bg-gray-700 ${className}`}
     />
   );
 }
@@ -80,7 +80,7 @@ export default function ProductEditFormSkeleton() {
 
         {/* ---------------- SUBMIT ---------------- */}
         <div className="flex justify-end">
-          <div className="h-9 w-32 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700" />
+          <div className="h-9 w-32 animate-pulse rounded-md bg-gray-200 dark:bg-gray-700" />
         </div>
       </div>
     </ComponentCard>

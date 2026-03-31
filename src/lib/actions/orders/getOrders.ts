@@ -3,6 +3,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { OrderWithUser } from "@/types/Order";
 import { PostgrestError } from "@supabase/supabase-js";
+import { PAGE_SIZE as pageSize } from "@/constants/page-size";
 
 type Props = {
   page?: string;
@@ -11,7 +12,7 @@ type Props = {
   getAll?: boolean
 };
 
-export const getOrders = async ({ page: paramsPage, q, PAGE_SIZE = 10, getAll = false }: Props) => {
+export const getOrders = async ({ page: paramsPage, q, PAGE_SIZE = pageSize, getAll = false }: Props) => {
   const supabase = await createClient();
 
   const page = Math.max(Number(paramsPage) || 1, 1);

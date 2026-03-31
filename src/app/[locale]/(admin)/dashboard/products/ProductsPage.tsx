@@ -1,21 +1,20 @@
 "use client";
 import _ from "lodash";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import SearchInput from "../../components/common/SearchInput";
 import UpdateToastHandler from "../../components/common/UpdateToastHandler";
 import Pagination from "../../components/tables/Pagination";
 import { useSearchParams } from "next/navigation";
 import ProductsTable from "./components/ProductsTable";
 import ProductsTableSkeleton from "./components/ProductsTableSkeleton";
-import { PlusIcon, RefreshCcwIcon } from "lucide-react";
+import { PlusIcon } from "lucide-react";
 import StyledButton from "../../components/common/StyledButton";
 import Link from "next/link";
 import CreateToastHandler from "../../components/common/CreateToastHandler";
 import getProducts from "@/lib/actions/products/getProducts";
-import { Button } from "@/components/ui/button";
 import { QUERY_KEYS } from "@/constants/query-keys";
-
-const PAGE_SIZE = 10;
+import { PAGE_SIZE } from "@/constants/page-size";
+import RefreshButton from "../../components/common/RefreshButton";
 
 type Params = {
   page?: string;
@@ -23,7 +22,6 @@ type Params = {
 };
 
 function ProductsPage() {
-  const queryClient = useQueryClient();
   const searchParams = useSearchParams();
   const productsParams: Params = Object.fromEntries(searchParams.entries());
 
@@ -31,12 +29,6 @@ function ProductsPage() {
     queryKey: QUERY_KEYS.products.list(productsParams.page, productsParams.q),
     queryFn: () => getProducts({ ...productsParams, PAGE_SIZE }),
   });
-
-  function handleRefreshButton() {
-    if (!isFetching && !isLoading) {
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.products.all });
-    }
-  }
 
   if (error) return <p className="text-red-500">Failed to load products</p>;
 
@@ -56,23 +48,7 @@ function ProductsPage() {
         </h2>
         <div className="w-full sm:w-auto flex flex-wrap sm:flex-nowrap flex-col-reverse sm:flex-row justify-center items-start sm:items-center gap-4">
           <div className="flex flex-row-reverse sm:flex-row items-center gap-2">
-            <Button
-              size={"icon-sm"}
-              variant={"outline"}
-              className="bg-white dark:bg-[#171e2e] dark:border-gray-800 dark:text-white/90"
-              disabled={isFetching || isLoading}
-              onClick={handleRefreshButton}
-            >
-              <div
-                className={
-                  isFetching || isLoading
-                    ? "animate-spin-loading"
-                    : "animate-spin-stop"
-                }
-              >
-                <RefreshCcwIcon />
-              </div>
-            </Button>
+            <RefreshButton QueryKeyToRefresh={QUERY_KEYS.products.all} isFetching={isFetching} isLoading={isLoading}/>
             <SearchInput placeholder="Search products..." />
           </div>
           <Link href={"/dashboard/products/new"}>

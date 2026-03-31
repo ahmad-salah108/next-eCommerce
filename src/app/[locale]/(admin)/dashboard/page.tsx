@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 export default function StatisticsPage() {
   return (
     <div>
-      <h1 className="text-2xl">Statistics Page</h1>
+      <h1 className="text-2xl dark:text-white">Statistics Page</h1>
     </div>
   );
 }

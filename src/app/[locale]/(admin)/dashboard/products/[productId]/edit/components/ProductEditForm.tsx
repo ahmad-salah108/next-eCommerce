@@ -205,28 +205,6 @@ export default function ProductEditForm({ product, categoryIds }: Props) {
             </div>
           </div>
 
-          {/* ---------------- DESCRIPTION ---------------- */}
-          <div className="max-w-[500px] space-y-3">
-            <div>
-              <Label>Description in English</Label>
-              <TextArea
-                name="description_en"
-                defaultValue={product?.description.en}
-                rows={6}
-                required
-              />
-            </div>
-
-            <div>
-              <Label>Description in Arabic</Label>
-              <TextArea
-                name="description_ar"
-                defaultValue={product?.description.ar}
-                rows={6}
-              />
-            </div>
-          </div>
-
           {/* ---------------- PRICE / STOCK ---------------- */}
           <div className="max-w-[500px] space-y-3">
             <div>
@@ -271,6 +249,28 @@ export default function ProductEditForm({ product, categoryIds }: Props) {
               onChange={(values) => setSelectedCategories(values.map(Number))}
               required
             />
+          </div>
+
+          {/* ---------------- DESCRIPTION ---------------- */}
+          <div className="max-w-[500px] space-y-3">
+            <div>
+              <Label>Description in English</Label>
+              <TextArea
+                name="description_en"
+                defaultValue={product?.description.en}
+                rows={6}
+                required
+              />
+            </div>
+
+            <div>
+              <Label>Description in Arabic</Label>
+              <TextArea
+                name="description_ar"
+                defaultValue={product?.description.ar}
+                rows={6}
+              />
+            </div>
           </div>
 
           {/* ---------------- ERRORS ---------------- */}

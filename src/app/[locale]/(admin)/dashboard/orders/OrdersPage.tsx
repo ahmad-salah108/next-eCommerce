@@ -1,17 +1,15 @@
 "use client";
 import _ from "lodash";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import SearchInput from "../../components/common/SearchInput";
 import Pagination from "../../components/tables/Pagination";
 import { useSearchParams } from "next/navigation";
 import OrdersTable from "./components/OrdersTable";
 import OrdersTableSkeleton from "./components/OrdersTableSkeleton";
-import { RefreshCcwIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { QUERY_KEYS } from "@/constants/query-keys";
 import { getOrders } from "@/lib/actions/orders/getOrders";
-
-const PAGE_SIZE = 10;
+import { PAGE_SIZE } from "@/constants/page-size";
+import RefreshButton from "../../components/common/RefreshButton";
 
 type OrdersParams = {
   page?: string;
@@ -19,7 +17,6 @@ type OrdersParams = {
 };
 
 function OrdersPage() {
-  const queryClient = useQueryClient();
   const searchParams = useSearchParams();
   const ordersParams: OrdersParams = Object.fromEntries(
     searchParams.entries(),
@@ -29,12 +26,6 @@ function OrdersPage() {
     queryKey: QUERY_KEYS.orders.list(ordersParams.page, ordersParams.q),
     queryFn: () => getOrders({ ...ordersParams, PAGE_SIZE }),
   });
-
-  function handleRefreshButton() {
-    if (!isFetching && !isLoading) {
-      queryClient.invalidateQueries({ queryKey: QUERY_KEYS.orders.all });
-    }
-  }
 
   if (error) return <p className="text-red-500">Failed to load orders</p>;
 
@@ -46,23 +37,7 @@ function OrdersPage() {
         </h2>
         <div className="w-full sm:w-auto flex flex-wrap sm:flex-nowrap flex-col-reverse sm:flex-row justify-center items-start sm:items-center gap-4">
           <div className="flex flex-row-reverse sm:flex-row items-center gap-2">
-            <Button
-              size={"icon-sm"}
-              variant={"outline"}
-              className="bg-white dark:bg-[#171e2e] dark:border-gray-800 dark:text-white/90"
-              disabled={isFetching || isLoading}
-              onClick={handleRefreshButton}
-            >
-              <div
-                className={
-                  isFetching || isLoading
-                    ? "animate-spin-loading"
-                    : "animate-spin-stop"
-                }
-              >
-                <RefreshCcwIcon />
-              </div>
-            </Button>
+            <RefreshButton QueryKeyToRefresh={QUERY_KEYS.orders.all} isFetching={isFetching} isLoading={isLoading}/>
             <SearchInput placeholder="Search orders..." />
           </div>
         </div>

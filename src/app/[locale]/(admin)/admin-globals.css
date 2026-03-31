@@ -36,7 +36,7 @@
   --color-current: currentColor;
   --color-transparent: transparent;
   --color-white: #ffffff;
-  --color-black: #101828;
+  --color-black: #000000;
 
   --color-brand-25: #f2f7ff;
   --color-brand-50: #ecf3ff;
@@ -74,7 +74,7 @@
   --color-gray-600: #525252;
   --color-gray-700: #404040;
   --color-gray-800: #262626;
-  --color-gray-900: #171717;
+  --color-gray-900: #000000;
   --color-gray-950: #0a0a0a;
   --color-gray-dark: #121212;
 
@@ -193,11 +193,11 @@
 }
 
 @utility menu-item {
-  @apply relative flex items-center w-full gap-3 px-3 py-2 font-medium rounded-lg text-theme-sm;
+  @apply relative flex items-center w-full gap-3 px-3 py-2 font-medium rounded-md text-theme-sm;
 }
 
 @utility menu-item-active {
-  @apply bg-[#000] text-white dark:bg-brand-500/[0.12] dark:text-brand-400;
+  @apply bg-[#000] text-white dark:bg-white/[0.12] dark:text-white;
 }
 
 @utility menu-item-inactive {
@@ -209,7 +209,7 @@
 }
 
 @utility menu-item-icon-active {
-  @apply text-white/90 dark:text-brand-400;
+  @apply text-white/90 dark:text-white;
 }
 
 @utility menu-item-icon-inactive {
@@ -229,7 +229,7 @@
 }
 
 @utility menu-dropdown-item {
-  @apply relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-theme-sm font-medium;
+  @apply relative flex items-center gap-3 rounded-md px-3 py-2.5 text-theme-sm font-medium;
 }
 
 @utility menu-dropdown-item-active {
@@ -337,7 +337,7 @@
 }
 
 .apexcharts-tooltip.apexcharts-theme-light {
-  @apply gap-1 !rounded-lg !border-gray-200 p-3 !shadow-theme-sm dark:!border-gray-800 dark:!bg-gray-900;
+  @apply gap-1 !rounded-md !border-gray-200 p-3 !shadow-theme-sm dark:!border-gray-800 dark:!bg-gray-900;
 }
 
 .apexcharts-legend-text {
@@ -536,7 +536,7 @@ span.flatpickr-weekday,
   @apply gap-2;
 }
 .fc-button-group .fc-button {
-  @apply flex h-10 w-10 items-center justify-center !rounded-lg border border-gray-200 bg-transparent hover:border-gray-200 hover:bg-gray-50 focus:shadow-none active:!border-gray-200 active:!bg-transparent active:!shadow-none dark:border-gray-800 dark:hover:border-gray-800 dark:hover:bg-gray-900 dark:active:border-gray-800!;
+  @apply flex h-10 w-10 items-center justify-center !rounded-md border border-gray-200 bg-transparent hover:border-gray-200 hover:bg-gray-50 focus:shadow-none active:!border-gray-200 active:!bg-transparent active:!shadow-none dark:border-gray-800 dark:hover:border-gray-800 dark:hover:bg-gray-900 dark:active:border-gray-800!;
 }
 
 .fc-button-group .fc-button.fc-prev-button:before {
@@ -557,13 +557,13 @@ span.flatpickr-weekday,
   @apply hidden;
 }
 .fc-addEventButton-button {
-  @apply !rounded-lg !border-0 !bg-brand-500 !px-4 !py-2.5 !text-sm !font-medium hover:!bg-brand-600 focus:!shadow-none;
+  @apply !rounded-md !border-0 !bg-brand-500 !px-4 !py-2.5 !text-sm !font-medium hover:!bg-brand-600 focus:!shadow-none;
 }
 .fc-toolbar-title {
   @apply !text-lg !font-medium text-gray-800 dark:text-white/90;
 }
 .fc-header-toolbar.fc-toolbar .fc-toolbar-chunk:last-child {
-  @apply rounded-lg bg-gray-100 p-0.5 dark:bg-gray-900;
+  @apply rounded-md bg-gray-100 p-0.5 dark:bg-gray-900;
 }
 .fc-header-toolbar.fc-toolbar .fc-toolbar-chunk:last-child .fc-button {
   @apply !h-auto !w-auto rounded-md !border-0 bg-transparent !px-5 !py-2 text-sm font-medium text-gray-500 hover:text-gray-700 focus:shadow-none! dark:text-gray-400;
@@ -605,7 +605,7 @@ span.flatpickr-weekday,
   @apply text-gray-400 dark:text-white/30;
 }
 .event-fc-color {
-  @apply rounded-lg py-2.5 pl-4 pr-3;
+  @apply rounded-md py-2.5 pl-4 pr-3;
 }
 .event-fc-color .fc-event-title {
   @apply p-0 text-sm font-normal text-gray-700;

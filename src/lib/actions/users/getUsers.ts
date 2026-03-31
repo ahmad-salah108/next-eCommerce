@@ -3,14 +3,15 @@
 import { createClient } from "@/lib/supabase/server";
 import { User } from "@/types/User";
 import { PostgrestError } from "@supabase/supabase-js";
+import { PAGE_SIZE as pageSize } from "@/constants/page-size";
 
 type Props = {
   page?: string;
   q?: string;
-  PAGE_SIZE: number
+  PAGE_SIZE?: number
 };
 
-async function getUsers({ page: paramsPage, q, PAGE_SIZE }: Props) {
+async function getUsers({ page: paramsPage, q, PAGE_SIZE = pageSize }: Props) {
   const supabase = await createClient();
 
   const page = Math.max(Number(paramsPage) || 1, 1);

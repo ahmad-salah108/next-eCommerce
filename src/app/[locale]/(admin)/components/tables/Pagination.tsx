@@ -25,13 +25,13 @@ const Pagination: React.FC<PaginationProps> = ({
       {isPreviousDisabled ? (
         <Button
           disabled
-          className="mr-2.5 flex items-center h-9 justify-center rounded-lg border border-gray-300 bg-white w-19 text-gray-700 shadow-theme-xs hover:bg-gray-50 disabled:opacity-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] text-sm"
+          className="mr-2.5 flex items-center h-9 justify-center rounded-md border border-gray-300 bg-white w-19 text-gray-700 shadow-theme-xs hover:bg-gray-50 disabled:opacity-50 dark:border-white/5 dark:bg-white/3 dark:text-gray-400 dark:hover:bg-white/5 text-sm"
         >
           Previous
         </Button>
       ) : (
         <Button
-          className="mr-2.5 flex items-center h-9 justify-center rounded-lg border border-gray-300 bg-white w-19 text-gray-700 shadow-theme-xs hover:bg-gray-50 disabled:opacity-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] text-sm"
+          className="mr-2.5 flex items-center h-9 justify-center rounded-md border border-gray-300 bg-white w-19 text-gray-700 shadow-theme-xs hover:bg-gray-50 disabled:opacity-50 dark:border-white/5 dark:bg-white/3 dark:text-gray-400 dark:hover:bg-white/5 text-sm"
           asChild
         >
           <Link href={`?page=${currentPage - 1}`}>Previous</Link>
@@ -44,9 +44,9 @@ const Pagination: React.FC<PaginationProps> = ({
             key={page}
             className={`rounded ${
               currentPage === page
-                ? "bg-black hover:bg-black text-white dark:bg-brand-500"
-                : "text-black hover:bg-black/5 dark:text-brand-600 dark:hover:bg-brand-500/5"
-            } flex w-9 items-center justify-center h-9 rounded-lg text-sm font-medium`}
+                ? "bg-black hover:bg-black text-white dark:bg-white dark:text-black"
+                : "text-black hover:bg-black/5 dark:text-white/90 dark:hover:bg-gray-800"
+            } flex w-9 items-center justify-center h-9 rounded-md text-sm font-medium`}
             asChild
           >
             <Link href={`?page=${page}`}>{page}</Link>
@@ -57,13 +57,13 @@ const Pagination: React.FC<PaginationProps> = ({
       {isNextDisabled ? (
         <Button
           disabled
-          className="ml-2.5 flex items-center justify-center rounded-lg border border-gray-300 bg-white w-15 text-gray-700 shadow-theme-xs text-sm hover:bg-gray-50 h-9 disabled:opacity-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03]"
+          className="ml-2.5 flex items-center justify-center rounded-md border border-gray-300 bg-white w-15 text-gray-700 shadow-theme-xs text-sm hover:bg-gray-50 h-9 disabled:opacity-50 dark:border-white/5 dark:bg-white/3 dark:text-gray-400 dark:hover:bg-white/5"
         >
           Next
         </Button>
       ) : (
         <Button
-          className="ml-2.5 flex items-center justify-center rounded-lg border border-gray-300 bg-white w-15 text-gray-700 shadow-theme-xs text-sm hover:bg-gray-50 h-9 disabled:opacity-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03]"
+          className="ml-2.5 flex items-center justify-center rounded-md border border-gray-300 bg-white w-15 text-gray-700 shadow-theme-xs text-sm hover:bg-gray-50 h-9 disabled:opacity-50 dark:border-white/5 dark:bg-white/3 dark:text-gray-400 dark:hover:bg-white/5"
           asChild
         >
           <Link href={`?page=${currentPage + 1}`}>Next</Link>

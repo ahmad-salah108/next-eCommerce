@@ -3,7 +3,7 @@ type BadgeProps = {
   color?: string;
 };
 
-const colorDefault = "bg-gray-100 text-gray-800 dark:bg-brand-500/[0.12] dark:text-brand-400";
+const colorDefault = "bg-gray-100 text-gray-800 dark:bg-white/[0.12] dark:text-white";
 
 export function Badge({ label, color = colorDefault }: BadgeProps) {
 

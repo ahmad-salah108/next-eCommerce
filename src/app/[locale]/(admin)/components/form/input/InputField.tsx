@@ -19,6 +19,7 @@ interface InputProps {
   accept?: string;
   required?: boolean
   multiple?: boolean
+  isSearch?: boolean
 }
 
 const Input: FC<InputProps> = ({
@@ -38,10 +39,11 @@ const Input: FC<InputProps> = ({
   hint,
   accept,
   required = false,
-  multiple = false
+  multiple = false,
+  isSearch = false
 }) => {
   // Determine input styles based on state (disabled, success, error)
-  let inputClasses = `h-[36px] ${type === "file" && "leading-[35px]"} flex items-center justify-center w-full rounded-lg border appearance-none px-4 text-sm shadow-theme-xs placeholder:text-gray-400 focus:outline-hidden focus:ring-3 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-brand-500 ${className}`;
+  let inputClasses = `h-[36px] ${type === "file" && "leading-[35px]"} flex items-center justify-center w-full rounded-md border appearance-none px-4 text-sm shadow-theme-xs placeholder:text-gray-400 focus:outline-hidden focus:ring-3 ${isSearch ? "bg-white border-gray-100! focus:border-gray-700! dark:bg-white/3 dark:border-white/5! dark:focus:border-white!" : "dark:bg-gray-900 dark:border-white/10"} dark:text-white/90 dark:placeholder:text-white/30 dark:focus:border-white ${className}`;
 
   // Add styles for the different states
   if (disabled) {
@@ -51,7 +53,7 @@ const Input: FC<InputProps> = ({
   } else if (success) {
     inputClasses += ` text-success-500 border-success-400 focus:ring-success-500/10 focus:border-success-300  dark:text-success-400 dark:border-success-500`;
   } else {
-    inputClasses += ` bg-transparent text-gray-800 border-gray-300 focus:border-gray-700 focus:ring-3 focus:ring-gray-700/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:focus:border-brand-500`;
+    inputClasses += ` bg-transparent text-gray-800 border-gray-300 focus:border-gray-700 focus:ring-3 focus:ring-gray-700/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:focus:border-white`;
   }
 
   return (

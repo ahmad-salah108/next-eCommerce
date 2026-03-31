@@ -49,7 +49,7 @@ const navItems: NavItem[] = [
 ];
 
 function AppSidebar() {
-  const { isExpanded, isMobileOpen, isHovered, setIsHovered } = useSidebar();
+  const { isExpanded, isMobile, isMobileOpen, isHovered, setIsHovered } = useSidebar();
   const pathname = usePathname();
   const pathNoLocale = `/${pathname.split("/").slice(2).join("/")}`
 

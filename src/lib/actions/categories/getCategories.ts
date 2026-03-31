@@ -3,6 +3,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { Category } from "@/types/Category";
 import { PostgrestError } from "@supabase/supabase-js";
+import { PAGE_SIZE as pageSize } from "@/constants/page-size";
 
 type Props = {
   page?: string;
@@ -11,7 +12,7 @@ type Props = {
   getAll?: boolean
 };
 
-async function getCategories({ page: paramsPage, q, PAGE_SIZE = 10, getAll = false }: Props) {
+async function getCategories({ page: paramsPage, q, PAGE_SIZE = pageSize, getAll = false }: Props) {
   const supabase = await createClient();
 
   const page = Math.max(Number(paramsPage) || 1, 1);

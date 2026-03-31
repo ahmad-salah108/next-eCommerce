@@ -81,6 +81,12 @@ export default function ProductCreateForm() {
           {/* ---------------- MAIN IMAGE ---------------- */}
           <div className="max-w-[500px] space-y-3">
             <Label>Main Image</Label>
+            <FileInput
+              name="main_image"
+              accept="image/*"
+              onChange={handleMainImageChange}
+              required
+            />
             {previewMainImage && (
               <Image
                 src={previewMainImage}
@@ -90,12 +96,6 @@ export default function ProductCreateForm() {
                 className="rounded shadow w-[70px] h-[70px] object-cover"
               />
             )}
-            <FileInput
-              name="main_image"
-              accept="image/*"
-              onChange={handleMainImageChange}
-              required
-            />
           </div>
 
           {/* ---------------- IMAGES ---------------- */}
@@ -135,18 +135,6 @@ export default function ProductCreateForm() {
             </div>
           </div>
 
-          {/* ---------------- DESCRIPTION ---------------- */}
-          <div className="max-w-[500px] space-y-3">
-            <div>
-              <Label>Description in English</Label>
-              <TextArea name="description_en" rows={6} required />
-            </div>
-            <div>
-              <Label>Description in Arabic</Label>
-              <TextArea name="description_ar" rows={6} />
-            </div>
-          </div>
-
           {/* ---------------- PRICE / STOCK ---------------- */}
           <div className="max-w-[500px] space-y-3">
             <div>
@@ -170,6 +158,18 @@ export default function ProductCreateForm() {
               onChange={(values) => setSelectedCategories(values.map(Number))}
               required
             />
+          </div>
+
+          {/* ---------------- DESCRIPTION ---------------- */}
+          <div className="max-w-[500px] space-y-3">
+            <div>
+              <Label>Description in English</Label>
+              <TextArea name="description_en" rows={6} required />
+            </div>
+            <div>
+              <Label>Description in Arabic</Label>
+              <TextArea name="description_ar" rows={6} />
+            </div>
           </div>
 
           {/* ---------------- ERRORS ---------------- */}

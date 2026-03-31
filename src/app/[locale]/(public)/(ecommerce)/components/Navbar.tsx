@@ -48,7 +48,7 @@ export default function Navbar({ locale }: { locale: string }) {
               <div className="flex justify-center items-center gap-6">
                 <div className="lg:hidden flex justify-center items-center">
                   <button
-                    className="flex justify-center items-center cursor-pointer relative ml-auto select-none rounded-lg text-center align-middle text-xs font-medium uppercase text-inherit transition-all hover:bg-transparent focus:bg-transparent active:bg-transparent disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none translate-y-0.5"
+                    className="flex justify-center items-center cursor-pointer relative ml-auto select-none rounded-md text-center align-middle text-xs font-medium uppercase text-inherit transition-all hover:bg-transparent focus:bg-transparent active:bg-transparent disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none translate-y-0.5"
                     onClick={toggleMobileMenu}
                     type="button"
                   >
