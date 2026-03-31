@@ -46,9 +46,9 @@ export default async function proxy(request: NextRequest) {
       ? "/" + pathSegments.slice(1).join("/")
       : pathname;
 
-  if (error || !user) {
-    proxyRedirect(request, response, `/${locale}/sign-in`);
-  }
+  // if (error || !user) {
+  //   proxyRedirect(request, response, `/${locale}/sign-in`);
+  // }
 
   // Resources that should auto-redirect to /edit
   const resources = ["users", "categories", "products", "orders"];
