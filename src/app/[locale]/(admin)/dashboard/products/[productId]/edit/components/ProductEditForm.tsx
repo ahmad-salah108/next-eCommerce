@@ -12,7 +12,6 @@ import { useRouter } from "next/navigation";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { ChangeEvent, useMemo, useState } from "react";
-import { useLocale } from "next-intl";
 import getCategories from "@/lib/actions/categories/getCategories";
 import TextArea from "@/app/[locale]/(admin)/components/form/input/TextArea";
 import FileInput from "@/app/[locale]/(admin)/components/form/input/FileInput";
@@ -26,7 +25,6 @@ type Props = {
 };
 
 export default function ProductEditForm({ product, categoryIds }: Props) {
-  const locale = useLocale();
   const router = useRouter();
   const queryClient = useQueryClient();
 
