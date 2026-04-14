@@ -1,15 +1,14 @@
 "use client";
 import _ from "lodash";
-import { useQuery } from "@tanstack/react-query";
 import SearchInput from "../../components/common/SearchInput";
 import Pagination from "../../components/tables/Pagination";
 import { useSearchParams } from "next/navigation";
 import OrdersTable from "./components/OrdersTable";
 import OrdersTableSkeleton from "./components/OrdersTableSkeleton";
 import { QUERY_KEYS } from "@/constants/query-keys";
-import { getOrders } from "@/lib/actions/orders/getOrders";
 import { PAGE_SIZE } from "@/constants/page-size";
 import RefreshButton from "../../components/common/RefreshButton";
+import useOrdersQuery from "@/hooks/queries/orders/useOrdersQuery";
 
 type OrdersParams = {
   page?: string;
@@ -22,10 +21,7 @@ function OrdersPage() {
     searchParams.entries(),
   );
 
-  const { data, isLoading, isFetching, error } = useQuery({
-    queryKey: QUERY_KEYS.orders.list(ordersParams.page, ordersParams.q),
-    queryFn: () => getOrders({ ...ordersParams, PAGE_SIZE }),
-  });
+  const { data, isLoading, isFetching, error } = useOrdersQuery({params: ordersParams, PAGE_SIZE});
 
   if (error) return <p className="text-red-500">Failed to load orders</p>;
 

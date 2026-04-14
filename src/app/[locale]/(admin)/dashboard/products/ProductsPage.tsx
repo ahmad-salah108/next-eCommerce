@@ -1,6 +1,5 @@
 "use client";
 import _ from "lodash";
-import { useQuery } from "@tanstack/react-query";
 import SearchInput from "../../components/common/SearchInput";
 import UpdateToastHandler from "../../components/common/UpdateToastHandler";
 import Pagination from "../../components/tables/Pagination";
@@ -11,10 +10,10 @@ import { PlusIcon } from "lucide-react";
 import StyledButton from "../../components/common/StyledButton";
 import Link from "next/link";
 import CreateToastHandler from "../../components/common/CreateToastHandler";
-import getProducts from "@/lib/actions/products/getProducts";
 import { QUERY_KEYS } from "@/constants/query-keys";
 import { PAGE_SIZE } from "@/constants/page-size";
 import RefreshButton from "../../components/common/RefreshButton";
+import useProductsQuery from "@/hooks/queries/products/useProductsQuery";
 
 type Params = {
   page?: string;
@@ -25,10 +24,7 @@ function ProductsPage() {
   const searchParams = useSearchParams();
   const productsParams: Params = Object.fromEntries(searchParams.entries());
 
-  const { data, isLoading, isFetching, error } = useQuery({
-    queryKey: QUERY_KEYS.products.list(productsParams.page, productsParams.q),
-    queryFn: () => getProducts({ ...productsParams, PAGE_SIZE }),
-  });
+  const { data, isLoading, isFetching, error } = useProductsQuery({params: productsParams, PAGE_SIZE});
 
   if (error) return <p className="text-red-500">Failed to load products</p>;
 

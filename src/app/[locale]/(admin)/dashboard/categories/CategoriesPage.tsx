@@ -1,12 +1,10 @@
 "use client";
 import _ from "lodash";
-import { useQuery } from "@tanstack/react-query";
 import SearchInput from "../../components/common/SearchInput";
 import UpdateToastHandler from "../../components/common/UpdateToastHandler";
 import Pagination from "../../components/tables/Pagination";
 import { useSearchParams } from "next/navigation";
 import CategoriesTable from "./components/CategoriesTable";
-import getCategories from "@/lib/actions/categories/getCategories";
 import CategoriesTableSkeleton from "./components/CategoriesTableSkeleton";
 import { PlusIcon } from "lucide-react";
 import StyledButton from "../../components/common/StyledButton";
@@ -15,21 +13,18 @@ import CreateToastHandler from "../../components/common/CreateToastHandler";
 import { QUERY_KEYS } from "@/constants/query-keys";
 import { PAGE_SIZE } from "@/constants/page-size";
 import RefreshButton from "../../components/common/RefreshButton";
-
-type CategoriesParamsType = {
-  page?: string;
-  q?: string;
-};
+import { TablePageParams } from "@/types/TablePageParams";
+import useCategoriesQuery from "@/hooks/queries/categories/useCategoriesQuery";
 
 function CategoriesPage() {
   const searchParams = useSearchParams();
-  const categoriesParams: CategoriesParamsType = Object.fromEntries(
+  const categoriesParams: TablePageParams = Object.fromEntries(
     searchParams.entries(),
   );
 
-  const { data, isLoading, isFetching, error } = useQuery({
-    queryKey: QUERY_KEYS.categories.list(categoriesParams.page, categoriesParams.q),
-    queryFn: () => getCategories({ ...categoriesParams, PAGE_SIZE }),
+  const { data, isLoading, isFetching, error } = useCategoriesQuery({
+    params: categoriesParams,
+    PAGE_SIZE,
   });
 
   if (error) return <p className="text-red-500">Failed to load categories</p>;
@@ -50,7 +45,11 @@ function CategoriesPage() {
         </h2>
         <div className="w-full sm:w-auto flex flex-wrap sm:flex-nowrap flex-col-reverse sm:flex-row justify-center items-start sm:items-center gap-4">
           <div className="flex flex-row-reverse sm:flex-row items-center gap-2">
-            <RefreshButton QueryKeyToRefresh={QUERY_KEYS.categories.all} isFetching={isFetching} isLoading={isLoading}/>
+            <RefreshButton
+              QueryKeyToRefresh={QUERY_KEYS.categories.all}
+              isFetching={isFetching}
+              isLoading={isLoading}
+            />
             <SearchInput placeholder="Search categories..." />
           </div>
           <Link href={"/dashboard/categories/new"}>

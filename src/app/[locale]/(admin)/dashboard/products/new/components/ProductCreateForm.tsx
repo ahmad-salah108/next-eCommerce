@@ -9,11 +9,11 @@ import FileInput from "@/app/[locale]/(admin)/components/form/input/FileInput";
 import MultiSelect from "@/app/[locale]/(admin)/components/form/input/MultiSelect";
 import { createProduct } from "@/lib/actions/products/createProduct";
 import { useRouter } from "next/navigation";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { ChangeEvent, useMemo, useState } from "react";
-import getCategories from "@/lib/actions/categories/getCategories";
 import { QUERY_KEYS } from "@/constants/query-keys";
+import useCategoriesQuery from "@/hooks/queries/categories/useCategoriesQuery";
 
 export default function ProductCreateForm() {
   const router = useRouter();
@@ -61,10 +61,7 @@ export default function ProductCreateForm() {
   /* -------------------- CATEGORIES -------------------- */
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
 
-  const { data: { categories } = {} } = useQuery({
-    queryKey: QUERY_KEYS.categories.all,
-    queryFn: () => getCategories({ getAll: true }),
-  });
+  const { data: { categories } = {} } = useCategoriesQuery({getAll: true})
 
   const multiOptions = useMemo(() => {
     return categories?.map((c) => ({

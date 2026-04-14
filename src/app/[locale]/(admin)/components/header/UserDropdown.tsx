@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Dropdown } from "../ui/dropdown/Dropdown";
 import { DropdownItem } from "../ui/dropdown/DropdownItem";
-import { logout } from "@/app/[locale]/(public)/(auth)/actions";
+import { logout } from "@/lib/actions/auth/logout";
 
 export default function UserDropdown({
   currentUserName,

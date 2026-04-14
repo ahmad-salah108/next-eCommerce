@@ -1,21 +1,16 @@
 "use client";
 import BackButton from "../../../../components/common/BackButton";
 import { notFound } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
-import { getCategoryById } from "@/lib/actions/categories/getCategoryById";
 import CategoryEditForm from "./components/CategoryEditForm";
 import CategoryEditFormSkeleton from "./components/CategoryEditFormSkeleton";
-import { QUERY_KEYS } from "@/constants/query-keys";
+import useCategoryDetailsQuery from "@/hooks/queries/categories/useCategoryDetailsQuery";
 
 type Props = {
   categoryId: string;
 };
 
 function CategoryEditPage({ categoryId }: Props) {
-  const { data, isPending, error } = useQuery({
-    queryKey: QUERY_KEYS.categories.details(categoryId),
-    queryFn: () => getCategoryById(categoryId),
-  });
+  const { data, isPending, error } = useCategoryDetailsQuery({id: categoryId})
 
   if (error) notFound();
 

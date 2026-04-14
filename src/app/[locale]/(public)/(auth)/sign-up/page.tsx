@@ -1,10 +1,11 @@
 "use client";
-import { signUp } from "../actions";
+
 import { useActionState } from "react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import Link from "next/link";
 import { SignUpFormState } from "@/types/SignUpFormState";
+import { signUp } from "@/lib/actions/auth/signUp";
 
 const initialState: SignUpFormState = { errors: null, values: null };
 

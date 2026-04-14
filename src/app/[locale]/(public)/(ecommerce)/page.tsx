@@ -5,11 +5,11 @@ import NewArrivals from "./home-sections/new-arrivals/NewArrivals";
 import OurCustomers from "./home-sections/our-customers/OurCustomers";
 import TopSelling from "./home-sections/top-selling/TopSelling";
 import { Button } from "@/components/ui/button";
-import { logout } from "../(auth)/actions";
 import { getCurrentUser } from "@/lib/actions/users/getCurrentUser";
 import { hasLocale } from "next-intl";
 import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
+import { logout } from "@/lib/actions/auth/logout";
 
 export default async function Home({
   params,

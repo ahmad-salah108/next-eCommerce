@@ -9,15 +9,15 @@ import { updateProduct } from "@/lib/actions/products/updateProduct";
 import { Product } from "@/types/Product";
 
 import { useRouter } from "next/navigation";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { ChangeEvent, useMemo, useState } from "react";
-import getCategories from "@/lib/actions/categories/getCategories";
 import TextArea from "@/app/[locale]/(admin)/components/form/input/TextArea";
 import FileInput from "@/app/[locale]/(admin)/components/form/input/FileInput";
 import MultiSelect from "@/app/[locale]/(admin)/components/form/input/MultiSelect";
 import _ from "lodash";
 import { QUERY_KEYS } from "@/constants/query-keys";
+import useCategoriesQuery from "@/hooks/queries/categories/useCategoriesQuery";
 
 type Props = {
   product: Product | null;
@@ -87,10 +87,7 @@ export default function ProductEditForm({ product, categoryIds }: Props) {
   const [selectedCategories, setSelectedCategories] =
     useState<number[]>(categoryIds);
 
-  const { data: { categories } = {} } = useQuery({
-    queryKey: QUERY_KEYS.categories.all,
-    queryFn: () => getCategories({ getAll: true }),
-  });
+  const { data: { categories } = {} } = useCategoriesQuery({getAll: true});
 
   const multiOptions = useMemo(() => {
     return categories?.map((c) => ({

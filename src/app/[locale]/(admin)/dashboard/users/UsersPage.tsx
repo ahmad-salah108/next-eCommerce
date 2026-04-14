@@ -1,7 +1,5 @@
 "use client";
 import _ from "lodash";
-import { useQuery } from "@tanstack/react-query";
-import getUsers from "@/lib/actions/users/getUsers";
 import SearchInput from "../../components/common/SearchInput";
 import UsersTableSkeleton from "./components/UsersTableSkeleton";
 import UpdateToastHandler from "../../components/common/UpdateToastHandler";
@@ -11,6 +9,7 @@ import { useSearchParams } from "next/navigation";
 import { QUERY_KEYS } from "@/constants/query-keys";
 import { PAGE_SIZE } from "@/constants/page-size";
 import RefreshButton from "../../components/common/RefreshButton";
+import useUsersQuery from "@/hooks/queries/users/useUsersQuery";
 
 type UsersParamsType = {
   page?: string;
@@ -23,10 +22,7 @@ function UsersPage() {
     searchParams.entries(),
   );
 
-  const { data, isLoading, isFetching, error } = useQuery({
-    queryKey: QUERY_KEYS.users.list(usersParams.page, usersParams.q),
-    queryFn: () => getUsers({ ...usersParams, PAGE_SIZE }),
-  });
+  const { data, isLoading, isFetching, error } = useUsersQuery({params: usersParams, PAGE_SIZE});
 
   if (error) return <p className="text-red-500">Failed to load users</p>;
 

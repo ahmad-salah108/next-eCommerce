@@ -9,9 +9,10 @@ type Props = {
   page?: string;
   q?: string;
   PAGE_SIZE?: number;
+  getAll?: boolean;
 };
 
-async function getProducts({ page: paramsPage, q, PAGE_SIZE = pageSize }: Props) {
+async function getProducts({ page: paramsPage, q, PAGE_SIZE = pageSize, getAll = false }: Props) {
   const supabase = await createClient();
 
   const page = Math.max(Number(paramsPage) || 1, 1);
@@ -32,13 +33,17 @@ async function getProducts({ page: paramsPage, q, PAGE_SIZE = pageSize }: Props)
     )
     .is("deleted_at", null)
     .order("created_at", { ascending: false })
-    .range(from, to);
+
+  /** 2. Conditionally apply range */
+  if (!getAll) {
+    query = query.range(from, to);
+  }
 
   if (q) {
     query = query.or(`name->>en.ilike.%${q}%, name->>ar.ilike.%${q}%`);
   }
 
-  /** 2. Await for products */
+  /** 3. Await for products */
   const {
     data: products,
     error,

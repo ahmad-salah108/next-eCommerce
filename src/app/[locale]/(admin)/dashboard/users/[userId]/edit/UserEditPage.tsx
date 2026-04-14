@@ -1,21 +1,16 @@
 "use client";
-import { getUserById } from "@/lib/actions/users/getUserById";
 import BackButton from "../../../../components/common/BackButton";
 import { notFound } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
 import UserEditFormSkeleton from "./components/UserEditFormSkeleton";
 import UserEditForm from "./components/UserEditForm";
-import { QUERY_KEYS } from "@/constants/query-keys";
+import useUserDetailsQuery from "@/hooks/queries/users/useUserDetailsQuery";
 
 type Props = {
   userId: string;
 };
 
 function UserEditPage({ userId }: Props) {
-  const { data, isPending, error } = useQuery({
-    queryKey: QUERY_KEYS.users.details(userId),
-    queryFn: () => getUserById(userId),
-  });
+  const { data, isPending, error } = useUserDetailsQuery({id: userId});
 
   if (error) notFound();
 

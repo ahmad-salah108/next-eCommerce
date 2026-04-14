@@ -1,5 +1,4 @@
 "use client";
-import { signIn } from "../actions";
 import { useActionState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
@@ -7,6 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { signIn } from "@/lib/actions/auth/signIn";
 
 const initialState = {
   error: null,
