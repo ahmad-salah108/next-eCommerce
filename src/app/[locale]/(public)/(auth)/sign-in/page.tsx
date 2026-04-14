@@ -42,7 +42,7 @@ export default function SignInPage() {
         name="email"
         type="email"
         required
-        defaultValue={state?.email ?? "u@u.com"}
+        defaultValue={state?.email ?? "admin@admin.com"}
         className="border p-2"
       />
 
