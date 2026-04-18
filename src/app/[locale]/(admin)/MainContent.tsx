@@ -2,15 +2,16 @@
 import { useSidebar } from "@/context/admin/SidebarContext";
 import React from "react";
 import AppHeader from "./layout/AppHeader";
+import { User } from "@/types/User";
 
 interface MainContentProps {
   children: React.ReactNode;
-  currentUserName: string | undefined;
+  currentUser: User;
 }
 
 export default function MainContent({
   children,
-  currentUserName,
+  currentUser,
 }: MainContentProps) {
   const { isExpanded, isHovered, isMobileOpen } = useSidebar();
 
@@ -26,7 +27,7 @@ export default function MainContent({
       className={`flex-1 transition-all duration-300 ease-in-out ${mainContentMargin}`}
     >
       {/* Header */}
-      <AppHeader currentUserName={currentUserName} />
+      <AppHeader currentUser={currentUser} />
       {/* Page Content */}
       <div className="p-4 mx-auto max-w-(--breakpoint-2xl) md:p-6">
         {children}

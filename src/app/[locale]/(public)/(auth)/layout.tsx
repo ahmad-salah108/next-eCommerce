@@ -14,16 +14,9 @@ export default async function AuthLayout({
 }) {
   const supabase = await createClient();
   const { data } = await supabase.auth.getUser();
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("role")
-    .eq("user_id", data.user?.id)
-    .single();
 
   // Redirect to website if user is already authenticated
-  if (profile?.role === "admin") {
-    redirect("/dashboard");
-  } else if (profile?.role === "customer") {
+  if (data.user?.id) {
     redirect("/");
   }
 

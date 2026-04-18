@@ -8,6 +8,7 @@ import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import "@/styles/globals.css";
 import "@/styles/embla.css";
+import { getCurrentUser } from "@/lib/actions/users/getCurrentUser";
 
 async function PublicLayout({
   children,
@@ -17,6 +18,7 @@ async function PublicLayout({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  const currentUser = await getCurrentUser();
 
   // Ensure that the incoming `locale` is valid
   if (!hasLocale(routing.locales, locale)) {
@@ -30,7 +32,7 @@ async function PublicLayout({
     <div>
       <header className="sticky top-0 z-60">
         <Banner />
-        <Navbar locale={locale} />
+        <Navbar locale={locale} currentUser={currentUser}/>
       </header>
       {children}
       <Footer />

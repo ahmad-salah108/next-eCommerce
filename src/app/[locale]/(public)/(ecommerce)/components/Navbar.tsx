@@ -1,6 +1,5 @@
 "use client";
 
-import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState } from "react";
@@ -15,17 +14,16 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { getFontClassName } from "@/lib/utils/getFontClassName";
+import UserDropdown from "@/app/[locale]/(admin)/components/header/UserDropdown";
+import { User } from "@/types/User";
 
-export default function Navbar({ locale }: { locale: string }) {
+export default function Navbar({ locale, currentUser }: { locale: string, currentUser: User | null }) {
   const search = useRef<HTMLInputElement | null>(null);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
-
-  const t = useTranslations();
-  // const tAuth = useTranslations("Auth");
   const pathname = usePathname();
   const pathWithoutLocale = pathname.replace(`/${locale}`, "");
 
@@ -60,10 +58,14 @@ export default function Navbar({ locale }: { locale: string }) {
                     />
                   </button>
                 </div>
-                <Link href="/" aria-label="Website logo" className="me-4 block cursor-pointer">
+                <Link
+                  href="/"
+                  aria-label="Website logo"
+                  className="me-4 block cursor-pointer"
+                >
                   <p
                     className={`${getFontClassName(
-                      locale
+                      locale,
                     )} font-black text-2xl lg:text-3xl`}
                   >
                     SHOPYA
@@ -181,7 +183,7 @@ export default function Navbar({ locale }: { locale: string }) {
                 </Button>
                 <Button
                   variant={"ghost"}
-                  size={"icon"}
+                  size={"icon-lg"}
                   className="rounded-full cursor-pointer"
                   aria-label="My Cart"
                   asChild
@@ -195,18 +197,8 @@ export default function Navbar({ locale }: { locale: string }) {
                     />
                   </Link>
                 </Button>
-                <Button
-                  variant={"ghost"}
-                  size={"icon"}
-                  className="rounded-full cursor-pointer"
-                >
-                  <Image
-                    src="/assets/icons/profile.svg"
-                    alt="profile icon"
-                    width={20}
-                    height={20}
-                  />
-                </Button>
+
+                {currentUser?.user_id && <UserDropdown currentUser={currentUser} />}
               </div>
             )}
           </div>

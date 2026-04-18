@@ -1,6 +1,6 @@
 import { setRequestLocale } from "next-intl/server";
-import { notFound } from "next/navigation";
-import "./admin-globals.css";
+import { notFound, redirect } from "next/navigation";
+import "@/styles/admin-globals.css";
 import { hasLocale } from "next-intl";
 import { routing } from "@/i18n/routing";
 import { getFontClassName } from "@/lib/utils/getFontClassName";
@@ -14,6 +14,7 @@ import Backdrop from "./layout/Backdrop";
 import MainContent from "./MainContent";
 import { Toaster } from "sonner";
 import { Metadata } from "next";
+import _ from "lodash";
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -36,6 +37,10 @@ function AdminDashboardLayout({
 }) {
   const currentUser = use(getCurrentUser());
 
+  if(currentUser?.role !== "admin"){
+    redirect("/")
+  }
+
   const { locale } = use(params);
 
   // Ensure that the incoming `locale` is valid
@@ -52,7 +57,7 @@ function AdminDashboardLayout({
   return (
     <html lang={locale} dir={direction}>
       <body className={`${fontClassName} antialiased dark:bg-gray-900`}>
-        <NextTopLoader color="#465fff"/>
+        <NextTopLoader/>
         <Toaster richColors expand/>
         <AdminProviders locale={locale}>
           <div className="min-h-screen xl:flex">
@@ -60,7 +65,7 @@ function AdminDashboardLayout({
             <AppSidebar />
             <Backdrop />
             {/* Main Content Area */}
-            <MainContent currentUserName={currentUser?.full_name}>
+            <MainContent currentUser={currentUser}> {/* User doesn't have much data so i pass it all, as I will need it */}
               {children}
             </MainContent>
           </div>

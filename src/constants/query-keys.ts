@@ -4,7 +4,8 @@ export const QUERY_KEYS = {
   users: {
     all: ['users'] as const, // Good for comprehensive invalidation
     list: (page: OptionalString, search: OptionalString) => [...QUERY_KEYS.users.all, page, search] as const,
-    details: (id: string) => [...QUERY_KEYS.users.all, id]
+    details: (id: string) => [...QUERY_KEYS.users.all, id],
+    current: ['current-user']
   },
   categories: {
     all: ['categories'] as const,

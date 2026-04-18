@@ -1,13 +1,14 @@
 "use client";
+import { User } from "@/types/User";
 import { ThemeToggleButton } from "../components/common/ThemeToggleButton";
 import UserDropdown from "../components/header/UserDropdown";
 import { useSidebar } from "@/context/admin/SidebarContext";
 import { useEffect, useRef, useState } from "react";
 
 const AppHeader = ({
-  currentUserName,
+  currentUser,
 }: {
-  currentUserName: string | undefined;
+  currentUser: User;
 }) => {
   const [isApplicationMenuOpen, setApplicationMenuOpen] = useState(false);
 
@@ -92,7 +93,7 @@ const AppHeader = ({
             {/* <!-- Dark Mode Toggler --> */}
           </div>
           {/* <!-- User Area --> */}
-          <UserDropdown currentUserName={currentUserName} />
+          <UserDropdown currentUser={currentUser} />
         </div>
       </div>
     </header>
